@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9affa07e.css",
+    "main.js": "/static/js/main.657d48e8.js",
+    "static/js/787.3b310f90.chunk.js": "/static/js/787.3b310f90.chunk.js",
+    "static/media/stable-payment.png": "/static/media/stable-payment.a26b94a14c2d0e63d3e2.png",
+    "static/media/Futura-Bold.ttf": "/static/media/Futura-Bold.7bfa561462fd51bcc460.ttf",
+    "static/media/Futura-Medium.ttf": "/static/media/Futura-Medium.4e762c29ef7b44ca51cb.ttf",
+    "static/media/Futura-Regular.ttf": "/static/media/Futura-Regular.ed19af444f0976dbaf41.ttf",
+    "static/media/MistubusiIcon.svg": "/static/media/MistubusiIcon.1c29309ecdb91a4d618b17c10f029698.svg",
+    "static/media/YoutubeIcon.svg": "/static/media/YoutubeIcon.dc72ac01ef3273be3484756066fc3a2e.svg",
+    "static/media/NetflixIcon.svg": "/static/media/NetflixIcon.cd245074b8c6518fa7a642d438b418af.svg",
+    "static/media/instagram.svg": "/static/media/instagram.4638a6c6897eec47706930bbb499794c.svg",
+    "static/media/playstore.svg": "/static/media/playstore.6f32ebaf07d3f76b70eb7e7a9f4fc02e.svg",
+    "static/media/netflix.svg": "/static/media/netflix.4f07938a6c9cd90d34bde72bd3988ef5.svg",
+    "static/media/orangeUnderline.svg": "/static/media/orangeUnderline.71891683e1177e9dc2ff84a8162e01f8.svg",
+    "static/media/BusinessIcon.svg": "/static/media/BusinessIcon.3d3a26a89f50bfe2d71b8c94d3485019.svg",
+    "static/media/PersonalIcon.svg": "/static/media/PersonalIcon.c51d8c26ce84cc2bcbebe3678de79eb0.svg",
+    "static/media/twitter.svg": "/static/media/twitter.ebb0ddcaa5be6efd00858c7bb33a0c41.svg",
+    "static/media/Binance.svg": "/static/media/Binance.ecfaf20a4bc23b184bb6aab09b0e034b.svg",
+    "static/media/linkedin.svg": "/static/media/linkedin.25ebe1d6265cbc78d9a80547925cdbf3.svg",
+    "static/media/Facebook.svg": "/static/media/Facebook.2272e86eb913a054f8c6ae18f3ab21d7.svg",
+    "index.html": "/index.html",
+    "static/media/youtube.svg": "/static/media/youtube.10100a1d8d4920bc6d0e2ad4937695e0.svg",
+    "static/media/vimeo.svg": "/static/media/vimeo.eed21e82b9aee15e7a61ced164394795.svg",
+    "main.9affa07e.css.map": "/static/css/main.9affa07e.css.map",
+    "main.657d48e8.js.map": "/static/js/main.657d48e8.js.map",
+    "787.3b310f90.chunk.js.map": "/static/js/787.3b310f90.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9affa07e.css",
+    "static/js/main.657d48e8.js"
+  ]
+}
