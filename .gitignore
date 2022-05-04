@@ -8,19 +8,29 @@
 # testing
 /coverage
 
+# next.js
+/.next
+/out
+
+# production
+/build
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+*.pem
+Thumbs.db
 
+# debug
 npm-debug.log*
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.idea
-package-lock.json
-yarn.lock
-build
-build.zip
+
+# dotenv local files
+.env*.local
+
+# local folder
+local
+
+# vercel
+.vercel
