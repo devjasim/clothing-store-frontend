@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React from 'react';
 
 import {Carousal} from './Carousal';
@@ -11,11 +10,10 @@ export const TestimonialCarousal = () => {
           <div key={i} className="space-y-5">
             <div className="mx-auto max-w-max">
               <div className="relative mx-auto h-[100px] w-[100px] md:h-[150px] md:w-[150px]">
-                <Image
+                <img
                   src="/assets/images/person.png"
                   alt=""
-                  layout="fill"
-                  objectFit="contain"
+                  className='object-contain'
                 />
               </div>
               <h3 className="text-center text-lg font-[500]">

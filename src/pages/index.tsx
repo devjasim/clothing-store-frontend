@@ -1,5 +1,4 @@
 import {NextPageWithLayout} from 'next';
-import Image from 'next/image';
 
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
@@ -41,12 +40,11 @@ const LandingPage: NextPageWithLayout = () => {
       <main className="">
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] px-5 md:grid-cols-2">
           <div className="relative  mx-auto">
-            <Image
+            <img
               src="/assets/images/hero-image.png"
               width={500}
               height={500}
-              quality={100}
-              objectFit="contain"
+              className='object-contain'
               alt=""
             />
           </div>
@@ -75,11 +73,10 @@ const LandingPage: NextPageWithLayout = () => {
         <section className="my-[100px]   px-2 sm:my-[50px]">
           <div className="relative h-max w-full">
             <div className="hidden md:block">
-              <Image
+              <img
                 src="/assets/images/reactange-pattern.png"
-                objectFit="contain"
-                layout="fill"
                 alt=""
+                className="object-contain "
               />
             </div>
             <div className="relative z-20 grid h-full  w-full  items-center justify-items-center  gap-10 md:grid-cols-2">
