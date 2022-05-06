@@ -7,7 +7,7 @@ type ButtonProps = React.ComponentProps<'button'> & {
 
 export const PrevButton = ({enabled, onClick}: ButtonProps) => (
   <button
-    className="absolute top-[70%] left-[5px] z-[1] flex h-[40px] w-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full lg:left-[-20px]"
+    className="absolute top-[70%] -left-[5px] z-[1] flex h-[40px] w-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full lg:left-[-20px]"
     onClick={onClick}
     disabled={!enabled}
   >
@@ -17,7 +17,7 @@ export const PrevButton = ({enabled, onClick}: ButtonProps) => (
 
 export const NextButton = ({enabled, onClick}: ButtonProps) => (
   <button
-    className="absolute top-[70%] right-[5px] z-[1] flex h-[40px] w-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full lg:right-[-25px]"
+    className="absolute top-[70%] -right-[5px] z-[1] flex h-[40px] w-[40px] -translate-y-1/2 cursor-pointer items-center justify-center rounded-full lg:right-[-25px]"
     onClick={onClick}
     disabled={!enabled}
   >

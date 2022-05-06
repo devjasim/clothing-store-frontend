@@ -1,4 +1,5 @@
-import { NextPageWithLayout } from 'next';
+import {NextPageWithLayout} from 'next';
+
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
 import {MistiBushi, Netflix, Underline, Youtube} from '~/constants/icons';
@@ -69,16 +70,16 @@ const LandingPage: NextPageWithLayout = () => {
             </Button>
           </div>
         </section>
-        <section className="my-[100px]  px-2 sm:my-[50px] mx-auto max-w-[1400px]">
+        <section className="my-[100px]  mx-auto max-w-[1400px] px-2 sm:my-[50px]">
           <div className="relative  h-max w-full">
-            <div className="hidden md:block absolute top-10 inset-0">
+            <div className="absolute inset-0 top-10 hidden md:block">
               <img
                 src="/assets/images/reactange-pattern.png"
                 alt=""
                 className="object-cover"
               />
             </div>
-            <div className="relative z-20  grid items-stretch h-full w-full  justify-items-center gap-10 md:grid-cols-2">
+            <div className="relative z-20  grid  w-full items-stretch  justify-items-center gap-10 md:grid-cols-2">
               {cardsData.map((card, i) => (
                 <Card key={i} {...card} />
               ))}
