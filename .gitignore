@@ -34,3 +34,7 @@ local
 
 # vercel
 .vercel
+.idea
+package-lock.json
+out.zip
+out

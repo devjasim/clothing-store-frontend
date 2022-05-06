@@ -13,7 +13,7 @@ export const TestimonialCarousal = () => {
                 <img
                   src="/assets/images/person.png"
                   alt=""
-                  className='object-contain'
+                  className="object-contain"
                 />
               </div>
               <h3 className="text-center text-lg font-[500]">

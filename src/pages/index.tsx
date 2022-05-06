@@ -27,7 +27,7 @@ const partners = [
   },
 ];
 
-const LandingPage: NextPageWithLayout = () => {
+const LandingPage: () => any = () => {
   return (
     <Main
       meta={
@@ -44,7 +44,7 @@ const LandingPage: NextPageWithLayout = () => {
               src="/assets/images/hero-image.png"
               width={500}
               height={500}
-              className='object-contain'
+              className="object-contain"
               alt=""
             />
           </div>
