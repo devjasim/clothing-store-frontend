@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from 'react';
 
 type IMainProps = {
   meta: ReactNode;
@@ -12,4 +12,4 @@ const Main = (props: IMainProps) => (
   </div>
 );
 
-export { Main };
+export {Main};

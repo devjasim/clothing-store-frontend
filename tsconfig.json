@@ -37,8 +37,10 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/public/*": ["./public/*"]
+      "~/ui/*": ["./src/components/ui/*"],
+      "~/layouts/*": ["./src/layouts/*"],
+      "~/components": ["./src/components/*"],
+      "~/*": ["./src/*"]
     }
   },
   "exclude": ["./out/**/*", "./node_modules/**/*", "**/*.test.ts"],
