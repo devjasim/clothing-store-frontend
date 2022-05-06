@@ -1,3 +1,4 @@
+import { NextPageWithLayout } from 'next';
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
 import {MistiBushi, Netflix, Underline, Youtube} from '~/constants/icons';
@@ -25,7 +26,7 @@ const partners = [
   },
 ];
 
-const LandingPage: () => any = () => {
+const LandingPage: NextPageWithLayout = () => {
   return (
     <Main
       meta={
