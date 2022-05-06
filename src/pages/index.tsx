@@ -70,7 +70,7 @@ const LandingPage: NextPageWithLayout = () => {
             </Button>
           </div>
         </section>
-        <section className="my-[100px]  px-2 sm:my-[50px]">
+        <section className="my-[100px]  px-2 sm:my-[50px] mx-auto max-w-[1400px]">
           <div className="relative  h-max w-full">
             <div className="hidden md:block absolute top-10 inset-0">
               <img
