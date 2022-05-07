@@ -9,7 +9,7 @@ import {
 } from '~/constants/icons/footerSocial';
 
 export const mainMenuLinks = [
-  {label: 'Supported Block Chains', href: '/supported-blockchains'},
+  {label: 'Supported Block Chains', href: '/supported'},
   {label: 'Merchant Tools', href: '/tools'},
   {label: 'StablePay Partners', href: '/partners'},
   {label: 'Fees', href: '/fees'},
