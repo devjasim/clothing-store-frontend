@@ -14,13 +14,13 @@ type FooterLinkColumnProps = {
 
 const FooterLinkColumn = ({links, title}: FooterLinkColumnProps) => {
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="flex flex-col items-center space-y-3 sm:items-start">
       <h3 className="text-2xl font-[500]">{title}</h3>
       {links.map((link, i) => (
         <NextLink
           href={link.href}
           key={i}
-          className="text-sm text-white/60 hover:underline"
+          className="text-sm text-white/60  hover:underline"
         >
           {link.label}
         </NextLink>
@@ -32,7 +32,7 @@ const FooterLinkColumn = ({links, title}: FooterLinkColumnProps) => {
 export const Footer = () => {
   return (
     <div className="min-h-[300px]  w-full bg-[#2C4444] py-[60px] px-5 text-white/90">
-      <footer className="mx-auto flex  max-w-[1200px] flex-col space-y-14">
+      <footer className="mx-auto flex max-w-[1200px] flex-col space-y-14">
         <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-[repeat(4,1fr),25%]">
           {footerLinks.map((column, i) => (
             <FooterLinkColumn
@@ -42,12 +42,12 @@ export const Footer = () => {
             />
           ))}
 
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col items-center space-y-4 sm:items-start">
             <h3 className="text-2xl font-[500]">News Letter</h3>
             <p className="text-sm text-white/60">
               Stay Up toDate with the Latest News
             </p>
-            <div className="grid h-[55px] w-full grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
+            <div className="grid h-[55px] w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
               <TextInput type="'email" />
               <Button
                 variant="primary"

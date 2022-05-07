@@ -37,7 +37,7 @@ const LandingPage: NextPageWithLayout = () => {
         />
       }
     >
-      <main className="">
+      <main>
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] px-5 md:grid-cols-2">
           <div className="relative  mx-auto">
             <img
@@ -48,15 +48,15 @@ const LandingPage: NextPageWithLayout = () => {
               alt=""
             />
           </div>
-          <div className="space-y-6">
-            <div className="flex max-w-max flex-col items-center space-y-4">
-              <h1 className="flex flex-col text-4xl font-semibold sm:text-6xl">
+          <div className="flex flex-col items-center space-y-6 md:items-start">
+            <div className="flex w-full flex-col items-center space-y-4 md:items-start">
+              <h1 className="flex flex-col text-center text-4xl font-semibold sm:text-6xl md:text-left">
                 <span className="text-primary1">StablePays</span>
                 <span className="text-primary4">Ease of Payment</span>
               </h1>
               <Underline className="max-w-full" />
             </div>
-            <p className="text-center text-sm sm:text-left sm:text-lg sm:leading-6">
+            <p className="max-w-[50ch] text-center  text-sm sm:text-lg sm:leading-6 md:text-left">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
               ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
               Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id
@@ -64,7 +64,7 @@ const LandingPage: NextPageWithLayout = () => {
             </p>
             <Button
               variant="outlined"
-              className="h-12 w-[300px] max-w-full rounded-2xl"
+              className="mx-auto h-12 w-[300px] max-w-full rounded-2xl sm:mx-0"
             >
               Get Started
             </Button>

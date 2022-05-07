@@ -60,9 +60,9 @@ export const Carousal = ({children}: Props) => {
 
   return (
     <>
-      <div className="relative  max-w-[300px] p-[10px] sm:max-w-full md:p-[20px]">
-        <div className="w-full  overflow-x-hidden" ref={viewportRef}>
-          <div className="grid  select-none auto-cols-[100%] grid-flow-col gap-[2%]">
+      <div className="relative w-full max-w-[300px] p-[10px] sm:max-w-full md:p-[20px]">
+        <div className="w-full overflow-x-hidden" ref={viewportRef}>
+          <div className="grid select-none auto-cols-[100%] grid-flow-col gap-[2%]">
             {children}
           </div>
         </div>
