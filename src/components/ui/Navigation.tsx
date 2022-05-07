@@ -23,9 +23,7 @@ const MobileMenu = () => {
                   pathname === link.href ? 'text-primary1' : 'text-gray-800'
                 )}
               >
-                <NextLink prefetch href={link.href}>
-                  {link.label}
-                </NextLink>
+                <NextLink href={link.href}>{link.label}</NextLink>
               </li>
             );
           })}
@@ -71,9 +69,7 @@ export const Navigation = () => {
                     pathname === link.href ? 'text-primary1' : 'text-gray-800'
                   )}
                 >
-                  <NextLink prefetch href={link.href}>
-                    {link.label}
-                  </NextLink>
+                  <NextLink href={link.href}>{link.label}</NextLink>
                 </li>
               );
             })}
