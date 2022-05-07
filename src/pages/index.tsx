@@ -56,7 +56,7 @@ const LandingPage: NextPageWithLayout = () => {
               </h1>
               <Underline className="max-w-full" />
             </div>
-            <p className="text-sm sm:text-lg sm:leading-6">
+            <p className="text-center text-sm sm:text-left sm:text-lg sm:leading-6">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
               ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
               Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id

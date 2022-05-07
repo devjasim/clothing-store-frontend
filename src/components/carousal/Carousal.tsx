@@ -28,7 +28,10 @@ type Props = {
 };
 
 export const Carousal = ({children}: Props) => {
-  const [viewportRef, embla] = useEmblaCarousel({skipSnaps: false}, []);
+  const [viewportRef, embla] = useEmblaCarousel(
+    {skipSnaps: false, loop: true},
+    []
+  );
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);

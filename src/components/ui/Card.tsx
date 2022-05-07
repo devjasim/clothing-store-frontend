@@ -22,7 +22,7 @@ export const Card = ({
   gradient,
 }: CardProps) => {
   return (
-    <div className="w-full h-full max-w-[580px]  text-white">
+    <div className="h-full w-full max-w-[580px]  text-white">
       <div className="ml-auto flex h-10 w-[70%] items-center justify-end pr-9  sm:justify-between">
         <h2 className="text-[28px] font-[500] text-gray-800">{title}</h2>
         <Underline className="hidden sm:block" color={color} width={200} />
