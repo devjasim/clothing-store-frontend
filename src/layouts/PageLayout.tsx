@@ -2,6 +2,7 @@ import {ReactNode} from 'react';
 
 import {Footer} from '~/ui/Footer';
 import {Header} from '~/ui/Header';
+import {ScrollToTop} from '~/ui/ScrollTop';
 
 type Props = {
   children: ReactNode;
@@ -13,6 +14,7 @@ export const PageLayout = ({children}: Props) => {
       <Header />
       {children}
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

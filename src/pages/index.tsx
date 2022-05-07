@@ -70,16 +70,26 @@ const LandingPage: NextPageWithLayout = () => {
             </Button>
           </div>
         </section>
-        <section className="my-[100px]  mx-auto max-w-[1400px] px-2 sm:my-[50px]">
-          <div className="relative  h-max w-full">
-            <div className="absolute inset-0 top-10 hidden md:block">
-              <img
-                src="/assets/images/reactange-pattern.png"
-                alt=""
-                className="object-cover"
-              />
+        <section className="my-[100px] w-full sm:my-[50px]">
+          <div className="relative h-max w-full">
+            <div className="absolute items-stretch inset-0 top-10 hidden lg:flex">
+              <div className="bg-white relative z-10 max-w-[1400px] mx-auto">
+                <svg
+                  viewBox="0 0 1440 244"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="object-contain grow h-full w-full mx-auto"
+                >
+                  <path
+                    d="M0 30L720 244L1440 30V244L720 0L0 244V30Z"
+                    fill="#22BABB"
+                    fill-opacity="0.54"
+                  />
+                </svg>
+              </div>
+              <div className="bg-[#87d9da] grow h-[208px] mb-4 w-full  right-0 bottom-1 absolute" />
             </div>
-            <div className="relative z-20  grid  w-full items-stretch  justify-items-center gap-10 md:grid-cols-2">
+            <div className="relative z-20 mx-auto grid px-2 max-w-[1400px] w-full justify-items-center items-center gap-10 lg:grid-cols-2">
               {cardsData.map((card, i) => (
                 <Card key={i} {...card} />
               ))}
@@ -133,7 +143,7 @@ const LandingPage: NextPageWithLayout = () => {
             Get Started
           </Button>
         </section>
-        <section className="flex w-full flex-col items-center space-y-10 bg-[#E8E8E8] px-3 py-16">
+        <section className="flex w-full flex-col items-center space-y-10 bg-[#E8E8E8]  py-16">
           <div className="flex flex-col items-center space-y-5">
             <h2 className="text-center text-[28px] font-[500] leading-9">
               What our Customers Say

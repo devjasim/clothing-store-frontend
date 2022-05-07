@@ -15,7 +15,7 @@ const MobileMenu = ({
 }) => {
   const {pathname} = useRouter();
   return (
-    <div className="absolute inset-x-0 z-10 mt-[15px] flex h-screen flex-col items-stretch space-y-7 bg-white pt-12 lg:-top-[1000px]">
+    <div className="absolute inset-x-0 z-10 mt-[15px] flex h-max shadow-xl p-4  flex-col items-stretch space-y-7 bg-white pt-12 lg:-top-[1000px]">
       <nav>
         <ul className="flex flex-col  space-y-5">
           {mainMenuLinks.map((link, i) => {

@@ -1,11 +1,12 @@
 import cx from 'classnames';
 import React from 'react';
+import {motion} from 'framer-motion';
 
 type Props = {
   variant?: 'primary' | 'ghost' | 'outlined';
 };
 
-type ButtonProps = Props & React.ComponentProps<'button'>;
+type ButtonProps = Props & React.ComponentProps<typeof motion.button>;
 
 export const Button = ({
   children,
@@ -15,7 +16,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <>
-      <button
+      <motion.button
         className={cx(
           'text-sm font-semibold transition-all',
           {
@@ -29,9 +30,11 @@ export const Button = ({
           className
         )}
         {...rest}
+        whileHover={{scale: 1.05}}
+        whileTap={{scale: 0.95}}
       >
         {children}
-      </button>
+      </motion.button>
     </>
   );
 };
