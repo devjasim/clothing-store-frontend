@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React from 'react';
 
 import {Underline} from '~/constants/icons';
@@ -10,7 +11,7 @@ export type CardProps = {
   benefits: string[];
   icon: any;
   color: string;
-  gradient: any;
+  gradient: 1 | 2;
 };
 
 export const Card = ({
@@ -28,10 +29,15 @@ export const Card = ({
         <Underline className="hidden sm:block" color={color} width={200} />
       </div>
       <div
+        className={cx(
+          'relative grid min-h-[278px] rounded-b-3xl pt-5 shadow-[0px_-12px_37px_-22px_rgba(0,0,0,0.29)] sm:grid-cols-[30%,70%] md:grid-cols-1 lg:grid-cols-[30%,70%]'
+        )}
         style={{
-          background: gradient,
+          background:
+            gradient === 1
+              ? 'linear-gradient(95.51deg, #22BABB -8.37%, rgba(158, 248, 238, 0.76) 118.77%)'
+              : 'linear-gradient(95.99deg, #8D8D8D -8.42%, rgba(140, 140, 140, 0.57) 106.38%), linear-gradient(95.51deg, #939393 -8.37%, #3B403F 118.77%)',
         }}
-        className="relative grid min-h-[278px] rounded-b-3xl pt-5 shadow-[0px_-12px_37px_-22px_rgba(0,0,0,0.29)] sm:grid-cols-[30%,70%] md:grid-cols-1 lg:grid-cols-[30%,70%]"
       >
         <div className="absolute left-5 -top-16 flex h-[100px] w-[100px] items-center justify-center rounded-full bg-white sm:relative sm:-top-20 sm:h-[130px] sm:w-[130px] md:absolute md:-top-16 md:h-[100px] md:w-[100px] lg:relative lg:-top-20 lg:h-[130px] lg:w-[130px]">
           {icon()}
