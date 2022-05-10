@@ -47,10 +47,7 @@ const PartnersPage: NextPageWithLayout = () => {
         <section className="mx-auto grid min-h-[500px] max-w-[1200px] gap-10 pb-16  sm:grid-cols-2 lg:grid-cols-3">
           {partnersList.map((partner, index) => (
             <AnimatedBox key={index}>
-              <div
-                key={index}
-                className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
-              >
+              <div className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]">
                 <div className="flex h-[80%] flex-col items-center justify-between">
                   {<partner.icon />}
                   <h2 className="text-[20px] font-[500]">{partner.name}</h2>

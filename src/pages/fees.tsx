@@ -48,10 +48,7 @@ const FeesPage: NextPageWithLayout = () => {
         <section className="mx-auto my-20 grid min-h-[500px] max-w-[1200px] gap-10 px-5  sm:grid-cols-2 lg:grid-cols-3">
           {fees.map((fee, i) => (
             <AnimatedBox key={i}>
-              <div
-                key={i}
-                className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
-              >
+              <div className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]">
                 <div className="flex h-[50%] flex-col items-center justify-between">
                   <span className="text-4xl font-[500]">{fee.amount}</span>
                   <div className="flex flex-col items-center space-y-5">

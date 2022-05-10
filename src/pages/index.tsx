@@ -97,7 +97,7 @@ const LandingPage: NextPageWithLayout = () => {
           <div className="grid  w-full max-w-[1000px] gap-10 md:grid-cols-3">
             {partners.map((partner, i) => (
               <AnimatedBox key={i}>
-                <div key={i} className="flex flex-col items-center space-y-12">
+                <div className="flex flex-col items-center space-y-12">
                   <div className="flex flex-col items-center space-y-5">
                     <h3 className="text-4xl text-primary1">
                       {partner.totalPayment}
@@ -122,7 +122,7 @@ const LandingPage: NextPageWithLayout = () => {
           <div className="grid  w-full max-w-[1100px] gap-10 md:grid-cols-3">
             {stablepayBenefits.map((benefit, i) => (
               <AnimatedBox key={i}>
-                <div key={i} className="flex flex-col items-center space-y-2">
+                <div className="flex flex-col items-center space-y-2">
                   {<benefit.icon />}
                   <div className="flex flex-col  items-center">
                     <h3 className="text-lg font-[500]">{benefit.title}</h3>
