@@ -1,7 +1,8 @@
+import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
 
 import {fees} from '~/constants/fees';
-import {Underline} from '~/constants/icons';
+import {Title} from '~/ui/Title';
 
 import {Main, Meta, PageLayout} from '../layouts';
 
@@ -18,23 +19,22 @@ const FeesPage: NextPageWithLayout = () => {
       <main>
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] gap-10 px-5  md:grid-cols-2">
           <div className="order-2 mx-auto flex flex-col space-y-6 md:order-[0]">
-            <div className="mx-auto flex max-w-max flex-col items-center space-y-4 sm:mx-0">
-              <h1 className="flex flex-col space-y-3 text-4xl font-semibold sm:text-6xl">
-                <span className="uppercase text-primary1">Merchants </span>
-                <span className="max-w-[10ch] uppercase text-primary4">
-                  tools
-                </span>
-              </h1>
-              <Underline className="w-[200px] self-start" />
-            </div>
-            <p className="max-w-[50ch] text-center text-sm sm:text-left sm:text-lg sm:leading-6">
+            <Title title={['Merchants', 'tools']}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
               ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
               Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id
               aliquam i nteger felis donec magna bibendum.
-            </p>
+            </Title>
+            <p className="max-w-[50ch] text-center text-sm sm:text-left sm:text-lg sm:leading-6"></p>
           </div>
           <div className="relative order-1 mx-auto -mt-10">
+            <motion.img
+              src="/assets/images/cloud.png"
+              className="absolute -top-5 w-[100px] sm:-left-10 sm:top-0 sm:w-[200px]"
+              initial={{y: 20}}
+              animate={{y: -20}}
+              transition={{repeat: Infinity, repeatType: 'mirror', duration: 2}}
+            />
             <img
               src="/assets/images/fees.png"
               width={500}

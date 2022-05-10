@@ -47,7 +47,7 @@ export const Footer = () => {
             <p className="text-sm text-white/60">
               Stay Up toDate with the Latest News
             </p>
-            <div className="grid h-[55px] w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
+            <div className="grid h-[45px] w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
               <TextInput type="'email" />
               <Button
                 variant="primary"

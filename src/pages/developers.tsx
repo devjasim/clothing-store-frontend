@@ -1,8 +1,9 @@
+import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
 
-import {Underline} from '~/constants/icons';
 import {integrations} from '~/constants/integrations';
 import {NextLink} from '~/ui/NextLink';
+import {Title} from '~/ui/Title';
 
 import {Main, Meta, PageLayout} from '../layouts';
 
@@ -20,22 +21,23 @@ const DevelopersPage: NextPageWithLayout = () => {
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] gap-10 px-5  md:grid-cols-2">
           <div className="order-2 mx-auto flex flex-col space-y-6 md:order-[0]">
             <div className="mx-auto flex max-w-max flex-col items-center space-y-4 md:mx-0">
-              <h1 className="flex flex-col space-y-3 text-4xl font-semibold sm:text-6xl">
-                <span className="uppercase text-primary1">developers</span>
-                <span className="max-w-[10ch] uppercase text-primary4">
-                  integration
-                </span>
-              </h1>
-              <Underline className="w-full self-start" />
+              <Title title={['developers', 'integration']}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Maecenas ridiculus hendrerit aenean quam rhoncus ac libero nunc
+                netus. Augue id faucibus libero, aliquam, eu purus vitae.
+                Tincidunt id aliquam i nteger felis donec magna bibendum.
+              </Title>
             </div>
-            <p className="max-w-[50ch] text-center text-sm sm:text-lg sm:leading-6 md:text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-              ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
-              Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id
-              aliquam i nteger felis donec magna bibendum.
-            </p>
           </div>
           <div className="relative order-1 mx-auto">
+            <motion.img
+              src="/assets/images/gear.png"
+              className="absolute left-[30%] w-[30px] sm:left-1/3 sm:w-[50px]"
+              initial={{y: 10}}
+              animate={{y: -10}}
+              transition={{repeat: Infinity, repeatType: 'mirror', duration: 2}}
+            />
+
             <img
               src="/assets/images/developers.png"
               width={500}

@@ -3,12 +3,15 @@ import {
   BinanceIcon,
   ConversionIcon,
   GLobIcon,
+  MistiBushi,
+  Netflix,
   Netflix2Icon,
   PlayStoreIcon,
   PosIcon,
   SkypeIcon,
   VimeoIcon,
   WalletIcon,
+  Youtube,
 } from '~/constants/icons';
 
 export const stablepayBenefits = [
@@ -66,5 +69,23 @@ export const paymentPlatforms = [
   {
     name: 'Skype',
     icon: SkypeIcon,
+  },
+];
+
+export const partners = [
+  {
+    totalPayment: '$10B+',
+    description: 'Over $10 Billion In Crypto Payments Since 2013',
+    icon: Youtube,
+  },
+  {
+    totalPayment: '100k+',
+    description: 'Serving 100,000+ Merchants Globally',
+    icon: MistiBushi,
+  },
+  {
+    totalPayment: '190+',
+    description: 'Active Worldwide In 190+ Countries',
+    icon: Netflix,
   },
 ];

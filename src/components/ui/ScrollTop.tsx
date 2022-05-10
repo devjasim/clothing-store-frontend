@@ -1,6 +1,6 @@
 import cx from 'classnames';
-import {useEffect, useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
+import {useEffect, useState} from 'react';
 
 export const ScrollToTop = () => {
   const scrollToTop = () => {
@@ -44,11 +44,11 @@ export const ScrollToTop = () => {
             width="30"
             height="30"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="white"
             fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <line x1="12" y1="5" x2="12" y2="19" />

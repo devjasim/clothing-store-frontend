@@ -1,7 +1,8 @@
+import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
 
-import {Underline} from '~/constants/icons';
 import {partnersList} from '~/constants/partners';
+import {Title} from '~/ui/Title';
 
 import {Main, Meta, PageLayout} from '../layouts';
 
@@ -17,20 +18,13 @@ const PartnersPage: NextPageWithLayout = () => {
     >
       <main className="space-y-10 px-5">
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] gap-16 md:grid-cols-2">
-          <div className="order-2 flex flex-col items-center  space-y-6 md:order-1">
-            <div className="flex w-full flex-col items-center space-y-4 md:items-start">
-              <h1 className="flex flex-col text-4xl font-semibold sm:text-6xl">
-                <span className="uppercase text-primary1">StablePays</span>
-                <span className="uppercase text-primary4">Partners</span>
-              </h1>
-              <Underline className="max-w-full" />
-            </div>
-            <p className="max-w-[55ch] text-center text-sm sm:text-left sm:text-lg sm:leading-6">
+          <div className="order-2 flex flex-col  space-y-6 md:order-1">
+            <Title title={['StablePays', 'Partners']}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
               ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
               Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id
               aliquam i nteger felis donec magna bibendum.
-            </p>
+            </Title>
           </div>
           <div className="relative order-1 mx-auto">
             <img
@@ -40,20 +34,32 @@ const PartnersPage: NextPageWithLayout = () => {
               className="object-contain"
               alt=""
             />
+            <motion.img
+              src="/assets/images/coin2.png"
+              className="absolute right-20 bottom-0 w-[80px] sm:bottom-32 sm:w-[100px]"
+              initial={{y: 20}}
+              animate={{y: -20}}
+              transition={{repeat: Infinity, repeatType: 'mirror', duration: 2}}
+            />
           </div>
         </section>
         <section className="mx-auto grid min-h-[500px] max-w-[1200px] gap-10 pb-16  sm:grid-cols-2 lg:grid-cols-3">
           {partnersList.map((partner, index) => (
-            <div
+            <motion.div
               key={index}
               className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
+              initial={{opacity: 0, y: 200}}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
             >
               <div className="flex h-[80%] flex-col items-center justify-between">
                 {<partner.icon />}
                 <h2 className="text-[20px] font-[500]">{partner.name}</h2>
                 <p className="text-center">{partner.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </section>
       </main>

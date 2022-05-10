@@ -1,31 +1,19 @@
+import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
 
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
-import {MistiBushi, Netflix, Underline, Youtube} from '~/constants/icons';
-import {paymentPlatforms, stablepayBenefits} from '~/constants/landingpage';
+import {Underline} from '~/constants/icons';
+import {
+  partners,
+  paymentPlatforms,
+  stablepayBenefits,
+} from '~/constants/landingpage';
 import {Main, Meta, PageLayout} from '~/layouts';
 import {Button} from '~/ui/Button';
 import {Card} from '~/ui/Card';
 import {NextLink} from '~/ui/NextLink';
-
-const partners = [
-  {
-    totalPayment: '$10B+',
-    description: 'Over $10 Billion In Crypto Payments Since 2013',
-    icon: <Youtube />,
-  },
-  {
-    totalPayment: '100k+',
-    description: 'Serving 100,000+ Merchants Globally',
-    icon: <MistiBushi />,
-  },
-  {
-    totalPayment: '190+',
-    description: 'Active Worldwide In 190+ Countries',
-    icon: <Netflix />,
-  },
-];
+import {Title} from '~/ui/Title';
 
 const LandingPage: NextPageWithLayout = () => {
   return (
@@ -39,9 +27,16 @@ const LandingPage: NextPageWithLayout = () => {
     >
       <main>
         <section className="mx-auto mt-24 grid min-h-[500px] max-w-[1200px] px-5 md:grid-cols-2">
-          <div className="relative  mx-auto">
+          <div className="relative mx-auto">
+            <motion.img
+              src="/assets/images/coin.png"
+              className="absolute left-5 w-[80px] sm:left-10 sm:w-[130px]"
+              initial={{y: 20}}
+              animate={{y: -20}}
+              transition={{repeat: Infinity, repeatType: 'mirror', duration: 2}}
+            />
             <img
-              src="/assets/images/hero-image.png"
+              src="/assets/images/hero.png"
               width={500}
               height={500}
               className="object-contain"
@@ -49,22 +44,18 @@ const LandingPage: NextPageWithLayout = () => {
             />
           </div>
           <div className="flex flex-col items-center space-y-6 md:items-start">
-            <div className="flex w-full flex-col items-center space-y-4 md:items-start">
-              <h1 className="flex flex-col text-center text-4xl font-semibold sm:text-6xl md:text-left">
-                <span className="text-primary1">StablePays</span>
-                <span className="text-primary4">Ease of Payment</span>
-              </h1>
-              <Underline className="max-w-full" />
-            </div>
-            <p className="max-w-[50ch] text-center  text-sm sm:text-lg sm:leading-6 md:text-left">
+            <Title title={['StablePays', 'Ease of Payment']}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
               ridiculus hendrerit aenean quam rhoncus ac libero nunc netus.
               Augue id faucibus libero, aliquam, eu purus vitae. Tincidunt id
               aliquam i nteger felis donec magna bibendum.
-            </p>
+            </Title>
             <Button
               variant="outlined"
               className="mx-auto h-12 w-[300px] max-w-full rounded-2xl sm:mx-0"
+              initial={{opacity: 0, y: 50}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.5, delay: 2.9, type: 'spring'}}
             >
               Get Started
             </Button>
@@ -72,24 +63,24 @@ const LandingPage: NextPageWithLayout = () => {
         </section>
         <section className="my-[100px] w-full sm:my-[50px]">
           <div className="relative h-max w-full">
-            <div className="absolute items-stretch inset-0 top-10 hidden lg:flex">
-              <div className="bg-white relative z-10 max-w-[1400px] mx-auto">
+            <div className="absolute inset-0 top-10 hidden items-stretch lg:flex">
+              <div className="relative z-10  mx-auto max-w-[1400px] bg-white">
                 <svg
                   viewBox="0 0 1440 244"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="object-contain grow h-full w-full mx-auto"
+                  className="mx-auto h-full w-full grow object-fill"
                 >
                   <path
                     d="M0 30L720 244L1440 30V244L720 0L0 244V30Z"
                     fill="#22BABB"
-                    fill-opacity="0.54"
+                    fillOpacity="0.54"
                   />
                 </svg>
               </div>
-              <div className="bg-[#87d9da] grow h-[208px] mb-4 w-full  right-0 bottom-1 absolute" />
+              <div className="absolute right-0 bottom-1 mb-4 h-[208px]  w-full grow bg-[#87d9da]" />
             </div>
-            <div className="relative z-20 mx-auto grid px-2 max-w-[1400px] w-full justify-items-center items-center gap-10 lg:grid-cols-2">
+            <div className="relative z-20 mx-auto grid w-full max-w-[1400px] items-center justify-items-center gap-10 px-2 lg:grid-cols-2">
               {cardsData.map((card, i) => (
                 <Card key={i} {...card} />
               ))}
@@ -97,12 +88,35 @@ const LandingPage: NextPageWithLayout = () => {
           </div>
         </section>
         <section className="flex w-full flex-col items-center space-y-20 bg-[#F2F7F7] px-3 py-16">
-          <h2 className="text-center text-[28px] font-[500] leading-9">
+          <motion.h2
+            className="text-center text-[28px] font-[500] leading-9"
+            initial={{opacity: 0, y: 40}}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              offset: 100,
+              transition: {
+                duration: 1,
+              },
+            }}
+          >
             The world&apos;s most Trusted Crypto Payments Partner
-          </h2>
+          </motion.h2>
           <div className="grid  w-full max-w-[1000px] gap-10 md:grid-cols-3">
             {partners.map((partner, i) => (
-              <div key={i} className="flex flex-col items-center space-y-12">
+              <motion.div
+                key={i}
+                className="flex flex-col items-center space-y-12"
+                initial={{opacity: 0, y: 40}}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  offset: 100,
+                  transition: {
+                    duration: 1,
+                  },
+                }}
+              >
                 <div className="flex flex-col items-center space-y-5">
                   <h3 className="text-4xl text-primary1">
                     {partner.totalPayment}
@@ -111,8 +125,8 @@ const LandingPage: NextPageWithLayout = () => {
                     {partner.description}
                   </p>
                 </div>
-                {partner.icon}
-              </div>
+                {<partner.icon />}
+              </motion.div>
             ))}
           </div>
         </section>
