@@ -1,5 +1,6 @@
 import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
+import {AnimatedBox} from '~/components/Animatedbox';
 
 import {fees} from '~/constants/fees';
 import {Title} from '~/ui/Title';
@@ -46,18 +47,20 @@ const FeesPage: NextPageWithLayout = () => {
         </section>
         <section className="mx-auto my-20 grid min-h-[500px] max-w-[1200px] gap-10 px-5  sm:grid-cols-2 lg:grid-cols-3">
           {fees.map((fee, i) => (
-            <div
-              key={i}
-              className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
-            >
-              <div className="flex h-[50%] flex-col items-center justify-between">
-                <span className="text-4xl font-[500]">{fee.amount}</span>
-                <div className="flex flex-col items-center space-y-5">
-                  <h2 className="text-[20px] font-[500]">{fee.name}</h2>
-                  <p className="text-center">{fee.description}</p>
+            <AnimatedBox>
+              <div
+                key={i}
+                className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
+              >
+                <div className="flex h-[50%] flex-col items-center justify-between">
+                  <span className="text-4xl font-[500]">{fee.amount}</span>
+                  <div className="flex flex-col items-center space-y-5">
+                    <h2 className="text-[20px] font-[500]">{fee.name}</h2>
+                    <p className="text-center">{fee.description}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </AnimatedBox>
           ))}
         </section>
       </main>

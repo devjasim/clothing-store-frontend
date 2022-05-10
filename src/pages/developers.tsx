@@ -1,5 +1,6 @@
 import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
+import {AnimatedBox} from '~/components/Animatedbox';
 
 import {integrations} from '~/constants/integrations';
 import {NextLink} from '~/ui/NextLink';
@@ -50,24 +51,28 @@ const DevelopersPage: NextPageWithLayout = () => {
 
         <section className="mx-auto my-20 grid min-h-[500px] max-w-[1200px] gap-10 px-5  sm:grid-cols-2 lg:grid-cols-3">
           {integrations.map((integration, i) => (
-            <div
-              key={i}
-              className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
-            >
-              <div className="flex h-[80%] flex-col items-center justify-between">
-                <div className="flex flex-col items-center space-y-3">
-                  <img src={integration.icon} />
-                  <h2 className="text-[20px] font-[500]">{integration.name}</h2>
+            <AnimatedBox>
+              <div
+                key={i}
+                className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
+              >
+                <div className="flex h-[80%] flex-col items-center justify-between">
+                  <div className="flex flex-col items-center space-y-3">
+                    <img src={integration.icon} />
+                    <h2 className="text-[20px] font-[500]">
+                      {integration.name}
+                    </h2>
+                  </div>
+                  <p className="text-center">{integration.description}</p>
+                  <NextLink
+                    href={integration.url}
+                    className="rounded-lg py-2 px-4 text-sm  font-semibold text-primary1 transition-all hover:bg-primary1/20"
+                  >
+                    Find more
+                  </NextLink>
                 </div>
-                <p className="text-center">{integration.description}</p>
-                <NextLink
-                  href={integration.url}
-                  className="rounded-lg py-2 px-4 text-sm  font-semibold text-primary1 transition-all hover:bg-primary1/20"
-                >
-                  Find more
-                </NextLink>
               </div>
-            </div>
+            </AnimatedBox>
           ))}
         </section>
       </main>
