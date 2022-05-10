@@ -9,6 +9,7 @@ export const AnimatedBox = ({children}: Props) => {
   return (
     <motion.div
       initial={{y: 100, opacity: 0.5}}
+      viewport={{once: true}}
       whileInView={{
         y: 0,
         offset: 100,
