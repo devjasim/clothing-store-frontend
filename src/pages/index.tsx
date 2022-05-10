@@ -1,5 +1,6 @@
 import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
+import {AnimatedBox} from '~/components/Animatedbox';
 
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
@@ -88,45 +89,26 @@ const LandingPage: NextPageWithLayout = () => {
           </div>
         </section>
         <section className="flex w-full flex-col items-center space-y-20 bg-[#F2F7F7] px-3 py-16">
-          <motion.h2
-            className="text-center text-[28px] font-[500] leading-9"
-            initial={{opacity: 0, y: 40}}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              offset: 100,
-              transition: {
-                duration: 1,
-              },
-            }}
-          >
-            The world&apos;s most Trusted Crypto Payments Partner
-          </motion.h2>
+          <AnimatedBox>
+            <h2 className="text-center text-[28px] font-[500] leading-9">
+              The world&apos;s most Trusted Crypto Payments Partner
+            </h2>
+          </AnimatedBox>
           <div className="grid  w-full max-w-[1000px] gap-10 md:grid-cols-3">
             {partners.map((partner, i) => (
-              <motion.div
-                key={i}
-                className="flex flex-col items-center space-y-12"
-                initial={{opacity: 0, y: 40}}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                  offset: 100,
-                  transition: {
-                    duration: 1,
-                  },
-                }}
-              >
-                <div className="flex flex-col items-center space-y-5">
-                  <h3 className="text-4xl text-primary1">
-                    {partner.totalPayment}
-                  </h3>
-                  <p className="max-w-[230px] text-center text-lg font-[500]">
-                    {partner.description}
-                  </p>
+              <AnimatedBox>
+                <div key={i} className="flex flex-col items-center space-y-12">
+                  <div className="flex flex-col items-center space-y-5">
+                    <h3 className="text-4xl text-primary1">
+                      {partner.totalPayment}
+                    </h3>
+                    <p className="max-w-[230px] text-center text-lg font-[500]">
+                      {partner.description}
+                    </p>
+                  </div>
+                  {<partner.icon />}
                 </div>
-                {<partner.icon />}
-              </motion.div>
+              </AnimatedBox>
             ))}
           </div>
         </section>
@@ -139,15 +121,17 @@ const LandingPage: NextPageWithLayout = () => {
           </div>
           <div className="grid  w-full max-w-[1100px] gap-10 md:grid-cols-3">
             {stablepayBenefits.map((benefit, i) => (
-              <div key={i} className="flex flex-col items-center space-y-2">
-                {<benefit.icon />}
-                <div className="flex flex-col  items-center">
-                  <h3 className="text-lg font-[500]">{benefit.title}</h3>
-                  <p className="max-w-[230px] text-center  text-sm">
-                    {benefit.description}
-                  </p>
+              <AnimatedBox>
+                <div key={i} className="flex flex-col items-center space-y-2">
+                  {<benefit.icon />}
+                  <div className="flex flex-col  items-center">
+                    <h3 className="text-lg font-[500]">{benefit.title}</h3>
+                    <p className="max-w-[230px] text-center  text-sm">
+                      {benefit.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </AnimatedBox>
             ))}
           </div>
           <Button
@@ -180,10 +164,16 @@ const LandingPage: NextPageWithLayout = () => {
           </p>
           <div className="flex w-full max-w-[1100px] flex-auto flex-row flex-wrap justify-around justify-items-center  gap-5 lg:grid-cols-5">
             {paymentPlatforms.map((platform, i) => (
-              <div key={i} className="flex items-center space-x-3">
+              <motion.div
+                key={i}
+                className="flex items-center space-x-3 cursor-pointer"
+                whileHover={{
+                  y: -10,
+                }}
+              >
                 <div>{<platform.icon />}</div>
                 <span className="font-[500] sm:text-xl">{platform.name}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
           <NextLink href="/">
