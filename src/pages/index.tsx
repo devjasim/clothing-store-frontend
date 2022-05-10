@@ -1,7 +1,7 @@
 import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
-import {AnimatedBox} from '~/components/Animatedbox';
 
+import {AnimatedBox} from '~/components/Animatedbox';
 import {TestimonialCarousal} from '~/components/carousal';
 import {cardsData} from '~/constants/cardsdata';
 import {Underline} from '~/constants/icons';
@@ -96,7 +96,7 @@ const LandingPage: NextPageWithLayout = () => {
           </AnimatedBox>
           <div className="grid  w-full max-w-[1000px] gap-10 md:grid-cols-3">
             {partners.map((partner, i) => (
-              <AnimatedBox>
+              <AnimatedBox key={i}>
                 <div key={i} className="flex flex-col items-center space-y-12">
                   <div className="flex flex-col items-center space-y-5">
                     <h3 className="text-4xl text-primary1">
@@ -121,7 +121,7 @@ const LandingPage: NextPageWithLayout = () => {
           </div>
           <div className="grid  w-full max-w-[1100px] gap-10 md:grid-cols-3">
             {stablepayBenefits.map((benefit, i) => (
-              <AnimatedBox>
+              <AnimatedBox key={i}>
                 <div key={i} className="flex flex-col items-center space-y-2">
                   {<benefit.icon />}
                   <div className="flex flex-col  items-center">
@@ -166,7 +166,7 @@ const LandingPage: NextPageWithLayout = () => {
             {paymentPlatforms.map((platform, i) => (
               <motion.div
                 key={i}
-                className="flex items-center space-x-3 cursor-pointer"
+                className="flex cursor-pointer items-center space-x-3"
                 whileHover={{
                   y: -10,
                 }}

@@ -1,7 +1,7 @@
 import {motion} from 'framer-motion';
 import {NextPageWithLayout} from 'next';
-import {AnimatedBox} from '~/components/Animatedbox';
 
+import {AnimatedBox} from '~/components/Animatedbox';
 import {partnersList} from '~/constants/partners';
 import {Title} from '~/ui/Title';
 
@@ -46,7 +46,7 @@ const PartnersPage: NextPageWithLayout = () => {
         </section>
         <section className="mx-auto grid min-h-[500px] max-w-[1200px] gap-10 pb-16  sm:grid-cols-2 lg:grid-cols-3">
           {partnersList.map((partner, index) => (
-            <AnimatedBox>
+            <AnimatedBox key={index}>
               <div
                 key={index}
                 className="mx-auto flex h-[500px] max-w-[360px] flex-col items-center justify-center rounded-lg p-[12px] shadow-[0px_2px_4px_rgba(0,0,0,0.25)]"
