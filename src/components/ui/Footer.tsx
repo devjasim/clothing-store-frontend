@@ -5,7 +5,6 @@ import {footerLinks, footerSocialLinks} from '~/constants/links';
 import {Button} from './Button';
 import {FooterLogo} from './footerLogo';
 import {NextLink} from './NextLink';
-import {TextInput} from './TextInput';
 
 type FooterLinkColumnProps = {
   title: string;
@@ -47,8 +46,11 @@ export const Footer = () => {
             <p className="text-sm text-white/60">
               Stay Up toDate with the Latest News
             </p>
-            <div className="grid h-[45px] w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
-              <TextInput type="'email" />
+            <div className="grid h-[45px]  w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
+              <input
+                type="'email"
+                className="h-full pl-2 pr-3 w-full bg-transparent max-w-full p-0  min-w-0 text-gray-900"
+              />
               <Button
                 variant="primary"
                 className="w-full rounded-xl px-1 text-[12px]"
