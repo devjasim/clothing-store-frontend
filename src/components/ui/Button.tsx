@@ -18,7 +18,7 @@ export const Button = ({
     <>
       <motion.button
         className={cx(
-          'text-sm font-semibold transition-all',
+          'text-sm font-semibold transition-all cursor-default',
           {
             'bg-primary1 text-white capitalize': variant === 'primary',
             'text-primary1 hover:bg-primary1/10 active:bg-primary1/20':
@@ -29,8 +29,12 @@ export const Button = ({
           className
         )}
         {...rest}
-        whileHover={{scale: 1.05}}
-        whileTap={{scale: 0.95}}
+        whileTap={{
+          scale: 0.95,
+          transition: {
+            duration: 0.1,
+          },
+        }}
       >
         {children}
       </motion.button>

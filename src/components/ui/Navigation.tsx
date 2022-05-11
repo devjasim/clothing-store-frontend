@@ -13,7 +13,7 @@ const MobileMenu = ({
 }: {
   setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  const {pathname} = useRouter();
+  const router = useRouter();
   return (
     <div className="absolute inset-x-0 z-10 mt-[15px] flex h-max flex-col items-stretch  space-y-7 bg-white p-4 pt-12 shadow-xl lg:-top-[1000px]">
       <nav>
@@ -25,7 +25,9 @@ const MobileMenu = ({
                 onClick={() => setShowMenu(false)}
                 className={cx(
                   'text-center text-sm',
-                  pathname === link.href ? 'text-primary1' : 'text-gray-800'
+                  router.pathname === link.href
+                    ? 'text-primary1'
+                    : 'text-gray-800'
                 )}
               >
                 <NextLink href={link.href}>{link.label}</NextLink>
@@ -49,7 +51,7 @@ const MobileMenu = ({
 
 export const Navigation = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const {pathname} = useRouter();
+  const router = useRouter();
   return (
     <div>
       <Button
@@ -71,7 +73,9 @@ export const Navigation = () => {
                   key={i}
                   className={cx(
                     'text-center text-sm',
-                    pathname === link.href ? 'text-primary1' : 'text-gray-800'
+                    router.pathname === link.href
+                      ? 'text-primary1'
+                      : 'text-gray-800'
                   )}
                 >
                   <NextLink href={link.href}>{link.label}</NextLink>
@@ -85,7 +89,11 @@ export const Navigation = () => {
           <Button variant="ghost" className="h-[40px] w-[110px] rounded-full">
             Login
           </Button>
-          <Button variant="primary" className="h-[40px] w-[110px] rounded-full">
+          <Button
+            variant="primary"
+            className="h-[40px] w-[110px] rounded-full"
+            onClick={() => router.push('/signup')}
+          >
             Sign up
           </Button>
         </div>
