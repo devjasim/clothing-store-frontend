@@ -8,12 +8,13 @@ type Props = {
 export const AnimatedBox = ({children}: Props) => {
   return (
     <motion.div
-      initial={{y: 100, opacity: 0.5}}
+      initial={{y: 100, opacity: 0.5, zIndex: -1}}
       viewport={{once: true}}
       whileInView={{
         y: 0,
         offset: 100,
         opacity: 1,
+        zIndex: 1,
         transition: {
           duration: 1,
         },
