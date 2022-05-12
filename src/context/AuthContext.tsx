@@ -6,17 +6,31 @@ type AuthProviderProps = {
 
 const AuthContext = React.createContext<
   | {
-      auth: boolean;
-      setAuth: React.Dispatch<React.SetStateAction<boolean>>;
+      auth: {isAuthenticated: boolean; userName: string; email: string};
+      setAuth: (user: string, useremail: string) => void;
     }
   | undefined
 >(undefined);
 
 const AuthProvider = ({children}: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [username, setUserName] = React.useState('');
+  const [useremail, setEmail] = React.useState('');
+  const handleLogin = (userName: string, email: string) => {
+    setIsAuthenticated(true);
+    setUserName(userName);
+    setEmail(email);
+  };
   return (
     <AuthContext.Provider
-      value={{auth: isAuthenticated, setAuth: setIsAuthenticated}}
+      value={{
+        auth: {
+          isAuthenticated,
+          username,
+          useremail,
+        },
+        setAuth: handleLogin,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -5,11 +5,18 @@ import React from 'react';
 type CheckboxProps = React.ComponentProps<typeof CheckboxPrimitive.Root> & {
   label?: string;
 };
-export const CheckBox = ({label, ...rest}: CheckboxProps) => (
+export const CheckBox = ({
+  label,
+  checked,
+  onCheckedChange,
+  ...rest
+}: CheckboxProps) => (
   <label className="flex items-center space-x-3">
     <CheckboxPrimitive.Root
       id="c1"
       defaultChecked
+      checked={checked}
+      onCheckedChange={onCheckedChange}
       className={cx(
         'flex h-5 w-5 items-center justify-center rounded-[6px]',
         'radix-state-checked:bg-primary1 border radix-state-unchecked:border-gray-300'

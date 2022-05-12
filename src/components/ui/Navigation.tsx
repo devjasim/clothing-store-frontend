@@ -38,10 +38,18 @@ const MobileMenu = ({
       </nav>
 
       <div className="mx-auto flex  w-[250px] flex-col space-y-3">
-        <Button variant="ghost" className="h-[40px] rounded-xl">
+        <Button
+          onClick={() => router.push('/login')}
+          variant="ghost"
+          className="h-[40px] rounded-xl"
+        >
           Login
         </Button>
-        <Button variant="primary" className="h-[40px] rounded-xl">
+        <Button
+          onClick={() => router.push('/signup')}
+          variant="primary"
+          className="h-[40px] rounded-xl"
+        >
           Sign up
         </Button>
       </div>
@@ -86,7 +94,11 @@ export const Navigation = () => {
         </nav>
 
         <div className="hidden space-x-3 sm:flex">
-          <Button variant="ghost" className="h-[40px] w-[110px] rounded-full">
+          <Button
+            onClick={() => router.push('/login')}
+            variant="ghost"
+            className="h-[40px] w-[110px] rounded-full"
+          >
             Login
           </Button>
           <Button

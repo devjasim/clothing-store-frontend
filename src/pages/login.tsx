@@ -3,7 +3,6 @@ import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
-import {useAuth} from '~/context/AuthContext';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
 import {Button} from '~/ui/Button';
@@ -33,32 +32,26 @@ import {PasswordField, TextField} from '~/ui/TextInput';
 // };
 
 type FormData = {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  terms: boolean;
+  keepSignedIn: boolean;
 };
 
 export const SignUpPage: NextPage = () => {
-  const {setAuth} = useAuth();
+  // const {setAuth} = useAuth();
   const router = useRouter();
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      terms: false,
+      keepSignedIn: false,
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const {firstName, lastName, email} = data;
-    setAuth(`${firstName} ${lastName}`, email);
-    router.push('/verification');
+  const onSubmit: SubmitHandler<FormData> = (data: any) => {
+    // const {email, password} = data;
+    console.log(data);
+    router.push('/dashboard');
   };
 
   return (
@@ -80,24 +73,6 @@ export const SignUpPage: NextPage = () => {
               <div className="mx-auto max-w-[530px] space-y-9">
                 <div className="space-y-2">
                   <div className="grid w-full gap-5">
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <Controller
-                        control={control}
-                        name="firstName"
-                        rules={{required: true, minLength: 2}}
-                        render={({field}) => (
-                          <TextField variant="firstName" {...field} />
-                        )}
-                      />
-                      <Controller
-                        control={control}
-                        name="lastName"
-                        rules={{required: true, minLength: 2}}
-                        render={({field}) => (
-                          <TextField variant="lastName" {...field} />
-                        )}
-                      />
-                    </div>
                     <Controller
                       control={control}
                       name="email"
@@ -119,21 +94,13 @@ export const SignUpPage: NextPage = () => {
                     />
                     <Controller
                       control={control}
-                      name="confirmPassword"
-                      rules={{required: true, minLength: 6}}
-                      render={({field}) => (
-                        <PasswordField variant="passwordConfirm" {...field} />
-                      )}
-                    />
-                    <Controller
-                      control={control}
-                      name="terms"
+                      name="keepSignedIn"
                       rules={{required: true}}
                       render={({field}) => (
                         <CheckBox
                           checked={field.value}
                           onCheckedChange={field.onChange}
-                          label="I concent to all terms and condtions "
+                          label="Keep me signed in"
                         />
                       )}
                     />
@@ -144,13 +111,13 @@ export const SignUpPage: NextPage = () => {
                       className="h-[55px] w-full rounded-3xl"
                       type="submit"
                     >
-                      Sign up
+                      Login
                     </Button>
                     <Button
                       type="button"
                       className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
                     >
-                      <Google /> <span>Sign up with Google</span>
+                      <Google /> <span>Login with Google</span>
                     </Button>
                   </div>
                 </div>

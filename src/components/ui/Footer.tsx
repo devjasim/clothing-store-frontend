@@ -49,7 +49,7 @@ export const Footer = () => {
             <div className="grid h-[45px]  w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
               <input
                 type="'email"
-                className="h-full pl-2 pr-3 w-full bg-transparent max-w-full p-0  min-w-0 text-gray-900"
+                className="h-full w-full min-w-0 max-w-full bg-transparent p-0 pl-2  pr-3 text-gray-900"
               />
               <Button
                 variant="primary"
