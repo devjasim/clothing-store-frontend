@@ -61,7 +61,7 @@ export const PaymentTabs = () => {
           >
             <div className="flex items-center space-x-2">
               {icon}
-              <span className={cx('text-sm font-medium', 'text-gray-700 ')}>
+              <span className="text-sm font-medium text-gray-700 dark:text-primary1">
                 {title}
               </span>
             </div>
@@ -72,7 +72,7 @@ export const PaymentTabs = () => {
         <TabsPrimitive.Content
           key={`tab-content-${value}`}
           value={value}
-          className={cx('rounded-b-lg py-7')}
+          className="rounded-b-lg py-7"
         >
           {tab}
         </TabsPrimitive.Content>

@@ -41,7 +41,6 @@ type FormData = {
 };
 
 export const LoginPage: NextPageWithLayout = () => {
-  // const {setAuth} = useAuth();
   const router = useRouter();
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
@@ -51,10 +50,12 @@ export const LoginPage: NextPageWithLayout = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: any) => {
-    // const {email, password} = data;
-    console.log(data);
-    router.push('/dashboard');
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    const email = 'test@test.com';
+    const password = 'test123';
+    if (data.email === email && data.password === password) {
+      router.push('/dashboard');
+    }
   };
 
   return (

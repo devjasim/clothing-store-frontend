@@ -116,8 +116,8 @@ export const paymentData = [
       icon: <Usdt />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
-      priceInDollar: '$99.9',
+      priceInCoin: '109.5USDT',
+      priceInDollar: '$109.9',
     },
   },
   {
@@ -126,7 +126,7 @@ export const paymentData = [
       icon: <Eth />,
     },
     col2: {
-      priceInCoin: '99.5ETH',
+      priceInCoin: '90.5ETH',
       priceInDollar: '$99.9',
     },
   },
@@ -136,7 +136,7 @@ export const paymentData = [
       icon: <Bnb />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
+      priceInCoin: '89.5USDT',
       priceInDollar: '$99.9',
     },
   },
@@ -146,7 +146,7 @@ export const paymentData = [
       icon: <Bnb />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
+      priceInCoin: '199.5USDT',
       priceInDollar: '$99.9',
     },
   },
@@ -156,7 +156,7 @@ export const paymentData = [
       icon: <Usdt />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
+      priceInCoin: '109.5USDT',
       priceInDollar: '$99.9',
     },
   },
@@ -166,7 +166,7 @@ export const paymentData = [
       icon: <Eth />,
     },
     col2: {
-      priceInCoin: '99.5ETH',
+      priceInCoin: '119.5ETH',
       priceInDollar: '$99.9',
     },
   },
@@ -176,7 +176,7 @@ export const paymentData = [
       icon: <Bnb />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
+      priceInCoin: '909.5USDT',
       priceInDollar: '$99.9',
     },
   },
@@ -186,7 +186,167 @@ export const paymentData = [
       icon: <Bnb />,
     },
     col2: {
-      priceInCoin: '99.5USDT',
+      priceInCoin: '79.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'USDT',
+      icon: <Usdt />,
+    },
+    col2: {
+      priceInCoin: '09.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'ETH',
+      icon: <Eth />,
+    },
+    col2: {
+      priceInCoin: '97.5ETH',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BNB',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '90.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BTC',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '90.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'USDT',
+      icon: <Usdt />,
+    },
+    col2: {
+      priceInCoin: '80.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'ETH',
+      icon: <Eth />,
+    },
+    col2: {
+      priceInCoin: '95.5ETH',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BNB',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '95.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BTC',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '94.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'USDT',
+      icon: <Usdt />,
+    },
+    col2: {
+      priceInCoin: '93.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'ETH',
+      icon: <Eth />,
+    },
+    col2: {
+      priceInCoin: '92.5ETH',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BNB',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '91.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BTC',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '98.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'USDT',
+      icon: <Usdt />,
+    },
+    col2: {
+      priceInCoin: '89.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'ETH',
+      icon: <Eth />,
+    },
+    col2: {
+      priceInCoin: '129.5ETH',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BNB',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '19.5USDT',
+      priceInDollar: '$99.9',
+    },
+  },
+  {
+    col1: {
+      title: 'BTC',
+      icon: <Bnb />,
+    },
+    col2: {
+      priceInCoin: '69.5USDT',
       priceInDollar: '$99.9',
     },
   },

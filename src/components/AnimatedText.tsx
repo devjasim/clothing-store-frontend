@@ -4,14 +4,14 @@ import React, {ReactNode} from 'react';
 
 const Wrapper = ({children, id}: {children: ReactNode; id: number}) => {
   return (
-    <span
-      className={cx({
-        'text-primary1 whitespace-nowrap  uppercase': id === 0,
+    <div
+      className={cx('flex flex-row flex-nowrap', {
+        'text-primary1 uppercase': id === 0,
         'text-primary4 uppercase': id === 1,
       })}
     >
       {children}
-    </span>
+    </div>
   );
 };
 
@@ -44,7 +44,7 @@ export const AnimatedText = (props: Props) => {
   });
 
   return (
-    <span>
+    <div className="flex flex-wrap">
       {words.map((_word, index) => {
         return (
           <Wrapper id={props.id} key={index}>
@@ -69,6 +69,6 @@ export const AnimatedText = (props: Props) => {
           </Wrapper>
         );
       })}
-    </span>
+    </div>
   );
 };

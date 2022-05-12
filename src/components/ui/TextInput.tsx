@@ -100,7 +100,7 @@ export const PasswordField = ({
           'h-full  bg-transparent w-full  max-w-full p-0  min-w-0 text-gray-900 dark:text-white pl-2 placeholder:text-[#414D63] dark:placeholder:text-white placeholder:font-[300]',
           className
         )}
-        autoComplete="on"
+        autoComplete="new-password"
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}

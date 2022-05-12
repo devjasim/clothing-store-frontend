@@ -1,5 +1,6 @@
 import React from 'react';
 
+import {BalanceTable} from '~/components/BalanceTable';
 import {Alert} from '~/constants/icons';
 import {Button} from '~/ui/Button';
 import {NextLink} from '~/ui/NextLink';
@@ -30,11 +31,7 @@ export const Balance = () => {
       </div>
       <div className="space-y-3">
         <div className="flex min-h-[70px] flex-col items-center justify-between space-y-5 border border-gray-500/30 py-3 px-2 dark:border-white/50 sm:flex-row sm:px-5">
-          <span>Name</span>
-          <div className="">
-            <span>Balance</span>
-            <span>Action</span>
-          </div>
+          <BalanceTable />
         </div>
       </div>
     </section>
