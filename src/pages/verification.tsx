@@ -57,7 +57,7 @@ const VerificationPage = () => {
               <BoxField />
               <BoxField />
             </div>
-            <p className="mx-auto text-center text-primary1">
+            <p className="mx-auto mt-5 text-center text-primary1">
               Resend Code in 59
             </p>
             <div className="space-y-[30px] pt-7">

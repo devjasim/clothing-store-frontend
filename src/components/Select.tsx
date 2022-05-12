@@ -2,10 +2,10 @@ import {Listbox, Transition} from '@headlessui/react';
 import {IconCheck, IconSelector} from '@tabler/icons';
 import {Fragment, useState} from 'react';
 
-const coin = [{name: 'USDT'}, {name: 'ETH'}, {name: 'BTC'}, {name: 'BNB'}];
+const coins = [{name: 'USDT'}, {name: 'ETH'}, {name: 'BTC'}, {name: 'BNB'}];
 
 export const Select = () => {
-  const [selected, setSelected] = useState(coin[0]);
+  const [selected, setSelected] = useState(coins[0]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -26,26 +26,26 @@ export const Select = () => {
           leaveTo="opacity-0"
         >
           <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {coin.map((person, personIdx) => (
+            {coins.map((coin, cointIdx) => (
               <Listbox.Option
-                key={personIdx}
+                key={cointIdx}
                 className={({active}) =>
                   `relative cursor-default select-none py-2 pl-10 pr-4 ${
                     active ? 'bg-primary1/10 text-primary1' : 'text-gray-900'
                   }`
                 }
-                value={person}
+                value={coin}
               >
-                {({selectedItem}) => (
+                {({selectedCoin}) => (
                   <>
                     <span
                       className={`block truncate ${
-                        selectedItem ? 'font-medium' : 'font-normal'
+                        selectedCoin ? 'font-medium' : 'font-normal'
                       }`}
                     >
-                      {person.name}
+                      {coin.name}
                     </span>
-                    {selectedItem ? (
+                    {selectedCoin ? (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary1">
                         <IconCheck className="h-5 w-5" aria-hidden="true" />
                       </span>
