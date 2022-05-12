@@ -1,5 +1,5 @@
 import {Listbox, Transition} from '@headlessui/react';
-import {IconCheck, IconSelector} from '@tabler/icons';
+import {IconSelector} from '@tabler/icons';
 import {Fragment, useState} from 'react';
 
 const coins = [{name: 'USDT'}, {name: 'ETH'}, {name: 'BTC'}, {name: 'BNB'}];
@@ -36,22 +36,7 @@ export const Select = () => {
                 }
                 value={coin}
               >
-                {({selectedCoin}) => (
-                  <>
-                    <span
-                      className={`block truncate ${
-                        selectedCoin ? 'font-medium' : 'font-normal'
-                      }`}
-                    >
-                      {coin.name}
-                    </span>
-                    {selectedCoin ? (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary1">
-                        <IconCheck className="h-5 w-5" aria-hidden="true" />
-                      </span>
-                    ) : null}
-                  </>
-                )}
+                <span className="block truncate">{coin.name}</span>
               </Listbox.Option>
             ))}
           </Listbox.Options>
