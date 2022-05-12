@@ -1,12 +1,34 @@
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import cx from 'classnames';
-import React from 'react';
+import {useTheme} from 'next-themes';
+import React, {useEffect, useState} from 'react';
 
 import {Moon, Sun} from '~/constants/icons';
 
-export const ToggleThemButton = () => {
+export const ToggleTheme = () => {
+  const [mounted, setMounted] = useState(false);
+  const {theme, systemTheme, setTheme} = useTheme();
+  const [checked, setChecked] = useState(false);
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    setChecked(currentTheme === 'dark');
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
   return (
     <SwitchPrimitive.Root
+      checked={checked}
+      onCheckedChange={setChecked}
+      onClick={() => {
+        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      }}
       className={cx(
         'group',
         'radix-state-checked:bg-primary1',

@@ -6,7 +6,7 @@ const Wrapper = ({children, id}: {children: ReactNode; id: number}) => {
   return (
     <span
       className={cx({
-        'text-primary1 uppercase': id === 0,
+        'text-primary1 whitespace-nowrap  uppercase': id === 0,
         'text-primary4 uppercase': id === 1,
       })}
     >

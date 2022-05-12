@@ -1,55 +1,64 @@
-import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import {Menu, Transition} from '@headlessui/react';
+import {IconChevronDown} from '@tabler/icons';
 import cx from 'classnames';
-import React, {ReactNode} from 'react';
+import {Fragment, ReactNode} from 'react';
 
 import {NextLink} from './NextLink';
 
-type DropdownMenuProps = {
+type Link = {
   label: string;
-  icon?: ReactNode;
+  icon: ReactNode;
   url: string;
 };
 
-interface Props {
-  trigger: any;
-  links: DropdownMenuProps[];
-}
+type Props = {
+  triger: ReactNode;
+  links: Link[];
+};
 
-const DropdownMenu = ({trigger, links}: Props) => {
+export const DropDownMenu = ({links, triger}: Props) => {
   return (
-    <div className="relative inline-block text-left">
-      <DropdownMenuPrimitive.Root>
-        <DropdownMenuPrimitive.Trigger asChild>
-          <div className="cursor-pointer">{trigger}</div>
-        </DropdownMenuPrimitive.Trigger>
-
-        <DropdownMenuPrimitive.Content
-          align="end"
-          sideOffset={5}
-          className={cx(
-            'radix-side-top:animate-slide-up radix-side-bottom:animate-slide-down',
-            'rounded-lg px-1.5 py-1 shadow-md w-40',
-            'bg-white '
-          )}
-        >
-          {links.map(({label, icon, url}, i) => (
-            <DropdownMenuPrimitive.Item
-              key={`${label}-${i}`}
-              className={cx(
-                'flex w-full justify-between cursor-default select-none items-center rounded-md px-2 py-2 outline-none',
-                'text-gray-400 focus:bg-gray-50 '
-              )}
-            >
-              <NextLink href={url} className="flex w-full justify-between">
-                <span className="grow text-sm text-gray-700">{label}</span>
-                <span>{icon}</span>
-              </NextLink>
-            </DropdownMenuPrimitive.Item>
-          ))}
-        </DropdownMenuPrimitive.Content>
-      </DropdownMenuPrimitive.Root>
+    <div>
+      <Menu as="div" className="relative inline-block text-left">
+        {({open}) => (
+          <>
+            <Menu.Button className="inline-flex items-center justify-center">
+              {triger}
+              <IconChevronDown
+                className="ml-2 -mr-1 hidden h-5 w-5 text-primary1 hover:text-primary1/50 sm:block"
+                aria-hidden="true"
+              />
+            </Menu.Button>
+            {open && (
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="rounded-ld absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white py-2 px-3 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  {links.map((link, i) => (
+                    <Menu.Item key={i}>
+                      <NextLink
+                        href={link.url}
+                        className={cx(
+                          'flex justify-between  dark:text-gray-900 text-sm  py-2 px-1 hover:bg-gray-200/50 rounded-md'
+                        )}
+                      >
+                        <span>{link.label}</span>
+                        {link.icon}
+                      </NextLink>
+                    </Menu.Item>
+                  ))}
+                </Menu.Items>
+              </Transition>
+            )}
+          </>
+        )}
+      </Menu>
     </div>
   );
 };
-
-export default DropdownMenu;

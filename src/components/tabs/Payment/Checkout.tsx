@@ -118,10 +118,10 @@ const Logo = () => {
 
 export const CheckOut = () => {
   return (
-    <section className="grid max-w-[900px] gap-3 px-3 sm:grid-cols-[30%,70%]">
+    <section className="grid max-w-[900px] gap-3 px-3  dark:text-white sm:grid-cols-[30%,70%]">
       <div className="hidden flex-col items-center justify-center gap-3 rounded-lg border border-[#CFD9E0] sm:flex">
         <Logo />
-        <span className="text-3xl">StablePay</span>
+        <span className="text-3xl dark:text-white">StablePay</span>
       </div>
       <div className="h-full">
         <div className="flex h-[100px] items-center space-x-3 rounded-lg border border-[#CFD9E0] px-3">

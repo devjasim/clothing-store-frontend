@@ -28,7 +28,7 @@ export const Account = () => {
     <section>
       <div className="flex items-center space-x-3">
         <Avatar imgUrl="/assets/images/profile.png" />
-        <Button className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1">
+        <Button className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white">
           Change
         </Button>
       </div>

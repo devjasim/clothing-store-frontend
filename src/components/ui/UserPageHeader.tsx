@@ -5,10 +5,10 @@ import {Settings} from '~/constants/icons/Settings';
 import {useAuth} from '~/context/AuthContext';
 
 import {Avatar} from './Avatar';
-import DropdownMenu from './DropDownMenu';
+import {DropDownMenu} from './DropDownMenu';
 import {Logo} from './Logo';
 import {NextLink} from './NextLink';
-import {ToggleThemButton} from './ToggleButton';
+import {ToggleTheme} from './ToggleButton';
 
 const dropdownMenuItems = [
   {
@@ -28,19 +28,19 @@ export const Header = () => {
     auth: {userName},
   } = useAuth();
   return (
-    <div className="relative h-[80px] shadow">
+    <div className="relative h-[80px] shadow dark:shadow-[0px_1.99195px_3.98391px_rgba(255,255,255,0.25)]">
       <header className="mx-auto flex h-full max-w-[1400px] items-center justify-between  px-2 sm:px-5">
         <NextLink href="/" className="justify-self-start">
           <Logo />
         </NextLink>
         <div className="flex items-center sm:space-x-5">
-          <ToggleThemButton />
+          <ToggleTheme />
           <div className="flex items-center space-x-2">
             <span className="hidden sm:block">
               {userName || 'Elizabeth Ragnarock'}
             </span>
-            <DropdownMenu
-              trigger={<Avatar imgUrl="/assets/images/profile.png" />}
+            <DropDownMenu
+              triger={<Avatar imgUrl="/assets/images/profile.png" />}
               links={dropdownMenuItems}
             />
           </div>

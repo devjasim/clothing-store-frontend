@@ -45,14 +45,12 @@ export const SettingsTabs = () => {
               'group border border-gray-300 py-2.5',
               'rounded-md sm:rounded-none sm:rounded-t-md',
               'border-b first:border-r last:border-l',
-              'radix-state-active:border-gray-800 sm:radix-state-active:border-gray-400 sm:radix-state-active:border-b-[0] radix-state-active:text-primary1',
+              'radix-state-active:border-gray-800 radix-state-active:text-primary1 sm:radix-state-active:border-gray-400 sm:radix-state-active:border-b-[0]',
               'flex-1  px-2 sm:px-4 py-1.5'
             )}
           >
             <div className="flex items-center space-x-2">
-              <span className={cx('text-sm font-medium', 'text-gray-700 ')}>
-                {title}
-              </span>
+              <span className={cx('text-sm font-medium ')}>{title}</span>
             </div>
           </TabsPrimitive.Trigger>
         ))}
@@ -61,7 +59,7 @@ export const SettingsTabs = () => {
         <TabsPrimitive.Content
           key={`tab-content-${value}`}
           value={value}
-          className={cx('rounded-b-lg bg-white py-7')}
+          className={cx('rounded-b-lg bg-transparent py-7')}
         >
           {tab}
         </TabsPrimitive.Content>

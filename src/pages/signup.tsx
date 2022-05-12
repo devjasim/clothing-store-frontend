@@ -1,4 +1,4 @@
-import {NextPage} from 'next';
+import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
@@ -10,6 +10,9 @@ import {Button} from '~/ui/Button';
 import {CheckBox} from '~/ui/CheckBox';
 import {Logo} from '~/ui/Logo';
 import {PasswordField, TextField} from '~/ui/TextInput';
+import {ToggleTheme} from '~/ui/ToggleButton';
+
+import {UserPageLayout} from '../layouts';
 
 // const ERROR_MESSAGES = {
 //   firstName: {required: 'Please enter your first name'},
@@ -41,7 +44,7 @@ type FormData = {
   terms: boolean;
 };
 
-export const SignUpPage: NextPage = () => {
+export const SignUpPage: NextPageWithLayout = () => {
   const {setAuth} = useAuth();
   const router = useRouter();
   const {handleSubmit, control} = useForm<FormData>({
@@ -63,12 +66,12 @@ export const SignUpPage: NextPage = () => {
 
   return (
     <Main meta={<Meta title="StablePay Login" description="" />}>
-      <main className="mx-auto grid min-h-screen max-w-[1400px] gap-20 px-5 lg:grid-cols-[60%,30%]">
+      <main className="mx-auto grid min-h-screen max-w-[1400px] gap-20 px-5 dark:text-white lg:grid-cols-[60%,30%]">
         <section className="mb-10 grid  grid-rows-[100px,1fr]">
           <button onClick={() => router.push('/')}>
             <Logo width={200} height={90} />
           </button>
-          <div className="space-y-9">
+          <div className="flex flex-col space-y-9">
             <div className="flex flex-col items-center space-y-4">
               <h2 className="text-3xl font-[500]">Get started</h2>
               <p className="max-w-[50ch] text-center">
@@ -156,6 +159,10 @@ export const SignUpPage: NextPage = () => {
                 </div>
               </div>
             </form>
+            <div className="flex items-center space-x-5 self-center justify-self-center">
+              <span>Active dark mode</span>
+              <ToggleTheme />
+            </div>
           </div>
         </section>
         <section className="relative hidden h-full lg:block">
@@ -165,6 +172,10 @@ export const SignUpPage: NextPage = () => {
       </main>
     </Main>
   );
+};
+
+SignUpPage.getLayout = (page) => {
+  return <UserPageLayout header={false}>{page}</UserPageLayout>;
 };
 
 export default SignUpPage;

@@ -10,7 +10,7 @@ type Props = {
 
 export const PageLayout = ({children}: Props) => {
   return (
-    <div className="grid min-h-screen w-screen max-w-full grid-rows-[auto,1fr,auto]">
+    <div className="grid min-h-screen w-screen max-w-full grid-rows-[auto,1fr,auto] dark:bg-white">
       <Header />
       {children}
       <Footer />

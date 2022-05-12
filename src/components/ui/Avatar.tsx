@@ -10,7 +10,7 @@ export const Avatar = ({imgUrl}: Props) => {
       <img
         src={imgUrl}
         alt=""
-        className="min-h-[50px] min-w-[50px] rounded-full"
+        className="h-[40px] w-[40px] rounded-full 2xl:h-[50px] 2xl:w-[50px]"
       />
     </div>
   );

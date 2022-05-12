@@ -26,16 +26,16 @@ export const Invoice = () => {
   };
 
   return (
-    <section className="max-w-[900px] space-y-5">
+    <section className="max-w-[900px] space-y-5 dark:text-white">
       <div className="space-y-5 rounded-lg border border-gray-500/30 px-5 py-10">
-        <h2 className="text-3xl font-[500]">Customer Details</h2>
+        <h2 className="text-3xl  font-[500]">Customer Details</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col space-y-8">
             <div>
               <label className="space-y-2">
                 <span className="ml-1">Email</span>
                 <input
-                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] px-3"
+                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] bg-transparent px-3 dark:text-[#67728A]"
                   type="'email"
                   {...register('email', {required: true})}
                 />
@@ -49,7 +49,7 @@ export const Invoice = () => {
               <label className="space-y-2">
                 <span className="ml-1">Customer Name</span>
                 <input
-                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] px-3"
+                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] bg-transparent px-3 dark:text-[#67728A]"
                   type="text"
                   {...register('name', {required: true})}
                 />
@@ -63,7 +63,7 @@ export const Invoice = () => {
               <label className="space-y-2">
                 <span className="ml-1">Amount Requested</span>
                 <input
-                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] px-3"
+                  className="h-[40px] w-full rounded-lg border border-[#CFD9E0] bg-transparent px-3 dark:text-[#67728A]"
                   type="text"
                   {...register('amount', {required: true, min: 0})}
                 />
@@ -73,7 +73,7 @@ export const Invoice = () => {
             <label className="space-y-2">
               <span className="ml-1">Memo</span>
               <input
-                className="h-[40px] w-full rounded-lg border border-[#CFD9E0] px-3  placeholder:text-sm"
+                className="h-[40px] w-full rounded-lg border border-[#CFD9E0] bg-transparent px-3  placeholder:text-sm dark:text-[#67728A]"
                 type="text"
                 {...register('memo', {required: true})}
               />

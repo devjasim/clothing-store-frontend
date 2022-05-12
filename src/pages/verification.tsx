@@ -1,9 +1,12 @@
+import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import React from 'react';
 
 import {useAuth} from '~/context/AuthContext';
 import {Button} from '~/ui/Button';
 import {Logo} from '~/ui/Logo';
+
+import {UserPageLayout} from '../layouts';
 
 const hideGmail = (email: string) => {
   const [first, ...rest] = email.split('@');
@@ -22,7 +25,7 @@ const BoxField = () => {
   );
 };
 
-const VerificationPage = () => {
+const VerificationPage: NextPageWithLayout = () => {
   const router = useRouter();
   const {
     auth: {email},
@@ -84,6 +87,10 @@ const VerificationPage = () => {
       </section>
     </main>
   );
+};
+
+VerificationPage.getLayout = (page) => {
+  return <UserPageLayout header={false}>{page}</UserPageLayout>;
 };
 
 export default VerificationPage;
