@@ -26,8 +26,8 @@ const AuthProvider = ({children}: AuthProviderProps) => {
       value={{
         auth: {
           isAuthenticated,
-          username,
-          useremail,
+          userName: username,
+          email: useremail,
         },
         setAuth: handleLogin,
       }}

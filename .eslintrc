@@ -29,6 +29,7 @@
       },
       "rules": {
         "no-shadow": "off",
+        "no-shadow-restricted-names": "off",
         "no-restricted-syntax": "off",
         "prettier/prettier": [
           "error",

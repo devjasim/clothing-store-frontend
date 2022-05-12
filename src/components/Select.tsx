@@ -2,10 +2,10 @@ import {Listbox, Transition} from '@headlessui/react';
 import {IconCheck, IconSelector} from '@tabler/icons';
 import {Fragment, useState} from 'react';
 
-const people = [{name: 'USDT'}, {name: 'ETH'}, {name: 'BTC'}, {name: 'BNB'}];
+const coin = [{name: 'USDT'}, {name: 'ETH'}, {name: 'BTC'}, {name: 'BNB'}];
 
 export const Select = () => {
-  const [selected, setSelected] = useState(people[0]);
+  const [selected, setSelected] = useState(coin[0]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -26,7 +26,7 @@ export const Select = () => {
           leaveTo="opacity-0"
         >
           <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {people.map((person, personIdx) => (
+            {coin.map((person, personIdx) => (
               <Listbox.Option
                 key={personIdx}
                 className={({active}) =>
