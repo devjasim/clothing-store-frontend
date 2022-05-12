@@ -95,7 +95,7 @@ export const SignUpPage: NextPage = () => {
                     <Controller
                       control={control}
                       name="keepSignedIn"
-                      rules={{required: true}}
+                      rules={{required: false}}
                       render={({field}) => (
                         <CheckBox
                           checked={field.value}
