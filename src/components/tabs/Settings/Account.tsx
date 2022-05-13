@@ -27,7 +27,7 @@ export const Account = () => {
     },
   });
   const onSubmit = (data: FormData) => {
-    setAuth((state) => ({
+    setAuth((state: any) => ({
       ...state,
       email: data.email ? data.email : state?.email,
       firstName: data.firstName ? data.firstName : state?.firstName,
@@ -49,7 +49,7 @@ export const Account = () => {
               },
               // @ts-ignore
               ({source}) => {
-                setAuth((state) => ({...state, profile: source}));
+                setAuth((state: any) => ({...state, profile: source}));
               }
             );
           }}
