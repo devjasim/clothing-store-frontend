@@ -6,7 +6,6 @@ import {Bitcoin, Bnb, Usdt} from '~/constants/tables';
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
-import {TextField} from '~/ui/TextInput';
 
 const Logo = () => {
   return (
