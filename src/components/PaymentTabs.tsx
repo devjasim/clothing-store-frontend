@@ -55,13 +55,13 @@ export const PaymentTabs = () => {
               'group border-none max-w-max',
               'rounded-lg  hover:bg-[#22BABB12]',
               'border-b first:border-r last:border-l',
-              'radix-state-active:bg-[#22BABB22] radix-state-active:text-primary1',
+              'radix-state-active:bg-[#22BABB22]  radix-state-active:text-primary1',
               'flex-1 px-2 sm:px-4 py-1.5'
             )}
           >
             <div className="flex items-center space-x-2">
               {icon}
-              <span className="hidden text-sm font-medium text-gray-700 dark:text-primary1 md:block">
+              <span className="hidden text-sm font-medium text-gray-700 dark:text-white md:block">
                 {title}
               </span>
             </div>
