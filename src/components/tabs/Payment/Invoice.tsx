@@ -26,7 +26,7 @@ export const Invoice = () => {
   };
 
   return (
-    <section className="max-w-[900px] space-y-5 dark:text-white">
+    <section className="mx-auto max-w-[900px] space-y-5 dark:text-white">
       <div className="space-y-5 rounded-lg border border-gray-500/30 px-5 py-10">
         <h2 className="text-3xl  font-[500]">Customer Details</h2>
         <form onSubmit={handleSubmit(onSubmit)}>

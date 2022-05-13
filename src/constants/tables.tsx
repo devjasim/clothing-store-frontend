@@ -69,7 +69,7 @@ export const Bitcoin = () => {
   );
 };
 
-export const paymentData = [
+export const balanceData = [
   {
     col1: {
       title: 'USDT',
@@ -349,5 +349,365 @@ export const paymentData = [
       priceInCoin: '69.5USDT',
       priceInDollar: '$99.9',
     },
+  },
+];
+
+export const paymentData = [
+  {
+    date: {
+      day: 'April 24th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Fredrick)',
+    },
+    status: 'Completed',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Completed',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Overpaid',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Overpaid',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
+  },
+  {
+    date: {
+      day: 'April 23th 202',
+      time: '1:23PM PST',
+    },
+    product: {
+      title: 'Balance Recharge',
+      subTitle: '(Chidubem)',
+    },
+    status: 'Rejected',
+    customer: 'Customer',
+    amount: {
+      inCoin: '0.0000045BTC',
+      inUSD: '$1.00',
+    },
+    action: 'refund',
   },
 ];

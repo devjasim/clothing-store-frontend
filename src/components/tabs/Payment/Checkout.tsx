@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 
+import {Qrcode} from '~/components/Qrcode';
 import {Bitcoin, Bnb, Usdt} from '~/constants/tables';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
@@ -117,56 +118,73 @@ const Logo = () => {
 };
 
 export const CheckOut = () => {
+  const [checkout, setCheckout] = useState(false);
   return (
-    <section className="grid max-w-[900px] gap-3 px-3  dark:text-white sm:grid-cols-[30%,70%]">
-      <div className="hidden flex-col items-center justify-center gap-3 rounded-lg border border-[#CFD9E0] sm:flex">
-        <Logo />
-        <span className="text-3xl dark:text-white">StablePay</span>
-      </div>
-      <div className="h-full">
-        <div className="flex h-[100px] items-center space-x-3 rounded-lg border border-[#CFD9E0] px-3">
-          <Avatar imgUrl="/assets/images/user.png" />
-          <div>
-            <h2 className="text-lg font-[500]">Patrick Enide</h2>
-            <span className="relative -top-1 text-sm text-gray-500">
-              Patrick@gmail.com
-            </span>
-          </div>
-        </div>
-        <div className="space-y-6">
-          <div className="mt-10 space-y-7">
-            <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
-              <span className="text-2xl font-[500]">Payment Method</span>
-              <span className="text-primary1">59sec</span>
+    <div>
+      {!checkout ? (
+        <section className="mx-auto grid max-w-[900px] gap-3 px-3  dark:text-white sm:grid-cols-[30%,70%]">
+          <>
+            <div className="hidden flex-col items-center justify-center gap-3 rounded-lg border border-[#CFD9E0] sm:flex">
+              <Logo />
+              <span className="text-3xl dark:text-white">StablePay</span>
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
-              <span className="text-2xl font-[500]">Total</span>
-              <span className="text-sm font-[500] text-gray-500">$120,00</span>
+            <div className="h-full">
+              <div className="flex h-[100px] items-center space-x-3 rounded-lg border border-[#CFD9E0] px-3">
+                <Avatar imgUrl="/assets/images/user.png" />
+                <div>
+                  <h2 className="text-lg font-[500]">Patrick Enide</h2>
+                  <span className="relative -top-1 text-sm text-gray-500">
+                    Patrick@gmail.com
+                  </span>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="mt-10 space-y-7">
+                  <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
+                    <span className="text-2xl font-[500]">Payment Method</span>
+                    <span className="text-primary1">59sec</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
+                    <span className="text-2xl font-[500]">Total</span>
+                    <span className="text-sm font-[500] text-gray-500">
+                      $120,00
+                    </span>
+                  </div>
+                  <span className="text-sm text-gray-600">
+                    Express Checkout
+                  </span>
+                </div>
+                <Button
+                  variant="primary"
+                  className="h-[50px] w-full rounded-[20px]"
+                  onClick={() => setCheckout(true)}
+                >
+                  Pay with Stable Pay
+                </Button>
+                <p className="text-sm text-gray-600">
+                  or select a cryptocurrency to pay with another wallet
+                </p>
+                <div className="flex w-full flex-wrap gap-3">
+                  <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
+                    <Bnb />
+                    BNB
+                  </Button>
+                  <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
+                    <Bitcoin />
+                    BTC
+                  </Button>
+                  <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
+                    <Usdt />
+                    USDT
+                  </Button>
+                </div>
+              </div>
             </div>
-            <span className="text-sm text-gray-600">Express Checkout</span>
-          </div>
-          <Button variant="primary" className="h-[50px] w-full rounded-[20px]">
-            Pay with Stable Pay
-          </Button>
-          <p className="text-sm text-gray-600">
-            or select a cryptocurrency to pay with another wallet
-          </p>
-          <div className="flex w-full flex-wrap gap-3">
-            <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
-              <Bnb />
-              BNB
-            </Button>
-            <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
-              <Bitcoin />
-              BTC
-            </Button>
-            <Button className="flex h-[45px] min-w-[150px] grow items-center justify-center gap-3 rounded-2xl border border-gray-300">
-              <Usdt />
-              USDT
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
+          </>
+        </section>
+      ) : (
+        <Qrcode />
+      )}
+    </div>
   );
 };

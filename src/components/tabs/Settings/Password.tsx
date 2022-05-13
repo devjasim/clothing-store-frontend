@@ -26,7 +26,7 @@ export const Password = () => {
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-5 max-w-[530px] space-y-5">
+        <div className="mt-10 max-w-[530px] space-y-5">
           <Controller
             control={control}
             name="oldpassword"

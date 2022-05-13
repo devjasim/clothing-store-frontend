@@ -5,6 +5,7 @@ export * from './Bussiness';
 export * from './Cash';
 export * from './Checkout';
 export * from './conversion';
+export * from './Copy';
 export * from './Eye';
 export * from './glob';
 export * from './Gmail';

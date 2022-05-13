@@ -3,85 +3,125 @@ import React, {useMemo, useState} from 'react';
 import cx from 'classnames';
 import {useGridLayout, usePagination, useTable} from 'react-table';
 
-import {balanceData} from '~/constants/tables';
+import {paymentData} from '~/constants/tables';
 
 import {NextLink} from './ui/NextLink';
-import {Alert} from '~/constants/icons';
 
 type Data = {
-  col1: {
+  date: {
+    day: string;
+    time: string;
+  };
+  product: {
     title: string;
-    icon: JSX.Element;
+    subTitle: string;
   };
-  col2: {
-    priceInCoin: string;
-    priceInDollar: string;
+  status: string;
+  customer: string;
+  amount: {
+    inCoin: string;
+    inUSD: string;
   };
+  action: string;
 };
 
-const Col1 = (row: any) => {
+const Product = (row: any) => {
   return (
-    <div className="flex items-center space-x-2">
-      <span>{row.value.icon}</span>
+    <div className="flex flex-col text-right space-x-2">
       <span>{row.value.title}</span>
+      <span className="text-sm">{row.value.subTitle}</span>
     </div>
   );
 };
 
-const Col2 = (row: any) => {
+const Status = (row: any) => {
   return (
-    <div className="flex flex-col justify-start">
-      <div className="flex  items-center space-x-2">
-        <Alert />
-        <span className='ml-2'>{row.value.priceInCoin}</span>
-      </div>
-      <span className="text-primary1 text-sm">{row.value.priceInDollar}</span>
+    <div className="flex items-center space-x-2">
+      <svg
+        width="8"
+        height="8"
+        viewBox="0 0 8 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="mt-1"
+      >
+        <circle
+          cx="4"
+          cy="4"
+          r="4"
+          fill="#229E02"
+          className={cx({
+            'fill-red-500': row.value === 'Rejected',
+            'fill-[#229E02]': row.value === 'Completed',
+            'fill-orange-500': row.value === 'Overpaid',
+          })}
+        />
+      </svg>
+      <span>{row.value}</span>
+    </div>
+  );
+};
+
+const Date = (row: any) => {
+  return (
+    <div className="flex md:flex-col space-x-2 space-y-1  justify-start">
+      <div className="flex items-center space-x-2">{row.value.day}</div>
+      <span className="text-primary1 text-sm">{row.value.time}</span>
+    </div>
+  );
+};
+
+const Amount = (row: any) => {
+  return (
+    <div className="flex flex-col text-right">
+      <span>{row.value.inCoin}</span>
+      <span className="text-gray-700 text-sm">{row.value.inUSD}</span>
     </div>
   );
 };
 
 const Action = () => {
   return (
-    <div className="flex items-center space-x-2">
-      <NextLink href="#" className="flex items-center space-x-2">
-        <span>WithDraw</span>
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="mt-2"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M3.22363 4.51105C3.22363 3.78796 3.80981 3.20178 4.5329 3.20178H8.64776C8.95766 3.20178 9.20888 3.453 9.20888 3.7629C9.20888 4.07279 8.95766 4.32402 8.64776 4.32402H4.5329C4.42961 4.32402 4.34587 4.40776 4.34587 4.51105V13.4889C4.34587 13.5922 4.42961 13.676 4.5329 13.676H13.5108C13.6141 13.676 13.6978 13.5922 13.6978 13.4889V9.37406C13.6978 9.06417 13.949 8.81295 14.2589 8.81295C14.5688 8.81295 14.82 9.06417 14.82 9.37406V13.4889C14.82 14.212 14.2339 14.7982 13.5108 14.7982H4.5329C3.80981 14.7982 3.22363 14.212 3.22363 13.4889V4.51105ZM10.3311 3.7629C10.3311 3.453 10.5823 3.20178 10.8922 3.20178H14.2589C14.5688 3.20178 14.82 3.453 14.82 3.7629V7.1296C14.82 7.43949 14.5688 7.69071 14.2589 7.69071C13.949 7.69071 13.6978 7.43949 13.6978 7.1296V5.11755L7.9223 10.8931C7.70317 11.1122 7.34789 11.1122 7.12876 10.8931C6.90963 10.6739 6.90963 10.3187 7.12876 10.0995L12.9043 4.32402H10.8922C10.5823 4.32402 10.3311 4.07279 10.3311 3.7629Z"
-            fill="#348888"
-          />
-        </svg>
+    <div className="space-x-2 text-center">
+      <NextLink href="#" className="text-primary1">
+        refund
       </NextLink>
     </div>
   );
 };
 
-export const BalanceTable = () => {
-  const [datalist] = useState(balanceData);
+export const PaymentTable = () => {
+  const [datalist] = useState(paymentData);
   const memoizedData = React.useMemo((): Data[] => [...datalist], [datalist]);
   const memoizedColumns = useMemo(
     () => [
       {
-        Header: 'Name',
-        accessor: 'col1',
-        Cell: Col1,
+        Header: 'Date',
+        accessor: 'date',
+        Cell: Date,
       },
       {
-        Header: 'Balance',
-        accessor: 'col2',
-        Cell: Col2,
+        Header: 'Product',
+        accessor: 'product',
+        Cell: Product,
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: Status,
+      },
+      {
+        Header: 'Customer',
+        accessor: 'customer',
+      },
+      {
+        Header: 'Amount',
+        accessor: 'amount',
+        Cell: Amount,
       },
       {
         Header: 'Action',
+        accessor: 'action',
         Cell: Action,
       },
     ],
@@ -116,7 +156,7 @@ export const BalanceTable = () => {
     state: {pageIndex},
   } = tableInstance;
   return (
-    <div className="mt-2 flex flex-col">
+    <div>
       <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="">
@@ -127,11 +167,11 @@ export const BalanceTable = () => {
                 },
               })}
             >
-              <thead className="bg-transparent  border">
+              <thead className="bg-transparent hidden md:block shrink-0 border">
                 {headerGroups.map((headerGroup) => (
                   <tr
                     {...headerGroup.getHeaderGroupProps()}
-                    className="grid gap-1 grid-cols-3 md:grid-cols-[20%,1fr,20%] items-center h-[60px]"
+                    className="grid gap-1 grid-cols-6 shrink-0 items-center h-[60px]"
                   >
                     {headerGroup.headers.map((column, i) => (
                       <th
@@ -150,30 +190,49 @@ export const BalanceTable = () => {
                   </tr>
                 ))}
               </thead>
-              <tbody {...getTableBodyProps()} className="grid space-y-6 mt-5">
+              <tbody
+                {...getTableBodyProps()}
+                className="grid shrink-0 space-y-6 mt-5"
+              >
                 {page.map((row) => {
                   prepareRow(row);
                   return (
                     <tr
                       {...row.getRowProps()}
-                      className="grid grid-cols-3 md:grid-cols-[20%,1fr,20%] border h-[60px] items-center"
+                      className="md:grid flex justify-between md:grid-cols-1 py-3 shrink-0 border items-center"
                     >
-                      {row.cells.map((cell, i) => {
-                        return (
-                          <td
-                            {...cell.getCellProps()}
-                            className={cx(
-                              'px-2 sm:px-6 py-1 text-sm sm:text-[16px] whitespace-nowrap',
-                              {
-                                'justify-self-end text-right':
-                                  i === 1 || i === 2,
-                              }
-                            )}
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        );
-                      })}
+                      <div className="flex md:hidden flex-col gap-3">
+                        {headerGroups.map((headerGroup) =>
+                          headerGroup.headers.map((column, i) => (
+                            <td
+                              key={i}
+                              className={cx(
+                                'px-2 sm:px-6 py-3 font-semibold text-xs text-gray-800 dark:text-white uppercase tracking-wider'
+                              )}
+                            >
+                              {column.render('Header')}
+                            </td>
+                          ))
+                        )}
+                      </div>
+                      <div className="grid justify-items-end md:grid-cols-6 gap-4">
+                        {row.cells.map((cell, i) => {
+                          return (
+                            <td
+                              {...cell.getCellProps()}
+                              className={cx(
+                                'px-2 sm:px-6 py-1 text-sm sm:text-[16px] whitespace-nowrap',
+                                {
+                                  'justify-self-end text-right':
+                                    i === 1 || i === 2,
+                                }
+                              )}
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
+                        })}
+                      </div>
                     </tr>
                   );
                 })}

@@ -4,7 +4,7 @@ import {Switch} from '~/ui/Switch';
 
 export const Security = () => {
   return (
-    <section className="dark:text-white">
+    <section className=" mt-10 dark:text-white">
       <div className="max-w-[601px] space-y-5">
         <h2 className="border-b">2-step verification</h2>
         <div>

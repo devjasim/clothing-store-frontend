@@ -72,7 +72,7 @@ export const PaymentTabs = () => {
         <TabsPrimitive.Content
           key={`tab-content-${value}`}
           value={value}
-          className="rounded-b-lg py-7"
+          className="mt-5 rounded-b-lg py-7"
         >
           {tab}
         </TabsPrimitive.Content>

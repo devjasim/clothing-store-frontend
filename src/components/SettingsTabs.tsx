@@ -35,8 +35,8 @@ const tabs: Tab[] = [
 
 export const SettingsTabs = () => {
   return (
-    <TabsPrimitive.Root defaultValue="tab1">
-      <TabsPrimitive.List className="grid max-w-[500px] grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-0">
+    <TabsPrimitive.Root defaultValue="tab1" className="mx-auto max-w-[700px]">
+      <TabsPrimitive.List className="mx-auto  grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-0">
         {tabs.map(({title, value}) => (
           <TabsPrimitive.Trigger
             key={`tab-trigger-${value}`}

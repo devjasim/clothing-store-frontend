@@ -25,15 +25,15 @@ export const Account = () => {
     console.log(data);
   };
   return (
-    <section>
-      <div className="flex items-center space-x-3">
+    <section className="mx-auto mt-10">
+      <div className="mx-auto flex items-center space-x-3">
         <Avatar imgUrl="/assets/images/profile.png" />
         <Button className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white">
           Change
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-10 max-w-[530px] space-y-5">
+        <div className="mt-10  space-y-5">
           <div className="flex flex-col gap-3 sm:flex-row">
             <Controller
               control={control}

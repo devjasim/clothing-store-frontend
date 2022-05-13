@@ -6,22 +6,31 @@ import {Switch} from '~/ui/Switch';
 
 const SwitchGroup = () => {
   return (
-    <div className="grid gap-2">
-      <div className="grid grid-cols-2 gap-3">
+    <div className="grid w-full  gap-2 pl-10">
+      <div className="grid w-full grid-cols-2  gap-9">
         <span>ERC20</span>
-        <Switch className="bg-[#5A657C]" />
+        <div className="justify-self-end">
+          <Switch className="bg-[#5A657C]" />
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-9">
         <span>TRC20</span>
-        <Switch className="bg-primary1" />
+        <div className="justify-self-end">
+          <Switch className="bg-primary1" />
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-9">
         <span>SOL</span>
-        <Switch className="bg-[#5A657C]" />
+        <div className="justify-self-end">
+          <Switch className="bg-[#5A657C]" />
+        </div>
       </div>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-9">
         <span>BSC</span>
-        <Switch className="bg-primary1" />
+
+        <div className="justify-self-end">
+          <Switch className="bg-primary1" />
+        </div>
       </div>
     </div>
   );
@@ -85,7 +94,7 @@ const Udsc = () => {
 export const Crypto = () => {
   const [query, setQuery] = useState('');
   return (
-    <section className="max-w-[700px] space-y-3 dark:text-white">
+    <section className="mt-10 max-w-[700px] space-y-3 dark:text-white">
       <div className="max-w-[601px] space-y-5">
         <h2 className="border-b">Enable Crypto Currencies</h2>
         <div>
@@ -107,32 +116,38 @@ export const Crypto = () => {
         />
       </div>
       <div className="flex flex-col items-center justify-between gap-10 rounded-lg border border-[#CFD9E0] p-3 sm:flex-row sm:gap-0">
-        <div className="flex items-center space-x-3">
-          <Usdt />
-          <span>USDT</span>
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Usdt />
+            <span>USDT</span>
+          </div>
+          <Switch className="bg-primary1" />
         </div>
-        <Switch className="bg-primary1" />
-        <div className="border-none border-[#CFD9E0] pl-10 sm:border-l">
+        <div className="mx-auto w-full border-none border-[#CFD9E0] sm:w-max  sm:border-l">
           <SwitchGroup />
         </div>
       </div>
       <div className="flex flex-col items-center justify-between gap-10 rounded-lg border border-[#CFD9E0] p-3 sm:flex-row sm:gap-0">
-        <div className="flex items-center space-x-3">
-          <Udsc />
-          <span>USDC</span>
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Udsc />
+            <span>USDC</span>
+          </div>
+          <Switch className="bg-primary1" />
         </div>
-        <Switch className="bg-primary1" />
-        <div className="border-none border-[#CFD9E0] pl-10 sm:border-l">
+        <div className="mx-auto w-full border-none border-[#CFD9E0]  sm:w-max sm:border-l">
           <SwitchGroup />
         </div>
       </div>
       <div className="flex flex-col items-center justify-between gap-10 rounded-lg border border-[#CFD9E0] p-3 sm:flex-row sm:gap-0">
-        <div className="flex  items-center space-x-3">
-          <Busd />
-          <span>BUSD</span>
+        <div className="flex w-full items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Busd />
+            <span>BUSD</span>
+          </div>
+          <Switch className="bg-primary1" />
         </div>
-        <Switch className="bg-primary1" />
-        <div className="border-none border-[#CFD9E0] pl-10 sm:border-l">
+        <div className="mx-auto w-full border-none border-[#CFD9E0] sm:w-max sm:border-l">
           <SwitchGroup />
         </div>
       </div>
