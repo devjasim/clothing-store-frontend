@@ -45,7 +45,7 @@ export const SettingsTabs = () => {
               'group border border-gray-300 py-2.5',
               'rounded-md sm:rounded-none sm:rounded-t-md',
               'border-b first:border-r last:border-l',
-              'radix-state-active:border-gray-800 radix-state-active:text-primary1 sm:radix-state-active:border-gray-400 sm:radix-state-active:border-b-[0]',
+              'radix-state-active:border-gray-800 dark:text-white radix-state-active:text-primary1 sm:radix-state-active:border-gray-400 sm:radix-state-active:border-b-[0]',
               'flex-1  px-2 sm:px-4 py-1.5'
             )}
           >

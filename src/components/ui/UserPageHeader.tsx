@@ -1,3 +1,4 @@
+import {IconDashboard} from '@tabler/icons';
 import React from 'react';
 
 import {Logout} from '~/constants/icons/Logout';
@@ -15,6 +16,11 @@ const dropdownMenuItems = [
     label: 'Settings',
     icon: <Settings />,
     url: '/settings',
+  },
+  {
+    label: 'Dashboard',
+    icon: <IconDashboard className="w-[25px] stroke-gray-600" />,
+    url: '/dashboard',
   },
   {
     label: 'Logout',
