@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
+import Countdown from 'react-countdown';
 
 import {Qrcode} from '~/components/Qrcode';
 import {Bitcoin, Bnb, Usdt} from '~/constants/tables';
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
+import {TextField} from '~/ui/TextInput';
 
 const Logo = () => {
   return (
@@ -120,6 +122,7 @@ const Logo = () => {
 
 export const CheckOut = () => {
   const [checkout, setCheckout] = useState(false);
+  const [amount, setAmount] = useState<string>('120');
   // @ts-ignore
   const [auth] = useAuth();
   return (
@@ -145,13 +148,22 @@ export const CheckOut = () => {
                 <div className="mt-10 space-y-7">
                   <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
                     <span className="text-2xl font-[500]">Payment Method</span>
-                    <span className="text-primary1">59sec</span>
+                    <span className="text-primary1">
+                      <Countdown
+                        date={Date.now() + 50000}
+                        renderer={(props) => <span>{props.seconds} sec</span>}
+                      />
+                    </span>
                   </div>
                   <div className="flex items-center justify-between rounded-lg border border-gray-300 py-1.5 px-3">
                     <span className="text-2xl font-[500]">Total</span>
-                    <span className="text-sm font-[500] text-gray-500">
-                      $120,00
-                    </span>
+                    <input
+                      type="text"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      defaultValue="$120"
+                      className="bg-transparent w-[100px] text-right"
+                    />
                   </div>
                   <span className="text-sm text-gray-600">
                     Express Checkout
@@ -186,7 +198,7 @@ export const CheckOut = () => {
           </>
         </section>
       ) : (
-        <Qrcode />
+        <Qrcode amount={amount} />
       )}
     </div>
   );
