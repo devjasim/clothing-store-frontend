@@ -6,4 +6,3 @@ export type FormData = {
   confirmPassword: string;
   terms: boolean;
 };
-
