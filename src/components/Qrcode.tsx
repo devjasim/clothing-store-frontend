@@ -7,7 +7,7 @@ import {Copy} from '~/constants/icons';
 
 import {Button} from './ui/Button';
 
-export const Qrcode = ({amount} : {amount : string}) => {
+export const Qrcode = ({amount}: {amount: string}) => {
   const router = useRouter();
   return (
     <div className="mx-auto max-w-[650px] space-y-4 dark:text-white">
