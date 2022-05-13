@@ -3,6 +3,7 @@ import cx from 'classnames';
 import React from 'react';
 
 type Props = React.ComponentPropsWithoutRef<'input'>;
+
 export const Searchfield = ({className, ...rest}: Props) => {
   return (
     <div>

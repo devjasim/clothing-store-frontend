@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
+import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
 import {Button} from '~/ui/Button';
@@ -13,27 +14,6 @@ import {ToggleTheme} from '~/ui/ToggleButton';
 
 import {UserPageLayout} from '../layouts';
 
-// const ERROR_MESSAGES = {
-//   firstName: {required: 'Please enter your first name'},
-//   lastName: {required: 'Please enter your last name'},
-//   email: {
-//     required: 'Please enter your email',
-//     pattern: 'Please enter a valid email',
-//   },
-//   password: {
-//     required: 'Please enter your password',
-//     pattern: 'Please enter a valid password',
-//   },
-//   confirmPassword: {
-//     required: 'Please confirm your password',
-//     pattern: 'Please enter a valid password',
-//     match: 'Passwords do not match',
-//   },
-//   terms: {
-//     required: 'You must accept the terms and conditions',
-//   },
-// };
-
 type FormData = {
   email: string;
   password: string;
@@ -42,6 +22,8 @@ type FormData = {
 
 export const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
+  // @ts-ignore
+  const [auth] = useAuth();
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
       email: '',
@@ -51,10 +33,11 @@ export const LoginPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    const email = 'test@test.com';
-    const password = 'test123';
-    if (data.email === email && data.password === password) {
+    console.log(auth);
+    if (data.email === auth?.email && data.password === auth?.password) {
       router.push('/dashboard');
+    } else {
+      router.push('/signup');
     }
   };
 

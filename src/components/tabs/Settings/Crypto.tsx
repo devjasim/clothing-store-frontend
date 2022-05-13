@@ -99,7 +99,7 @@ export const Crypto = () => {
         <h2 className="border-b">Enable Crypto Currencies</h2>
         <div>
           <p className="text-sm font-[500]">
-            SelectCryptocurrency which you can send or recieve
+            Select Cryptocurrency which you can send or recieve
           </p>
           <p className="text-sm">
             Your Crypto enablement and disblement method is valid across all

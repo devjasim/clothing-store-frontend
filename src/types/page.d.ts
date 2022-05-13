@@ -21,3 +21,11 @@ declare module 'next' {
     getLayout: (component: NextComponentType) => JSX.Element;
   };
 }
+
+declare module 'use-persisted-state' {
+  function createPersistedState<T>(
+    key: string,
+    storage?: Storage
+  ): (initialState: T) => [T, React.Dispatch<React.SetStateAction<T>>];
+  export = createPersistedState;
+}

@@ -1,6 +1,7 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import React from 'react';
+import Countdown from 'react-countdown';
 
 import {useAuth} from '~/context/AuthContext';
 import {Button} from '~/ui/Button';
@@ -17,7 +18,7 @@ const BoxField = () => {
   return (
     <>
       <input
-        className="h-[40px] w-[40px] rounded-md border border-[#CFD9E0] text-center shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)] sm:h-[50px]  sm:w-[50px]"
+        className="h-[40px] w-[40px] rounded-md border border-[#CFD9E0] bg-transparent text-center shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)] sm:h-[50px]  sm:w-[50px]"
         max={1}
         placeholder="-"
       />
@@ -31,12 +32,13 @@ const VerificationPage: NextPageWithLayout = () => {
     auth: {email},
   } = useAuth();
 
-  const onSubmit = () => {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     router.push('/dashboard');
   };
 
   return (
-    <main className="mx-auto grid min-h-screen max-w-[1400px] gap-20 px-5 lg:grid-cols-[60%,30%]">
+    <main className="mx-auto grid min-h-screen w-full max-w-[1400px] gap-20 px-5 lg:grid-cols-[60%,30%]">
       <section>
         <button onClick={() => router.push('/')}>
           <Logo width={200} height={90} />
@@ -60,16 +62,22 @@ const VerificationPage: NextPageWithLayout = () => {
               <BoxField />
               <BoxField />
             </div>
-            <p className="mx-auto mt-5 text-center text-primary1">
-              Resend Code in 59
-            </p>
+            <div className="mx-auto  mt-5 text-center text-primary1">
+              <span className="mr-1">Resend Code in</span>
+              <Countdown
+                date={Date.now() + 59000}
+                renderer={(props) => {
+                  return <span>{props.seconds}</span>;
+                }}
+              />
+            </div>
             <div className="space-y-[30px] pt-7">
               <Button
                 variant="primary"
                 className="h-[50px] w-full rounded-3xl"
                 type="submit"
               >
-                Sign up
+                Verify Code
               </Button>
               <Button
                 type="button"

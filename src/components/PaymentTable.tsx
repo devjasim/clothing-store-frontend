@@ -1,11 +1,16 @@
 /* eslint-disable */
-import React, {useMemo, useState} from 'react';
+import React, {useMemo} from 'react';
 import cx from 'classnames';
-import {useGridLayout, usePagination, useTable} from 'react-table';
-
-import {paymentData} from '~/constants/tables';
+import {
+  useGlobalFilter,
+  useGridLayout,
+  usePagination,
+  useTable,
+} from 'react-table';
 
 import {NextLink} from './ui/NextLink';
+import {PageSizeSelect} from './PageSize';
+import {Searchfield} from './ui/Searchfield';
 
 type Data = {
   date: {
@@ -25,11 +30,11 @@ type Data = {
   action: string;
 };
 
-const Product = (row: any) => {
+const Product = ({row}: {row: any}) => {
   return (
     <div className="flex flex-col text-right space-x-2">
-      <span>{row.value.title}</span>
-      <span className="text-sm">{row.value.subTitle}</span>
+      <span>{row.original.product.title}</span>
+      <span className="text-sm">{row.original.product.subTitle}</span>
     </div>
   );
 };
@@ -62,20 +67,20 @@ const Status = (row: any) => {
   );
 };
 
-const Date = (row: any) => {
+const Date = ({row}: {row: any}) => {
   return (
     <div className="flex md:flex-col space-x-2 space-y-1  justify-start">
-      <div className="flex items-center space-x-2">{row.value.day}</div>
-      <span className="text-primary1 text-sm">{row.value.time}</span>
+      <div className="flex items-center space-x-2">{row.original.date.day}</div>
+      <span className="text-primary1 text-sm">{row.original.date.time}</span>
     </div>
   );
 };
 
-const Amount = (row: any) => {
+const Amount = ({row}: {row: any}) => {
   return (
     <div className="flex flex-col text-right">
-      <span>{row.value.inCoin}</span>
-      <span className="text-gray-700 text-sm">{row.value.inUSD}</span>
+      <span>{row.original.amount.inCoin}</span>
+      <span className="text-gray-700 text-sm">{row.original.amount.inUSD}</span>
     </div>
   );
 };
@@ -90,19 +95,22 @@ const Action = () => {
   );
 };
 
-export const PaymentTable = () => {
-  const [datalist] = useState(paymentData);
-  const memoizedData = React.useMemo((): Data[] => [...datalist], [datalist]);
+type PaymentTableProps = {
+  data: any;
+};
+
+export const PaymentTable = ({data}: PaymentTableProps) => {
+  const memoizedData = React.useMemo((): Data[] => [...data], [data]);
   const memoizedColumns = useMemo(
     () => [
       {
         Header: 'Date',
-        accessor: 'date',
+        accessor: (row: any) => row.date.day,
         Cell: Date,
       },
       {
         Header: 'Product',
-        accessor: 'product',
+        accessor: (row: any) => row.product.title,
         Cell: Product,
       },
       {
@@ -116,7 +124,8 @@ export const PaymentTable = () => {
       },
       {
         Header: 'Amount',
-        accessor: 'amount',
+        sortType: 'basic',
+        accessor: (row: any) => row.amount.inCoin,
         Cell: Amount,
       },
       {
@@ -132,12 +141,14 @@ export const PaymentTable = () => {
       // @ts-ignore
       columns: memoizedColumns,
       data: memoizedData,
+      autoResetPage: false,
       initialState: {
         pageIndex: 1,
-        pageSize: 4,
+        pageSize: 6,
       },
     },
     useGridLayout,
+    useGlobalFilter,
     usePagination
   );
   const {
@@ -153,10 +164,24 @@ export const PaymentTable = () => {
     gotoPage,
     nextPage,
     previousPage,
-    state: {pageIndex},
+    setPageSize,
+    // @ts-ignore
+    state: {pageIndex, globalFilter},
+    setGlobalFilter,
   } = tableInstance;
   return (
-    <div>
+    <>
+      <div className="grid min-h-[130px] w-full items-center border border-gray-500/30 p-3 dark:border-white sm:flex-row">
+        <div className="mx-auto w-[80%]">
+          <Searchfield
+            value={globalFilter || ''}
+            onChange={(e) => {
+              gotoPage(0);
+              setGlobalFilter(e.target.value || undefined);
+            }}
+          />
+        </div>
+      </div>
       <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="">
@@ -242,47 +267,56 @@ export const PaymentTable = () => {
         </div>
       </div>
       <div className="w-full mt-2 items-center flex flex-col sm:flex-row gap-3 justify-between">
-        <span className="text-sm dark:text-gray-700">
-          Showing Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>
-        </span>
-        <div className="flex">
-          <button
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-            className="border border-[#DEE2E6] rounded-l-md text-primary1 py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => gotoPage(0)}
-            className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
-          >
-            1
-          </button>
-          <button
-            onClick={() => gotoPage(2)}
-            className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
-          >
-            2
-          </button>
-          <button
-            onClick={() => gotoPage(pageCount - 1)}
-            className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
-          >
-            {pageCount}
-          </button>
-          <button
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-            className="border border-[#DEE2E6] rounded-r-md text-primary1 py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
-          >
-            Next
-          </button>
+        <div className="flex items-center space-x-3">
+          <PageSizeSelect setPageSize={setPageSize} />
+          <span className="text-sm dark:text-gray-700">
+            Showing Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>
+          </span>
+        </div>
+        <div className='flex items-center space-x-2'>
+          <div className="flex">
+            <button
+              onClick={() => previousPage()}
+              disabled={!canPreviousPage}
+              className="border border-[#DEE2E6] rounded-l-md text-primary1 py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
+            >
+              Prev
+            </button>
+            <button
+              onClick={() => gotoPage(0)}
+              className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
+            >
+              1
+            </button>
+            {pageCount !== 1 && pageCount !== 0 && (
+              <button
+                onClick={() => gotoPage(1)}
+                className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
+              >
+                2
+              </button>
+            )}
+            {pageCount !== 2 && pageCount !== 1 && pageCount !== 0 && (
+              <button
+                onClick={() => gotoPage(pageCount - 1)}
+                className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
+              >
+                {pageCount}
+              </button>
+            )}
+            <button
+              onClick={() => nextPage()}
+              disabled={!canNextPage}
+              className="border border-[#DEE2E6] rounded-r-md text-primary1 py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

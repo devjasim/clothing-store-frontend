@@ -695,7 +695,7 @@ export const paymentData = [
   },
   {
     date: {
-      day: 'April 23th 202',
+      day: 'April 24th 202',
       time: '1:23PM PST',
     },
     product: {

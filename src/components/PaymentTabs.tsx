@@ -44,7 +44,7 @@ export const PaymentTabs = () => {
     <TabsPrimitive.Root defaultValue="tab1">
       <TabsPrimitive.List
         className={cx(
-          'grid grid-cols-2 justify-items-center gap-2 sm:grid-cols-4 w-full rounded-t-lg max-w-[690px] mx-auto'
+          'grid justify-items-center gap-2 grid-cols-4 w-full rounded-t-lg max-w-[690px] mx-auto'
         )}
       >
         {tabs.map(({title, value, icon}) => (
@@ -55,13 +55,13 @@ export const PaymentTabs = () => {
               'group border-none max-w-max',
               'rounded-lg  hover:bg-[#22BABB12]',
               'border-b first:border-r last:border-l',
-              'radix-state-active:bg-[#22BABB52] radix-state-active:text-primary1',
-              'flex-1  px-2 sm:px-4 py-1.5'
+              'radix-state-active:bg-[#22BABB22] radix-state-active:text-primary1',
+              'flex-1 px-2 sm:px-4 py-1.5'
             )}
           >
             <div className="flex items-center space-x-2">
               {icon}
-              <span className="text-sm font-medium text-gray-700 dark:text-primary1">
+              <span className="text-sm hidden md:block font-medium text-gray-700 dark:text-primary1">
                 {title}
               </span>
             </div>

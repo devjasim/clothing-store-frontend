@@ -42,7 +42,7 @@ type Props = React.ComponentProps<'input'> & {
 
 export const TextField = React.forwardRef<HTMLInputElement, Props>(
   (props, ref) => {
-    const {className, variant, ...rest} = props;
+    const {className, variant, defaultValue, ...rest} = props;
     const {icon, type, placeholder} = variants[variant];
     return (
       <div
@@ -59,6 +59,7 @@ export const TextField = React.forwardRef<HTMLInputElement, Props>(
           autoComplete="on"
           type={type}
           placeholder={placeholder}
+          defaultValue={defaultValue}
           ref={ref}
           {...rest}
         />

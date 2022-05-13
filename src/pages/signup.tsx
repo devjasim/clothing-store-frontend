@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
-import {useAuth} from '~/context/AuthContext';
+import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
 import {Button} from '~/ui/Button';
@@ -13,27 +13,6 @@ import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
 
 import {UserPageLayout} from '../layouts';
-
-// const ERROR_MESSAGES = {
-//   firstName: {required: 'Please enter your first name'},
-//   lastName: {required: 'Please enter your last name'},
-//   email: {
-//     required: 'Please enter your email',
-//     pattern: 'Please enter a valid email',
-//   },
-//   password: {
-//     required: 'Please enter your password',
-//     pattern: 'Please enter a valid password',
-//   },
-//   confirmPassword: {
-//     required: 'Please confirm your password',
-//     pattern: 'Please enter a valid password',
-//     match: 'Passwords do not match',
-//   },
-//   terms: {
-//     required: 'You must accept the terms and conditions',
-//   },
-// };
 
 type FormData = {
   firstName: string;
@@ -45,8 +24,14 @@ type FormData = {
 };
 
 export const SignUpPage: NextPageWithLayout = () => {
-  const {setAuth} = useAuth();
   const router = useRouter();
+  const [, setAuth] = useAuth({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  });
+
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
       firstName: '',
@@ -59,8 +44,13 @@ export const SignUpPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const {firstName, lastName, email} = data;
-    setAuth(`${firstName} ${lastName}`, email);
+    const {firstName, lastName, email, password} = data;
+    setAuth({
+      firstName,
+      lastName,
+      email,
+      password,
+    });
     router.push('/verification');
   };
 

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import {Qrcode} from '~/components/Qrcode';
 import {Bitcoin, Bnb, Usdt} from '~/constants/tables';
+import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
 
@@ -119,6 +120,8 @@ const Logo = () => {
 
 export const CheckOut = () => {
   const [checkout, setCheckout] = useState(false);
+  // @ts-ignore
+  const [auth] = useAuth();
   return (
     <div>
       {!checkout ? (
@@ -130,11 +133,11 @@ export const CheckOut = () => {
             </div>
             <div className="h-full">
               <div className="flex h-[100px] items-center space-x-3 rounded-lg border border-[#CFD9E0] px-3">
-                <Avatar imgUrl="/assets/images/user.png" />
+                <Avatar imgUrl={auth?.profile || '/assets/images/user.png'} />
                 <div>
-                  <h2 className="text-lg font-[500]">Patrick Enide</h2>
+                  <h2 className="text-lg font-[500]">{`${auth?.firstName} ${auth?.lastName}`}</h2>
                   <span className="relative -top-1 text-sm text-gray-500">
-                    Patrick@gmail.com
+                    {auth?.email}
                   </span>
                 </div>
               </div>

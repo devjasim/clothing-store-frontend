@@ -1,11 +1,14 @@
+import {useRouter} from 'next/router';
 import {QRCodeSVG} from 'qrcode.react';
 import React from 'react';
+import Countdown from 'react-countdown';
 
 import {Copy} from '~/constants/icons';
 
 import {Button} from './ui/Button';
 
 export const Qrcode = () => {
+  const router = useRouter();
   return (
     <div className="mx-auto max-w-[650px] space-y-4 dark:text-white">
       <div className="w-full rounded-lg border px-5 py-8 dark:border-white/70">
@@ -20,7 +23,19 @@ export const Qrcode = () => {
           <QRCodeSVG value="stablespay.com/" />
           <div>
             <span>The QR Code is Expires in </span>
-            <span className="text-primary1">5:49</span>
+            <Countdown
+              date={Date.now() + 359000}
+              renderer={(props) => {
+                if (props.completed) {
+                  router.push('/dashboard');
+                }
+                return (
+                  <span className="text-primary1">
+                    {props.minutes} : {props.seconds}
+                  </span>
+                );
+              }}
+            />
           </div>
         </div>
         <div className="">

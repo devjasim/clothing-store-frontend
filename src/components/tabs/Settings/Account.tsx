@@ -1,6 +1,8 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
+import {useFileUpload} from 'use-file-upload';
 
+import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
 import {TextField} from '~/ui/TextInput';
@@ -13,6 +15,9 @@ type FormData = {
 };
 
 export const Account = () => {
+  // @ts-ignore
+  const [, setAuth] = useAuth();
+  const [file, selectFile] = useFileUpload();
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
       firstName: '',
@@ -22,13 +27,34 @@ export const Account = () => {
     },
   });
   const onSubmit = (data: FormData) => {
+    setAuth((state) => ({
+      ...state,
+      email: data.email ? data.email : state?.email,
+      firstName: data.firstName ? data.firstName : state?.firstName,
+      lastName: data.lastName ? data.lastName : state?.lastName,
+    }));
     console.log(data);
   };
   return (
     <section className="mx-auto mt-10">
       <div className="mx-auto flex items-center space-x-3">
-        <Avatar imgUrl="/assets/images/profile.png" />
-        <Button className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white">
+        {/* @ts-ignore */}
+        <Avatar imgUrl={file?.source || '/assets/images/profile.png'} />
+        <Button
+          onClick={() => {
+            selectFile(
+              {
+                accept: 'image/*',
+                multiple: false,
+              },
+              // @ts-ignore
+              ({source}) => {
+                setAuth((state) => ({...state, profile: source}));
+              }
+            );
+          }}
+          className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white"
+        >
           Change
         </Button>
       </div>

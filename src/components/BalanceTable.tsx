@@ -7,6 +7,7 @@ import {balanceData} from '~/constants/tables';
 
 import {NextLink} from './ui/NextLink';
 import {Alert} from '~/constants/icons';
+import {PageSizeSelect} from './PageSize';
 
 type Data = {
   col1: {
@@ -33,7 +34,7 @@ const Col2 = (row: any) => {
     <div className="flex flex-col justify-start">
       <div className="flex  items-center space-x-2">
         <Alert />
-        <span className='ml-2'>{row.value.priceInCoin}</span>
+        <span className="ml-2">{row.value.priceInCoin}</span>
       </div>
       <span className="text-primary1 text-sm">{row.value.priceInDollar}</span>
     </div>
@@ -87,6 +88,7 @@ export const BalanceTable = () => {
     ],
     []
   );
+
   const tableInstance = useTable(
     {
       // @ts-ignore
@@ -94,12 +96,13 @@ export const BalanceTable = () => {
       data: memoizedData,
       initialState: {
         pageIndex: 1,
-        pageSize: 4,
+        pageSize: 6,
       },
     },
     useGridLayout,
     usePagination
   );
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -113,10 +116,12 @@ export const BalanceTable = () => {
     gotoPage,
     nextPage,
     previousPage,
+    setPageSize,
     state: {pageIndex},
   } = tableInstance;
+
   return (
-    <div className="mt-2 flex flex-col">
+    <div className="mt-2 min-h-screen flex flex-col">
       <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="">
@@ -183,12 +188,15 @@ export const BalanceTable = () => {
         </div>
       </div>
       <div className="w-full mt-2 items-center flex flex-col sm:flex-row gap-3 justify-between">
-        <span className="text-sm dark:text-gray-700">
-          Showing Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>
-        </span>
+        <div className="flex items-center space-x-2">
+          <PageSizeSelect setPageSize={setPageSize} />
+          <span className="text-sm dark:text-gray-700">
+            Showing Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>
+          </span>
+        </div>
         <div className="flex">
           <button
             onClick={() => previousPage()}
@@ -204,21 +212,23 @@ export const BalanceTable = () => {
             1
           </button>
           <button
-            onClick={() => gotoPage(2)}
+            onClick={() => gotoPage(1)}
             className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
           >
             2
           </button>
-          <button
-            onClick={() => gotoPage(pageCount - 1)}
-            className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
-          >
-            {pageCount}
-          </button>
+          {pageCount !== 2 && (
+            <button
+              onClick={() => gotoPage(pageCount - 1)}
+              className="border border-[#DEE2E6] text-primary1 py-2 w-[40px] active:bg-primary1/5"
+            >
+              {pageCount}
+            </button>
+          )}
           <button
             onClick={() => nextPage()}
             disabled={!canNextPage}
-            className="border border-[#DEE2E6] rounded-r-md text-primary1 py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
+            className="border border-[#DEE2E6] text-primary1 rounded-r-md py-2 w-[70px] active:bg-primary1/5 disabled:border-gray-200 disabled:text-gray-400 disabled:active:bg-primary1/0"
           >
             Next
           </button>
