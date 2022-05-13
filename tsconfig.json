@@ -7,7 +7,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "strict": false,
-    "alwaysStrict": true,
+    "alwaysStrict": false,
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "downlevelIteration": true,
