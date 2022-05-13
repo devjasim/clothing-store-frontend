@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Countdown from 'react-countdown';
+import {toast} from 'react-toastify';
 
 import {Qrcode} from '~/components/Qrcode';
 import {Bitcoin, Bnb, Usdt} from '~/constants/tables';
@@ -120,6 +121,11 @@ const Logo = () => {
 };
 
 export const CheckOut = () => {
+  const notify = () =>
+    toast('Please Specify some amount', {
+      type: 'error',
+      theme: 'colored',
+    });
   const [checkout, setCheckout] = useState(false);
   const [amount, setAmount] = useState<string>('120');
   // @ts-ignore
@@ -159,9 +165,10 @@ export const CheckOut = () => {
                     <input
                       type="text"
                       value={amount}
+                      placeholder="120"
                       onChange={(e) => setAmount(e.target.value)}
                       defaultValue="$120"
-                      className="bg-transparent w-[100px] text-right"
+                      className="w-[100px] bg-transparent text-right"
                     />
                   </div>
                   <span className="text-sm text-gray-600">
@@ -171,7 +178,13 @@ export const CheckOut = () => {
                 <Button
                   variant="primary"
                   className="h-[50px] w-full rounded-[20px]"
-                  onClick={() => setCheckout(true)}
+                  onClick={() => {
+                    if (amount !== '') {
+                      setCheckout(true);
+                    } else {
+                      notify();
+                    }
+                  }}
                 >
                   Pay with Stable Pay
                 </Button>

@@ -61,7 +61,7 @@ export const PaymentTabs = () => {
           >
             <div className="flex items-center space-x-2">
               {icon}
-              <span className="text-sm hidden md:block font-medium text-gray-700 dark:text-primary1">
+              <span className="hidden text-sm font-medium text-gray-700 dark:text-primary1 md:block">
                 {title}
               </span>
             </div>

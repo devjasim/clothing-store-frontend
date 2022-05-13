@@ -9,6 +9,7 @@ import {Meta} from '~/layouts/Meta';
 import {Button} from '~/ui/Button';
 import {CheckBox} from '~/ui/CheckBox';
 import {Logo} from '~/ui/Logo';
+import {NextLink} from '~/ui/NextLink';
 import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
 
@@ -118,18 +119,20 @@ export const SignUpPage: NextPageWithLayout = () => {
                         <PasswordField variant="passwordConfirm" {...field} />
                       )}
                     />
-                    <Controller
-                      control={control}
-                      name="terms"
-                      rules={{required: true}}
-                      render={({field}) => (
-                        <CheckBox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          label="I concent to all terms and condtions "
-                        />
-                      )}
-                    />
+                    <div>
+                      <Controller
+                        control={control}
+                        name="terms"
+                        rules={{required: true}}
+                        render={({field}) => (
+                          <CheckBox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            label="I concent to all terms and condtions "
+                          />
+                        )}
+                      />
+                    </div>
                   </div>
                   <div className="space-y-[30px] pt-7">
                     <Button
@@ -145,6 +148,13 @@ export const SignUpPage: NextPageWithLayout = () => {
                     >
                       <Google /> <span>Sign up with Google</span>
                     </Button>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="text-sm">Already Have an account? </span>
+                    <NextLink href="/login" className="text-blue-500 underline">
+                      login
+                    </NextLink>
                   </div>
                 </div>
               </div>

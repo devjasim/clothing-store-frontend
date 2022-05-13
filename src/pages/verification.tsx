@@ -2,6 +2,7 @@ import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import React from 'react';
 import Countdown from 'react-countdown';
+import ReactCodeInput from 'react-verification-input';
 
 import {useAuth} from '~/context/AuthContext';
 import {Button} from '~/ui/Button';
@@ -12,18 +13,6 @@ import {UserPageLayout} from '../layouts';
 const hideGmail = (email: string) => {
   const [first, ...rest] = email.split('@');
   return `${first!.replace(/./g, '*')}@${rest.join('@')}`;
-};
-
-const BoxField = () => {
-  return (
-    <>
-      <input
-        className="h-[40px] w-[40px] rounded-md border border-[#CFD9E0] bg-transparent text-center shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)] sm:h-[50px]  sm:w-[50px]"
-        max={1}
-        placeholder="-"
-      />
-    </>
-  );
 };
 
 const VerificationPage: NextPageWithLayout = () => {
@@ -54,13 +43,19 @@ const VerificationPage: NextPageWithLayout = () => {
             </p>
           </div>
           <form onSubmit={onSubmit}>
-            <div className="mx-auto grid max-w-[500px] grid-cols-6">
-              <BoxField />
-              <BoxField />
-              <BoxField />
-              <BoxField />
-              <BoxField />
-              <BoxField />
+            <div className="mx-auto max-w-[500px]">
+              <ReactCodeInput
+                removeDefaultStyles
+                validChars="1234567890"
+                classNames={{
+                  container:
+                    'h-[50px] text-center cursor-text flex gap-1 sm:gap-10',
+                  character:
+                    'leading-[50px] bg-slate-500/30  font-[36px] text-black border-gray-100 rounded-[8px] dark:text-white',
+                  characterInactive: 'bg-slate-500/20',
+                  characterSelected: 'ring',
+                }}
+              />
             </div>
             <div className="mx-auto  mt-5 text-center text-primary1">
               <span className="mr-1">Resend Code in</span>

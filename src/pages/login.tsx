@@ -1,6 +1,7 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import {toast} from 'react-toastify';
 
 import {Google} from '~/constants/icons';
 import {useAuth} from '~/hooks/useAuth';
@@ -21,6 +22,12 @@ type FormData = {
 };
 
 export const LoginPage: NextPageWithLayout = () => {
+  const notify = () =>
+    toast("Account doesn't exits, Please create one!", {
+      type: 'error',
+      theme: 'colored',
+    });
+
   const router = useRouter();
   // @ts-ignore
   const [auth] = useAuth();
@@ -33,10 +40,10 @@ export const LoginPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(auth);
     if (data.email === auth?.email && data.password === auth?.password) {
       router.push('/dashboard');
     } else {
+      notify();
       router.push('/signup');
     }
   };
