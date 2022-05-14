@@ -10,6 +10,7 @@ import {Meta} from '~/layouts/Meta';
 import {Button} from '~/ui/Button';
 import {CheckBox} from '~/ui/CheckBox';
 import {Logo} from '~/ui/Logo';
+import {NextLink} from '~/ui/NextLink';
 import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
 
@@ -41,7 +42,7 @@ export const LoginPage: NextPageWithLayout = () => {
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     if (data.email === auth?.email && data.password === auth?.password) {
-      router.push('/dashboard');
+      router.push('/user');
     } else {
       notify();
       router.push('/signup');
@@ -86,18 +87,26 @@ export const LoginPage: NextPageWithLayout = () => {
                         <PasswordField variant="password" {...field} />
                       )}
                     />
-                    <Controller
-                      control={control}
-                      name="keepSignedIn"
-                      rules={{required: false}}
-                      render={({field}) => (
-                        <CheckBox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                          label="Keep me signed in"
-                        />
-                      )}
-                    />
+                    <div className="flex items-center justify-between">
+                      <Controller
+                        control={control}
+                        name="keepSignedIn"
+                        rules={{required: false}}
+                        render={({field}) => (
+                          <CheckBox
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                            label="Keep me signed in"
+                          />
+                        )}
+                      />
+                      <NextLink
+                        href="/signup"
+                        className="underline text-primary1"
+                      >
+                        Sign Up
+                      </NextLink>
+                    </div>
                   </div>
                   <div className="space-y-[30px] pt-7">
                     <Button

@@ -23,7 +23,7 @@ const VerificationPage: NextPageWithLayout = () => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push('/dashboard');
+    router.push('/user');
   };
 
   return (
