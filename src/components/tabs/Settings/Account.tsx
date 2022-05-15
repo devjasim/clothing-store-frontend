@@ -81,7 +81,7 @@ export const Account = () => {
             control={control}
             name="userName"
             render={({field}) => (
-              <TextField {...field} variant="email" placeholder="Username" />
+              <TextField {...field} variant="username" placeholder="Username" />
             )}
           />
           <Button

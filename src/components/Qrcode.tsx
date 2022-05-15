@@ -1,13 +1,17 @@
 import {useRouter} from 'next/router';
 import {QRCodeSVG} from 'qrcode.react';
-import React from 'react';
+import React, {useRef} from 'react';
 import Countdown from 'react-countdown';
 
 import {Copy} from '~/constants/icons';
+import useCopyToClipboard from '~/hooks/useCopyToClipboard';
 
 import {Button} from './ui/Button';
 
 export const Qrcode = ({amount}: {amount: string}) => {
+  const [, copy] = useCopyToClipboard();
+  const totalRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   return (
     <div className="mx-auto max-w-[650px] space-y-4 dark:text-white">
@@ -50,10 +54,17 @@ export const Qrcode = ({amount}: {amount: string}) => {
         </div>
         <div className="flex h-[45px] w-full items-center justify-between rounded-xl border px-3  dark:border-white/60">
           <span>Total</span>
+          <input
+            type="number"
+            className="mx-5 h-full w-full bg-transparent text-right"
+            ref={totalRef}
+          />
           <div className="flex items-center space-x-5">
-            <span>{amount}</span>
             <div className="border-l border-gray-500 pl-3 dark:border-white/60">
-              <Button className="mt-2">
+              <Button
+                className="mt-2"
+                onClick={() => copy(totalRef.current!.value)}
+              >
                 <Copy />
               </Button>
             </div>
@@ -61,10 +72,16 @@ export const Qrcode = ({amount}: {amount: string}) => {
         </div>
         <div className="flex h-[45px] w-full items-center justify-between gap-3 rounded-xl border px-3  dark:border-white/60">
           <span>To</span>
+          <input
+            ref={toRef}
+            className="mx-5 h-full w-full bg-transparent text-right"
+          />
           <div className="flex  items-center space-x-5 text-ellipsis">
-            <span>bc1qcwyjjatlx0yh797 hdzfqaaa...............</span>
             <div className="border-l border-gray-500 pl-3 dark:border-white/60">
-              <Button className="mt-2">
+              <Button
+                className="mt-2"
+                onClick={() => copy(toRef.current!.value)}
+              >
                 <Copy />
               </Button>
             </div>

@@ -34,6 +34,11 @@ const variants = {
     icon: <Eye />,
     icon2: <EyeClose />,
   },
+  username: {
+    type: 'text',
+    placeholder: 'Username',
+    icon: <User />,
+  },
 };
 
 type Props = React.ComponentProps<'input'> & {
@@ -74,7 +79,10 @@ TextField.displayName = 'textfield';
 
 type PasswordProps = React.ComponentProps<'input'> & {
   value: string;
-  variant: Exclude<keyof typeof variants, 'email' | 'firstName' | 'lastName'>;
+  variant: Exclude<
+    keyof typeof variants,
+    'email' | 'firstName' | 'lastName' | 'username'
+  >;
   onChange: (value: string) => void;
 };
 

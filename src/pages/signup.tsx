@@ -16,8 +16,7 @@ import {ToggleTheme} from '~/ui/ToggleButton';
 import {UserPageLayout} from '../layouts';
 
 type FormData = {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -27,16 +26,14 @@ type FormData = {
 export const SignUpPage: NextPageWithLayout = () => {
   const router = useRouter();
   const [, setAuth] = useAuth({
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
   });
 
   const {handleSubmit, control} = useForm<FormData>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      username: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -45,10 +42,10 @@ export const SignUpPage: NextPageWithLayout = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    const {firstName, lastName, email, password} = data;
+    const {username, email, password} = data;
+    console.log(username, email, password);
     setAuth({
-      firstName,
-      lastName,
+      username,
       email,
       password,
     });
@@ -74,24 +71,14 @@ export const SignUpPage: NextPageWithLayout = () => {
               <div className="mx-auto max-w-[530px] space-y-9">
                 <div className="space-y-2">
                   <div className="grid w-full gap-5">
-                    <div className="grid gap-5 sm:grid-cols-2">
-                      <Controller
-                        control={control}
-                        name="firstName"
-                        rules={{required: true, minLength: 2}}
-                        render={({field}) => (
-                          <TextField variant="firstName" {...field} />
-                        )}
-                      />
-                      <Controller
-                        control={control}
-                        name="lastName"
-                        rules={{required: true, minLength: 2}}
-                        render={({field}) => (
-                          <TextField variant="lastName" {...field} />
-                        )}
-                      />
-                    </div>
+                    <Controller
+                      control={control}
+                      name="username"
+                      rules={{required: true, minLength: 2}}
+                      render={({field}) => (
+                        <TextField variant="username" {...field} />
+                      )}
+                    />
                     <Controller
                       control={control}
                       name="email"

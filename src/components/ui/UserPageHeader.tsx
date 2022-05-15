@@ -43,7 +43,7 @@ export const Header = () => {
           <ToggleTheme />
           <div className="flex items-center space-x-2">
             <div className="hidden sm:block">
-              <span>{`${auth?.firstName} ${auth?.lastName}`}</span>
+              <span>{auth?.username}</span>
             </div>
             <DropDownMenu
               triger={
