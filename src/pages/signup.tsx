@@ -1,8 +1,10 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
+import { useEffect, useState } from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
+import { signUp } from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
@@ -12,6 +14,7 @@ import {Logo} from '~/ui/Logo';
 import {NextLink} from '~/ui/NextLink';
 import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
+import { notify } from '~/utils/notify';
 
 import {UserPageLayout} from '../layouts';
 
@@ -26,11 +29,11 @@ type FormData = {
 
 export const SignUpPage: NextPageWithLayout = () => {
   const router = useRouter();
+
   const [, setAuth] = useAuth({
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
   });
 
   const {handleSubmit, control} = useForm<FormData>({
@@ -44,15 +47,30 @@ export const SignUpPage: NextPageWithLayout = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    const {firstName, lastName, email, password} = data;
+
+  const onSubmit: SubmitHandler<FormData> = async(data) => {
+    const {firstName, lastName, email, password, confirmPassword} = data;
     setAuth({
       firstName,
       lastName,
       email,
-      password,
     });
-    router.push('/verification');
+
+    const formData = {
+      userName: `${firstName} ${lastName}`,
+      email: email,
+      confirmPassword: confirmPassword,
+      password: password,
+    }
+
+    await signUp(formData).then(res => {
+      if(res.data) {
+        notify("Register Success", "success");
+        router.push("/verification");
+      }
+    }).catch(err => {
+      notify(err.response.data.message, "success");
+    })
   };
 
   return (
@@ -159,7 +177,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                 </div>
               </div>
             </form>
-            <div className="flex items-center space-x-5 self-center justify-self-center">
+            <div className="flex items-center self-center space-x-5 justify-self-center">
               <span>Active dark mode</span>
               <ToggleTheme />
             </div>
