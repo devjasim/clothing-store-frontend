@@ -1,12 +1,13 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Countdown from 'react-countdown';
 import ReactCodeInput from 'react-verification-input';
 
-import {useAuth} from '~/context/AuthContext';
+import {verification} from '~/hooks/api';
 import {Button} from '~/ui/Button';
 import {Logo} from '~/ui/Logo';
+import {notify} from '~/utils/notify';
 
 import {UserPageLayout} from '../layouts';
 
@@ -17,14 +18,39 @@ const hideGmail = (email: string) => {
 
 const VerificationPage: NextPageWithLayout = () => {
   const router = useRouter();
-  const {
-    auth: {email},
-  } = useAuth();
 
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [userEmail, setUserEmail] = useState<string>();
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('auth') || '');
+    setUserEmail(data.email);
+  }, [])
+
+  const [inputNumber, setInputNumber] = useState<number>();
+
+  const onSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    router.push('/user');
+    if(inputNumber?.toString()?.length === 6 && !!userEmail){
+      try {
+        await verification({
+          email: userEmail,
+          otp: inputNumber.toString()
+        }).then(res => {
+          notify('User is verified!', 'success');
+          localStorage.setItem("userProfile", JSON.stringify(res.data));
+          router.push('/user');
+        }).catch(err => {
+          notify(err.response.data.message, 'error')
+        })
+      } catch (error) {
+        notify('Something went wrong!', 'error')
+      }
+    }
   };
+
+  const handleComplete = (value: any) => {
+    setInputNumber(value);
+  }
 
   return (
     <main className="mx-auto grid min-h-screen w-full max-w-[1400px] gap-20 px-5 lg:grid-cols-[60%,30%]">
@@ -38,7 +64,7 @@ const VerificationPage: NextPageWithLayout = () => {
               Enter Verification Code
             </h2>
             <p className="max-w-[50ch] text-center">
-              A verification message has been sent to you on {hideGmail(email)}
+              A verification message has been sent to you on {!!userEmail && hideGmail(userEmail)}
               click on the link or inpute 6 Digit code to verify account
             </p>
           </div>
@@ -47,6 +73,7 @@ const VerificationPage: NextPageWithLayout = () => {
               <ReactCodeInput
                 removeDefaultStyles
                 validChars="1234567890"
+                onChange={handleComplete}
                 classNames={{
                   container:
                     'h-[50px] text-center cursor-text flex gap-1 sm:gap-10',
@@ -57,7 +84,7 @@ const VerificationPage: NextPageWithLayout = () => {
                 }}
               />
             </div>
-            <div className="mx-auto  mt-5 text-center text-primary1">
+            <div className="mx-auto mt-5 text-center text-primary1">
               <span className="mr-1">Resend Code in</span>
               <Countdown
                 date={Date.now() + 59000}

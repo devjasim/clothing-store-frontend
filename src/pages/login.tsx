@@ -4,6 +4,7 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {toast} from 'react-toastify';
 
 import {Google} from '~/constants/icons';
+import { signIn } from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
@@ -23,8 +24,8 @@ type FormData = {
 };
 
 export const LoginPage: NextPageWithLayout = () => {
-  const notify = () =>
-    toast("Account doesn't exits, Please create one!", {
+  const notify = (message: String) =>
+    toast(message, {
       type: 'error',
       theme: 'colored',
     });
@@ -32,7 +33,7 @@ export const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
   // @ts-ignore
   const [auth] = useAuth();
-  const {handleSubmit, control} = useForm<FormData>({
+  const {handleSubmit, control, formState: {errors}} = useForm<FormData>({
     defaultValues: {
       email: '',
       password: '',
@@ -40,12 +41,25 @@ export const LoginPage: NextPageWithLayout = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    if (data.email === auth?.email && data.password === auth?.password) {
-      router.push('/user');
-    } else {
-      notify();
-      router.push('/signup');
+  const onSubmit: SubmitHandler<FormData> = async(data: FormData) => {
+    if (data.email && data.password) {
+      const formData = {
+        email: data?.email,
+        password: data?.password
+      }
+
+      await signIn(formData).then(res => {
+        const { data } = res;
+        localStorage.setItem("userProfile", JSON.stringify(data));
+        router.push("/user")
+      }).catch(err => {
+        notify(err.response.data.message);
+        if(err.response.data.message !== "Invalid credentials") {
+          setTimeout(() => {
+            router.push("/signup");
+          }, 1000)
+        }
+      })
     }
   };
 
@@ -76,7 +90,7 @@ export const LoginPage: NextPageWithLayout = () => {
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                       }}
                       render={({field}) => (
-                        <TextField variant="email" {...field} />
+                        <TextField error={errors.email && errors.email.type === "required"} variant="email" {...field} />
                       )}
                     />
                     <Controller
@@ -84,7 +98,7 @@ export const LoginPage: NextPageWithLayout = () => {
                       name="password"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField variant="password" {...field} />
+                        <PasswordField error={errors.password && errors.password.type === "required"}  variant="password" {...field} />
                       )}
                     />
                     <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 ">
@@ -129,7 +143,7 @@ export const LoginPage: NextPageWithLayout = () => {
                 </div>
               </div>
             </form>
-            <div className="flex items-center space-x-5 self-center justify-self-center">
+            <div className="flex items-center self-center space-x-5 justify-self-center">
               <span>Active dark mode</span>
               <ToggleTheme />
             </div>
