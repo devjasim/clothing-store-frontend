@@ -143,7 +143,7 @@ export const CheckOut = () => {
               <div className="flex h-[100px] items-center space-x-3 rounded-lg border border-[#CFD9E0] px-3">
                 <Avatar imgUrl={auth?.profile || '/assets/images/user.png'} />
                 <div>
-                  <h2 className="text-lg font-[500]">{`${auth?.firstName} ${auth?.lastName}`}</h2>
+                  <h2 className="text-lg font-[500]">{auth?.username}</h2>
                   <span className="relative -top-1 text-sm text-gray-500">
                     {auth?.email}
                   </span>

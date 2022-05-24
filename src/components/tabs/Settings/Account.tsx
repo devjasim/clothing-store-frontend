@@ -45,14 +45,14 @@ export const Account = () => {
       const user = await getUser(id);
       if(user) {
         setUserData(user.data.result);
-        reset({
-          firstName: userData?.userName,
-          lastName: userData?.userName,
-          email: userData?.email,
-          userName: userData?.email,
-        })
       }
     }
+    reset({
+      firstName: userData?.userName,
+      lastName: userData?.userName,
+      email: userData?.email,
+      userName: userData?.email,
+    })
   }
 
   React.useEffect(() => {
@@ -61,6 +61,8 @@ export const Account = () => {
       getSingleUser(JSON.parse(data)?.result?._id);
     }
   }, []);
+
+  console.log("USER", userData)
   
   return (
     <section className="mx-auto mt-10">
@@ -108,7 +110,7 @@ export const Account = () => {
             control={control}
             name="userName"
             render={({field}) => (
-              <TextField {...field} variant="email" placeholder="Username" />
+              <TextField {...field} variant="username" placeholder="Username" />
             )}
           />
           <Button

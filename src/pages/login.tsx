@@ -101,7 +101,7 @@ export const LoginPage: NextPageWithLayout = () => {
                         <PasswordField error={errors.password && errors.password.type === "required"}  variant="password" {...field} />
                       )}
                     />
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0 ">
                       <Controller
                         control={control}
                         name="keepSignedIn"
@@ -114,12 +114,15 @@ export const LoginPage: NextPageWithLayout = () => {
                           />
                         )}
                       />
-                      <NextLink
-                        href="/signup"
-                        className="underline text-primary1"
-                      >
-                        Sign Up
-                      </NextLink>
+                      <div className="text-sm">
+                        <span>Don&apos;t have an account? </span>
+                        <NextLink
+                          href="/signup"
+                          className="text-blue-400 underline"
+                        >
+                          Sign Up
+                        </NextLink>
+                      </div>
                     </div>
                   </div>
                   <div className="space-y-[30px] pt-7">
