@@ -1,6 +1,6 @@
 import {IconUser} from '@tabler/icons';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import {Settings} from '~/constants/icons/Settings';
 
@@ -10,6 +10,7 @@ import {Logo} from './Logo';
 import {NextLink} from './NextLink';
 import {ToggleTheme} from './ToggleButton';
 import decode from 'jwt-decode';
+import { notify } from '~/utils/notify';
 
 const dropdownMenuItems = [
   {
@@ -25,35 +26,34 @@ const dropdownMenuItems = [
 ];
 
 export const Header = () => {
-  const [userProfile, setUserProfile] = useState<any>()
+  const [userProfile, setUserProfile] = React.useState<any>()
   const router = useRouter();
   // @ts-ignore
   const logout = () => {
+    notify("User logout!", "info");
     localStorage.removeItem("userProfile");
     router.push("/login");
     setUserProfile(null);
   };
 
 
-  useEffect(() => {
+  React.useEffect(() => {
     const token = userProfile?.result?.token;
 
     if (token) {
       const decodeedToekn: any = decode(token);
       
       if (decodeedToekn.exp * 1000 < new Date().getTime()) {
+        notify("Token expaired!", "info")
         logout();
       }
       
     }
-    if(JSON.parse(localStorage.getItem("userProfile") || `{"type":"empty"}`)?.type === false) {
-      router.push('/login')
-    } else {
-      setUserProfile(JSON.parse(localStorage.getItem("userProfile") || `{"type": false}`));
+    const data = localStorage.getItem('userProfile');
+    if(data) {
+      setUserProfile(JSON.parse(data))
     }
-  }, [router]);
-
-  console.log(userProfile)
+  }, [router.query.counter]);
 
   return (
     <div className="relative h-[80px] shadow dark:shadow-[0px_1.99195px_3.98391px_rgba(255,255,255,0.25)]">

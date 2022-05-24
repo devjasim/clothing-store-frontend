@@ -1,6 +1,8 @@
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useFileUpload} from 'use-file-upload';
+import { getUser } from '~/hooks/api';
 
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
@@ -15,10 +17,12 @@ type FormData = {
 };
 
 export const Account = () => {
+  const router = useRouter();
   // @ts-ignore
   const [, setAuth] = useAuth();
   const [file, selectFile] = useFileUpload();
-  const {handleSubmit, control} = useForm<FormData>({
+  const [userData, setUserData] = React.useState<any>();
+  const {handleSubmit, control, reset} = useForm<FormData>({
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -35,9 +39,32 @@ export const Account = () => {
     }));
     console.log(data);
   };
+
+  const getSingleUser = async(id: String) => {
+    if(id) {
+      const user = await getUser(id);
+      if(user) {
+        setUserData(user.data.result);
+        reset({
+          firstName: userData?.userName,
+          lastName: userData?.userName,
+          email: userData?.email,
+          userName: userData?.email,
+        })
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    const data: any = localStorage.getItem("userProfile");
+    if(data) {
+      getSingleUser(JSON.parse(data)?.result?._id);
+    }
+  }, []);
+  
   return (
     <section className="mx-auto mt-10">
-      <div className="mx-auto flex items-center space-x-3">
+      <div className="flex items-center mx-auto space-x-3">
         {/* @ts-ignore */}
         <Avatar imgUrl={file?.source || '/assets/images/profile.png'} />
         <Button
@@ -59,7 +86,7 @@ export const Account = () => {
         </Button>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-10  space-y-5">
+        <div className="mt-10 space-y-5">
           <div className="flex flex-col gap-3 sm:flex-row">
             <Controller
               control={control}

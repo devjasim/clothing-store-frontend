@@ -20,9 +20,11 @@ interface Verify {
 const API = axios.create({ baseURL: "http://localhost:3001/api/v1" });
 
 API.interceptors.request.use((req: any) => {
-  if (localStorage.getItem("profile")) {
+  const data = localStorage.getItem("userProfile");
+  if (data) {
+    console.log("DATA WHAT THE HELL", JSON.parse(data)?.token)
     req.headers.Authorization = `Bearer ${
-      JSON.parse(localStorage.getItem("profile") || "").token
+      JSON.parse(data)?.token
     } `;
   }
   return req;
@@ -35,3 +37,4 @@ export const updatePost = (id: String, updatedPost: any) =>
 export const signIn = (formData: SignUp) => API.post("user/signin", formData);
 export const signUp = (formData: SignIn) => API.post("/user/signup", formData);
 export const verification = (formData: Verify) => API.post("/user/verify-user", formData);
+export const getUser = (id: String) => API.get(`/user/get-user/${id}`);

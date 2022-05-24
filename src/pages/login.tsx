@@ -33,7 +33,7 @@ export const LoginPage: NextPageWithLayout = () => {
   const router = useRouter();
   // @ts-ignore
   const [auth] = useAuth();
-  const {handleSubmit, control} = useForm<FormData>({
+  const {handleSubmit, control, formState: {errors}} = useForm<FormData>({
     defaultValues: {
       email: '',
       password: '',
@@ -90,7 +90,7 @@ export const LoginPage: NextPageWithLayout = () => {
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                       }}
                       render={({field}) => (
-                        <TextField variant="email" {...field} />
+                        <TextField error={errors.email && errors.email.type === "required"} variant="email" {...field} />
                       )}
                     />
                     <Controller
@@ -98,7 +98,7 @@ export const LoginPage: NextPageWithLayout = () => {
                       name="password"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField variant="password" {...field} />
+                        <PasswordField error={errors.password && errors.password.type === "required"}  variant="password" {...field} />
                       )}
                     />
                     <div className="flex items-center justify-between">

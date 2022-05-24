@@ -1,6 +1,5 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
-import { useEffect, useState } from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
@@ -36,7 +35,7 @@ export const SignUpPage: NextPageWithLayout = () => {
     email: '',
   });
 
-  const {handleSubmit, control} = useForm<FormData>({
+  const {handleSubmit, control, formState: {errors}} = useForm<FormData>({
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -98,7 +97,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                         name="firstName"
                         rules={{required: true, minLength: 2}}
                         render={({field}) => (
-                          <TextField variant="firstName" {...field} />
+                          <TextField error={errors.firstName && errors.firstName.type === "required"} variant="firstName" {...field} />
                         )}
                       />
                       <Controller
@@ -106,7 +105,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                         name="lastName"
                         rules={{required: true, minLength: 2}}
                         render={({field}) => (
-                          <TextField variant="lastName" {...field} />
+                          <TextField error={errors.lastName && errors.lastName.type === "required"} variant="lastName" {...field} />
                         )}
                       />
                     </div>
@@ -118,7 +117,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                       }}
                       render={({field}) => (
-                        <TextField variant="email" {...field} />
+                        <TextField error={errors.email && errors.email.type === "required"} variant="email" {...field} />
                       )}
                     />
                     <Controller
@@ -126,7 +125,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                       name="password"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField variant="password" {...field} />
+                        <PasswordField error={errors.password && errors.password.type === "required"} variant="password" {...field} />
                       )}
                     />
                     <Controller
@@ -134,7 +133,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                       name="confirmPassword"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField variant="passwordConfirm" {...field} />
+                        <PasswordField error={errors.confirmPassword && errors.confirmPassword.type === "required"} variant="passwordConfirm" {...field} />
                       )}
                     />
                     <div>
