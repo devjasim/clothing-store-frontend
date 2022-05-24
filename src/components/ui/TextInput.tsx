@@ -43,16 +43,17 @@ const variants = {
 
 type Props = React.ComponentProps<'input'> & {
   variant: Exclude<keyof typeof variants, 'password' | 'passwordConfirm'>;
+  error?: Boolean
 };
 
 export const TextField = React.forwardRef<HTMLInputElement, Props>(
   (props, ref) => {
-    const {className, variant, defaultValue, ...rest} = props;
+    const {className, variant, error, defaultValue, ...rest} = props;
     const {icon, type, placeholder} = variants[variant];
     return (
       <div
         className={cx(
-          'border border-[#CFD9E0] shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)] rounded-md h-[40px]',
+          `border ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${error ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]' : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'} rounded-md h-[40px]`,
           'flex items-center justify-between px-1'
         )}
       >
@@ -84,6 +85,7 @@ type PasswordProps = React.ComponentProps<'input'> & {
     'email' | 'firstName' | 'lastName' | 'username'
   >;
   onChange: (value: string) => void;
+  error?: Boolean;
 };
 
 export const PasswordField = ({
@@ -91,6 +93,7 @@ export const PasswordField = ({
   onChange,
   className,
   variant,
+  error,
   ...rest
 }: PasswordProps) => {
   const {placeholder, icon, icon2} = variants[variant];
@@ -100,7 +103,7 @@ export const PasswordField = ({
   return (
     <div
       className={cx(
-        'border  border-[#CFD9E0] shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)] rounded-md h-[40px]',
+        `border  ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${error ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]' : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'} rounded-md h-[40px]`,
         'flex items-center justify-between px-1'
       )}
     >
