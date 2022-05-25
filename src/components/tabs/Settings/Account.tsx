@@ -1,9 +1,8 @@
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useFileUpload} from 'use-file-upload';
-import { getUser } from '~/hooks/api';
 
+import {getUser} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
@@ -17,7 +16,7 @@ type FormData = {
 };
 
 export const Account = () => {
-  const router = useRouter();
+  // const router = useRouter();
   // @ts-ignore
   const [, setAuth] = useAuth();
   const [file, selectFile] = useFileUpload();
@@ -40,10 +39,10 @@ export const Account = () => {
     console.log(data);
   };
 
-  const getSingleUser = async(id: String) => {
-    if(id) {
+  const getSingleUser = async (id: String) => {
+    if (id) {
       const user = await getUser(id);
-      if(user) {
+      if (user) {
         setUserData(user.data.result);
       }
     }
@@ -52,21 +51,21 @@ export const Account = () => {
       lastName: userData?.userName,
       email: userData?.email,
       userName: userData?.email,
-    })
-  }
+    });
+  };
 
   React.useEffect(() => {
-    const data: any = localStorage.getItem("userProfile");
-    if(data) {
+    const data: any = localStorage.getItem('userProfile');
+    if (data) {
       getSingleUser(JSON.parse(data)?.result?._id);
     }
   }, []);
 
-  console.log("USER", userData)
-  
+  console.log('USER', userData);
+
   return (
     <section className="mx-auto mt-10">
-      <div className="flex items-center mx-auto space-x-3">
+      <div className="mx-auto flex items-center space-x-3">
         {/* @ts-ignore */}
         <Avatar imgUrl={file?.source || '/assets/images/profile.png'} />
         <Button

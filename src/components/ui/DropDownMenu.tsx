@@ -2,7 +2,8 @@ import {Menu, Transition} from '@headlessui/react';
 import {IconChevronDown} from '@tabler/icons';
 import cx from 'classnames';
 import {Fragment, ReactNode} from 'react';
-import { Logout } from '~/constants/icons';
+
+import {Logout} from '~/constants/icons';
 
 import {NextLink} from './NextLink';
 
@@ -27,7 +28,7 @@ export const DropDownMenu = ({links, triger, logout}: Props) => {
             <Menu.Button className="inline-flex items-center justify-center">
               {triger}
               <IconChevronDown
-                className="hidden w-5 h-5 ml-2 -mr-1 text-primary1 hover:text-primary1/50 sm:block"
+                className="ml-2 -mr-1 hidden h-5 w-5 text-primary1 hover:text-primary1/50 sm:block"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -41,13 +42,13 @@ export const DropDownMenu = ({links, triger, logout}: Props) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 w-40 px-3 py-2 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-lg shadow-md rounded-ld ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="rounded-ld absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-lg bg-white px-3 py-2 shadow-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                   {links.map((link, i) => (
                     <Menu.Item key={i}>
                       <NextLink
                         href={link.url}
                         onClick={() => {
-                          link.label !== "Logout" && logout()
+                          link.label !== 'Logout' && logout();
                         }}
                         className={cx(
                           'flex justify-between  dark:text-gray-900 text-sm  py-2 px-1 hover:bg-gray-200/50 rounded-md'
@@ -67,10 +68,12 @@ export const DropDownMenu = ({links, triger, logout}: Props) => {
                     >
                       <span
                         onClick={() => {
-                          console.log("CLICK");
-                          logout()
+                          console.log('CLICK');
+                          logout();
                         }}
-                      >Logout</span>
+                      >
+                        Logout
+                      </span>
                       <Logout />
                     </NextLink>
                   </Menu.Item>

@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
-import { signUp } from '~/hooks/api';
+import {signUp} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
@@ -13,7 +13,7 @@ import {Logo} from '~/ui/Logo';
 import {NextLink} from '~/ui/NextLink';
 import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
-import { notify } from '~/utils/notify';
+import {notify} from '~/utils/notify';
 
 import {UserPageLayout} from '../layouts';
 
@@ -35,7 +35,11 @@ export const SignUpPage: NextPageWithLayout = () => {
     email: '',
   });
 
-  const {handleSubmit, control, formState: {errors}} = useForm<FormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: {errors},
+  } = useForm<FormData>({
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -46,8 +50,7 @@ export const SignUpPage: NextPageWithLayout = () => {
     },
   });
 
-
-  const onSubmit: SubmitHandler<FormData> = async(data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     const {firstName, lastName, email, password, confirmPassword} = data;
     setAuth({
       firstName,
@@ -57,19 +60,21 @@ export const SignUpPage: NextPageWithLayout = () => {
 
     const formData = {
       userName: `${firstName} ${lastName}`,
-      email: email,
-      confirmPassword: confirmPassword,
-      password: password,
-    }
+      email,
+      confirmPassword,
+      password,
+    };
 
-    await signUp(formData).then(res => {
-      if(res.data) {
-        notify("Register Success", "success");
-        router.push("/verification");
-      }
-    }).catch(err => {
-      notify(err.response.data.message, "success");
-    })
+    await signUp(formData)
+      .then((res) => {
+        if (res.data) {
+          notify('Register Success', 'success');
+          router.push('/verification');
+        }
+      })
+      .catch((err) => {
+        notify(err.response.data.message, 'success');
+      });
   };
 
   return (
@@ -97,7 +102,14 @@ export const SignUpPage: NextPageWithLayout = () => {
                         name="firstName"
                         rules={{required: true, minLength: 2}}
                         render={({field}) => (
-                          <TextField error={errors.firstName && errors.firstName.type === "required"} variant="firstName" {...field} />
+                          <TextField
+                            error={
+                              errors.firstName &&
+                              errors.firstName.type === 'required'
+                            }
+                            variant="firstName"
+                            {...field}
+                          />
                         )}
                       />
                       <Controller
@@ -105,7 +117,14 @@ export const SignUpPage: NextPageWithLayout = () => {
                         name="lastName"
                         rules={{required: true, minLength: 2}}
                         render={({field}) => (
-                          <TextField error={errors.lastName && errors.lastName.type === "required"} variant="lastName" {...field} />
+                          <TextField
+                            error={
+                              errors.lastName &&
+                              errors.lastName.type === 'required'
+                            }
+                            variant="lastName"
+                            {...field}
+                          />
                         )}
                       />
                     </div>
@@ -117,7 +136,13 @@ export const SignUpPage: NextPageWithLayout = () => {
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                       }}
                       render={({field}) => (
-                        <TextField error={errors.email && errors.email.type === "required"} variant="email" {...field} />
+                        <TextField
+                          error={
+                            errors.email && errors.email.type === 'required'
+                          }
+                          variant="email"
+                          {...field}
+                        />
                       )}
                     />
                     <Controller
@@ -125,7 +150,14 @@ export const SignUpPage: NextPageWithLayout = () => {
                       name="password"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField error={errors.password && errors.password.type === "required"} variant="password" {...field} />
+                        <PasswordField
+                          error={
+                            errors.password &&
+                            errors.password.type === 'required'
+                          }
+                          variant="password"
+                          {...field}
+                        />
                       )}
                     />
                     <Controller
@@ -133,7 +165,14 @@ export const SignUpPage: NextPageWithLayout = () => {
                       name="confirmPassword"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField error={errors.confirmPassword && errors.confirmPassword.type === "required"} variant="passwordConfirm" {...field} />
+                        <PasswordField
+                          error={
+                            errors.confirmPassword &&
+                            errors.confirmPassword.type === 'required'
+                          }
+                          variant="passwordConfirm"
+                          {...field}
+                        />
                       )}
                     />
                     <div>
@@ -176,7 +215,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                 </div>
               </div>
             </form>
-            <div className="flex items-center self-center space-x-5 justify-self-center">
+            <div className="flex items-center space-x-5 self-center justify-self-center">
               <span>Active dark mode</span>
               <ToggleTheme />
             </div>

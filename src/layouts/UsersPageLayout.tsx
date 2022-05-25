@@ -1,5 +1,5 @@
-import {ThemeProvider} from 'next-themes';
 import {useRouter} from 'next/router';
+import {ThemeProvider} from 'next-themes';
 import React, {ReactNode} from 'react';
 
 import {Header} from '~/ui/UserPageHeader';
@@ -13,8 +13,8 @@ export const UserPageLayout = ({children, header = true}: Props) => {
   const router = useRouter();
 
   React.useEffect(() => {
-    const data: any = localStorage.getItem("userProfile");
-    if(router.pathname !== '/signup') {
+    const data: any = localStorage.getItem('userProfile');
+    if (router.pathname !== '/signup') {
       !data && router.push('/login');
     }
   }, [router.query.counter]);

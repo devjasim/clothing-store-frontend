@@ -43,7 +43,7 @@ const variants = {
 
 type Props = React.ComponentProps<'input'> & {
   variant: Exclude<keyof typeof variants, 'password' | 'passwordConfirm'>;
-  error?: Boolean
+  error?: Boolean;
 };
 
 export const TextField = React.forwardRef<HTMLInputElement, Props>(
@@ -53,7 +53,11 @@ export const TextField = React.forwardRef<HTMLInputElement, Props>(
     return (
       <div
         className={cx(
-          `border ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${error ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]' : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'} rounded-md h-[40px]`,
+          `border ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${
+            error
+              ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]'
+              : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'
+          } rounded-md h-[40px]`,
           'flex items-center justify-between px-1'
         )}
       >
@@ -103,7 +107,11 @@ export const PasswordField = ({
   return (
     <div
       className={cx(
-        `border  ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${error ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]' : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'} rounded-md h-[40px]`,
+        `border  ${error ? 'border-[#ff1e1e]' : 'border-[#CFD9E0]'} ${
+          error
+            ? 'shadow-[inset_0px_1px_0px_rgba(255,30,30,1)]'
+            : 'shadow-[inset_0px_2px_0px_rgba(231,235,238,0.2)]'
+        } rounded-md h-[40px]`,
         'flex items-center justify-between px-1'
       )}
     >

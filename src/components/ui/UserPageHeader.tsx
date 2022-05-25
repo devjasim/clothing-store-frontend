@@ -1,16 +1,16 @@
 import {IconUser} from '@tabler/icons';
-import { useRouter } from 'next/router';
+import decode from 'jwt-decode';
+import {useRouter} from 'next/router';
 import React from 'react';
 
 import {Settings} from '~/constants/icons/Settings';
+import {notify} from '~/utils/notify';
 
 import {Avatar} from './Avatar';
 import {DropDownMenu} from './DropDownMenu';
 import {Logo} from './Logo';
 import {NextLink} from './NextLink';
 import {ToggleTheme} from './ToggleButton';
-import decode from 'jwt-decode';
-import { notify } from '~/utils/notify';
 
 const dropdownMenuItems = [
   {
@@ -26,32 +26,30 @@ const dropdownMenuItems = [
 ];
 
 export const Header = () => {
-  const [userProfile, setUserProfile] = React.useState<any>()
+  const [userProfile, setUserProfile] = React.useState<any>();
   const router = useRouter();
   // @ts-ignore
   const logout = () => {
-    notify("User logout!", "info");
-    localStorage.removeItem("userProfile");
-    router.push("/login");
+    notify('User logout!', 'info');
+    localStorage.removeItem('userProfile');
+    router.push('/login');
     setUserProfile(null);
   };
-
 
   React.useEffect(() => {
     const token = userProfile?.result?.token;
 
     if (token) {
       const decodeedToekn: any = decode(token);
-      
+
       if (decodeedToekn.exp * 1000 < new Date().getTime()) {
-        notify("Token expaired!", "info")
+        notify('Token expaired!', 'info');
         logout();
       }
-      
     }
     const data = localStorage.getItem('userProfile');
-    if(data) {
-      setUserProfile(JSON.parse(data))
+    if (data) {
+      setUserProfile(JSON.parse(data));
     }
   }, [router.query.counter]);
 
@@ -70,7 +68,9 @@ export const Header = () => {
             <DropDownMenu
               triger={
                 <Avatar
-                  imgUrl={userProfile?.result?.avatar || '/assets/images/profile.png'}
+                  imgUrl={
+                    userProfile?.result?.avatar || '/assets/images/profile.png'
+                  }
                 />
               }
               logout={logout}
