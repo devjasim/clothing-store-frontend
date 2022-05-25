@@ -17,23 +17,25 @@ interface Verify {
   otp: string;
 }
 
-const API = axios.create({baseURL: 'http://165.227.224.55:3001/api/v1'});
+const URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1" : "http://165.227.224.55:3001/api/v1"
+
+const API = axios.create({baseURL: URL});
 
 API.interceptors.request.use((req: any) => {
-  const data = localStorage.getItem('userProfile');
-  if (data) {
-    console.log('DATA WHAT THE HELL', JSON.parse(data)?.token);
-    req.headers.Authorization = `Bearer ${JSON.parse(data)?.token} `;
+  const token = localStorage.getItem('userToken');
+  if (token) {
+    console.log('DATA WHAT THE HELL', (token));
+    req.headers.Authorization = `Bearer ${(token)} `;
   }
   return req;
 });
 
-export const updatePost = (id: String, updatedPost: any) =>
-  API.patch(`/posts/${id}`, updatedPost);
+export const updateUser = (id: String, updateData: any) =>
+  API.patch(`/user/update/${id}`, updateData);
 
 // Sign in route
 export const signIn = (formData: SignUp) => API.post('user/signin', formData);
 export const signUp = (formData: SignIn) => API.post('/user/signup', formData);
 export const verification = (formData: Verify) =>
   API.post('/user/verify-user', formData);
-export const getUser = (id: String) => API.get(`/user/get-user/${id}`);
+export const getUser = () => API.get(`/user/get-user`);

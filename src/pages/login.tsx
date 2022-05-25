@@ -1,8 +1,6 @@
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
-import {toast} from 'react-toastify';
-
 import {Google} from '~/constants/icons';
 import {signIn} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
@@ -14,8 +12,11 @@ import {Logo} from '~/ui/Logo';
 import {NextLink} from '~/ui/NextLink';
 import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
-
 import {UserPageLayout} from '../layouts';
+import {useAuths} from '~/context/AuthContext';
+import axios from 'axios';
+import { notify } from '~/utils/notify';
+import GoogleLogin from 'react-google-login';
 
 type FormData = {
   email: string;
@@ -24,11 +25,7 @@ type FormData = {
 };
 
 export const LoginPage: NextPageWithLayout = () => {
-  const notify = (message: String) =>
-    toast(message, {
-      type: 'error',
-      theme: 'colored',
-    });
+  const userContext = useAuths();
 
   const router = useRouter();
   // @ts-ignore
@@ -55,11 +52,12 @@ export const LoginPage: NextPageWithLayout = () => {
       await signIn(formData)
         .then((res) => {
           const {data} = res;
-          localStorage.setItem('userProfile', JSON.stringify(data));
+          userContext.setAuth(data.result);
+          localStorage.setItem('userToken', data?.token);
           router.push('/user');
         })
         .catch((err) => {
-          notify(err.response.data.message);
+          notify(err.response.data.message, "error");
           if (err.response.data.message !== 'Invalid credentials') {
             setTimeout(() => {
               router.push('/signup');
@@ -67,6 +65,25 @@ export const LoginPage: NextPageWithLayout = () => {
           }
         });
     }
+  };
+
+  const googleSuccess = (res:any) => {
+    const token = res?.tokenId;
+    axios({
+      method: "POST",
+      url: "http://localhost:3001/api/v1/user/google-login",
+      data: {tokenId: token}
+    }).then((response: any) => {
+      localStorage.setItem("userToken", response.data.token);
+      userContext.setAuth(response?.data?.result);
+      router.push("/user");
+    }).catch(() => {
+      notify("Something went wrong", 'error');
+    })
+  };
+  
+  const googleFailure = () => {
+    console.log("GOOGLE Sign In was unsuccessfull. Try again later");
   };
 
   return (
@@ -152,17 +169,27 @@ export const LoginPage: NextPageWithLayout = () => {
                     >
                       Login
                     </Button>
-                    <Button
-                      type="button"
-                      className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
-                    >
-                      <Google /> <span>Login with Google</span>
-                    </Button>
+                    <GoogleLogin
+                      clientId="732960774937-9dm36clu457k26uugmlg0c1vluold56h.apps.googleusercontent.com"
+                      render={(renderProps: any) => (
+                        <Button
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          type="button"
+                          className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
+                        >
+                          <Google /> <span>Sign up with Google</span>
+                        </Button>
+                      )}
+                      onSuccess={googleSuccess}
+                      onFailure={googleFailure}
+                      cookiePolicy="single_host_origin"
+                    />
                   </div>
                 </div>
               </div>
             </form>
-            <div className="flex items-center space-x-5 self-center justify-self-center">
+            <div className="flex items-center self-center space-x-5 justify-self-center">
               <span>Active dark mode</span>
               <ToggleTheme />
             </div>

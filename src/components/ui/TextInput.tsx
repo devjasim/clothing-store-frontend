@@ -7,6 +7,11 @@ import {EyeClose} from '~/constants/icons/EyeClose';
 import {Button} from './Button';
 
 const variants = {
+  fullName: {
+    type: 'text',
+    placeholder: 'Full Name',
+    icon: <User />,
+  },
   firstName: {
     type: 'text',
     placeholder: 'First Name',

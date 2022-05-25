@@ -3,6 +3,8 @@ import {ThemeProvider} from 'next-themes';
 import React, {ReactNode} from 'react';
 
 import {Header} from '~/ui/UserPageHeader';
+import { useAuths } from '~/context/AuthContext';
+import { getUser } from '~/hooks/api';
 
 type Props = {
   children: ReactNode;
@@ -13,11 +15,27 @@ export const UserPageLayout = ({children, header = true}: Props) => {
   const router = useRouter();
 
   React.useEffect(() => {
-    const data: any = localStorage.getItem('userProfile');
+    const token: string | null = localStorage.getItem('userToken');
     if (router.pathname !== '/signup') {
-      !data && router.push('/login');
+      !token && router.push('/login');
     }
   }, [router.query.counter]);
+
+  const userAuths = useAuths();
+  
+  const getUserProfile = async() => {
+    const token: string | null = localStorage.getItem('userToken');
+    if(token) {
+      const user = await getUser();
+      if (user) {
+        userAuths.setAuth(user.data.result);
+      }
+    }
+  }
+  
+  React.useEffect(() => {
+    getUserProfile();
+  }, [router.query.counter])
 
   return (
     <ThemeProvider enableSystem attribute="class">

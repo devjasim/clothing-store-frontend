@@ -4,6 +4,7 @@ import {useRouter} from 'next/router';
 import React from 'react';
 
 import {Settings} from '~/constants/icons/Settings';
+import { useAuths } from '~/context/AuthContext';
 import {notify} from '~/utils/notify';
 
 import {Avatar} from './Avatar';
@@ -28,16 +29,18 @@ const dropdownMenuItems = [
 export const Header = () => {
   const [userProfile, setUserProfile] = React.useState<any>();
   const router = useRouter();
+  const userData = useAuths();
   // @ts-ignore
-  const logout = () => {
+  const logout = async() => {
     notify('User logout!', 'info');
-    localStorage.removeItem('userProfile');
-    router.push('/login');
+    localStorage.removeItem('userToken');
+    userData.setAuth(undefined)
     setUserProfile(null);
   };
 
+
   React.useEffect(() => {
-    const token = userProfile?.result?.token;
+    const token = localStorage.getItem("userToken");
 
     if (token) {
       const decodeedToekn: any = decode(token);
@@ -47,9 +50,8 @@ export const Header = () => {
         logout();
       }
     }
-    const data = localStorage.getItem('userProfile');
-    if (data) {
-      setUserProfile(JSON.parse(data));
+    if (userData?.auth?.userInfo !== undefined) {
+      setUserProfile(userData?.auth?.userInfo);
     }
   }, [router.query.counter]);
 
@@ -63,13 +65,13 @@ export const Header = () => {
           <ToggleTheme />
           <div className="flex items-center space-x-2">
             <div className="hidden sm:block">
-              <span>{userProfile?.result?.userName}</span>
+              <span>{userProfile?.userName}</span>
             </div>
             <DropDownMenu
               triger={
                 <Avatar
                   imgUrl={
-                    userProfile?.result?.avatar || '/assets/images/profile.png'
+                    userProfile?.avatar || '/assets/images/profile.png'
                   }
                 />
               }

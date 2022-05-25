@@ -12,8 +12,8 @@ type Props = {
 export const PageLayout = ({children}: Props) => {
   const router = useRouter();
   React.useEffect(() => {
-    const data: any = localStorage.getItem('userProfile');
-    if (data !== null) {
+    const data: string | null = localStorage.getItem('userToken');
+    if (data) {
       router.push('/user');
     }
   }, [router.query.counter]);

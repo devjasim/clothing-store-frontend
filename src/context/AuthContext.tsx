@@ -6,28 +6,22 @@ type AuthProviderProps = {
 
 const AuthContext = React.createContext<
   | {
-      auth: {isAuthenticated: boolean; userName: string; email: string};
-      setAuth: (user: string, useremail: string) => void;
+      auth: {userInfo: any};
+      setAuth: (userData: any) => void;
     }
   | undefined
 >(undefined);
 
 const AuthProvider = ({children}: AuthProviderProps) => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [username, setUserName] = React.useState('');
-  const [useremail, setEmail] = React.useState('');
-  const handleLogin = (userName: string, email: string) => {
-    setIsAuthenticated(true);
-    setUserName(userName);
-    setEmail(email);
+  const [userInfo, setUserInfo] = React.useState<any>();
+  const handleLogin = (userData: any) => {
+    setUserInfo(userData);
   };
   return (
     <AuthContext.Provider
       value={{
         auth: {
-          isAuthenticated,
-          userName: username,
-          email: useremail,
+          userInfo: userInfo
         },
         setAuth: handleLogin,
       }}
@@ -37,7 +31,7 @@ const AuthProvider = ({children}: AuthProviderProps) => {
   );
 };
 
-const useAuth = () => {
+const useAuths = () => {
   const context = React.useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within a AuthProvider');
@@ -45,4 +39,4 @@ const useAuth = () => {
   return context;
 };
 
-export {AuthProvider, useAuth};
+export {AuthProvider, useAuths};

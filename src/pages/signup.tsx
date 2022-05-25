@@ -1,8 +1,11 @@
+import axios from 'axios';
 import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
+import GoogleLogin from 'react-google-login';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 
 import {Google} from '~/constants/icons';
+import { useAuths } from '~/context/AuthContext';
 import {signUp} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
@@ -34,6 +37,8 @@ export const SignUpPage: NextPageWithLayout = () => {
     lastName: '',
     email: '',
   });
+
+  const userData = useAuths();
 
   const {
     handleSubmit,
@@ -75,6 +80,25 @@ export const SignUpPage: NextPageWithLayout = () => {
       .catch((err) => {
         notify(err.response.data.message, 'success');
       });
+  };
+
+  const googleSuccess = (res:any) => {
+    const token = res?.tokenId;
+    axios({
+      method: "POST",
+      url: "http://localhost:3001/api/v1/user/google-login",
+      data: {tokenId: token}
+    }).then((response: any) => {
+      localStorage.setItem("userToken", response.data.token);
+      userData.setAuth(response?.data?.result);
+      router.push("/user");
+    }).catch(() => {
+      notify("Something went wrong", "error");
+    })
+  };
+  
+  const googleFailure = () => {
+    console.log("GOOGLE Sign In was unsuccessfull. Try again later");
   };
 
   return (
@@ -198,12 +222,22 @@ export const SignUpPage: NextPageWithLayout = () => {
                     >
                       Sign up
                     </Button>
-                    <Button
-                      type="button"
-                      className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
-                    >
-                      <Google /> <span>Sign up with Google</span>
-                    </Button>
+                    <GoogleLogin
+                      clientId="732960774937-9dm36clu457k26uugmlg0c1vluold56h.apps.googleusercontent.com"
+                      render={(renderProps: any) => (
+                        <Button
+                          onClick={renderProps.onClick}
+                          disabled={renderProps.disabled}
+                          type="button"
+                          className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
+                        >
+                          <Google /> <span>Sign up with Google</span>
+                        </Button>
+                      )}
+                      onSuccess={googleSuccess}
+                      onFailure={googleFailure}
+                      cookiePolicy="single_host_origin"
+                    />
                   </div>
 
                   <div className="pt-2">
@@ -215,7 +249,7 @@ export const SignUpPage: NextPageWithLayout = () => {
                 </div>
               </div>
             </form>
-            <div className="flex items-center space-x-5 self-center justify-self-center">
+            <div className="flex items-center self-center space-x-5 justify-self-center">
               <span>Active dark mode</span>
               <ToggleTheme />
             </div>

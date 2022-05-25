@@ -1,6 +1,5 @@
 import {NextPageWithLayout} from 'next';
 import React from 'react';
-
 import {PaymentTabs} from '~/components/PaymentTabs';
 import {Main, Meta, UserPageLayout} from '~/layouts';
 

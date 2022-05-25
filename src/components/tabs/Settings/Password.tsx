@@ -1,8 +1,11 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
+import { useAuths } from '~/context/AuthContext';
+import { updateUser } from '~/hooks/api';
 
 import {Button} from '~/ui/Button';
 import {PasswordField} from '~/ui/TextInput';
+import { notify } from '~/utils/notify';
 
 type FormData = {
   oldpassword: string;
@@ -11,7 +14,8 @@ type FormData = {
 };
 
 export const Password = () => {
-  const {handleSubmit, control} = useForm<FormData>({
+  const {auth, setAuth} = useAuths();
+  const {handleSubmit, control, reset, formState: {errors}} = useForm<FormData>({
     defaultValues: {
       oldpassword: '',
       newpassword: '',
@@ -19,8 +23,19 @@ export const Password = () => {
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async(data: FormData) => {
+    const formData = {
+      password: data.newpassword,
+      confirmPassword: data.newpasswordconfirm,
+    }
+    
+    await updateUser(auth?.userInfo?._id, formData).then(res => {
+      notify("Password updated successfully!", 'success');
+      setAuth(res.data.result);
+    }).catch(err => {
+      console.log("err", err);
+    });
+
   };
 
   return (
@@ -30,8 +45,13 @@ export const Password = () => {
           <Controller
             control={control}
             name="oldpassword"
+            rules={{required: true}}
             render={({field}) => (
               <PasswordField
+                error={
+                  errors.oldpassword &&
+                  errors.oldpassword.type === 'required'
+                }
                 {...field}
                 variant="password"
                 placeholder="Old password"
@@ -41,9 +61,14 @@ export const Password = () => {
           <Controller
             control={control}
             name="newpassword"
+            rules={{required: true, minLength: 6}}
             render={({field}) => (
               <PasswordField
                 {...field}
+                error={
+                  errors.newpassword &&
+                  errors.newpassword.type === 'required'
+                }
                 variant="password"
                 placeholder="New Password"
               />
@@ -52,8 +77,13 @@ export const Password = () => {
           <Controller
             control={control}
             name="newpasswordconfirm"
+            rules={{required: true}}
             render={({field}) => (
               <PasswordField
+                error={
+                  errors.newpasswordconfirm &&
+                  errors.newpasswordconfirm.type === 'required'
+                }
                 {...field}
                 variant="passwordConfirm"
                 placeholder="Retype new password"

@@ -38,7 +38,7 @@ const VerificationPage: NextPageWithLayout = () => {
         })
           .then((res) => {
             notify('User is verified!', 'success');
-            localStorage.setItem('userProfile', JSON.stringify(res.data));
+            localStorage.setItem('userToken', res.data.token);
             router.push('/user');
           })
           .catch((err) => {

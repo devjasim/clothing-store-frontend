@@ -1,16 +1,17 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useFileUpload} from 'use-file-upload';
+import { useAuths } from '~/context/AuthContext';
 
-import {getUser} from '~/hooks/api';
+import {getUser, updateUser} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
 import {TextField} from '~/ui/TextInput';
+import { notify } from '~/utils/notify';
 
 type FormData = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   userName: string;
 };
@@ -23,49 +24,46 @@ export const Account = () => {
   const [userData, setUserData] = React.useState<any>();
   const {handleSubmit, control, reset} = useForm<FormData>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      fullName: '',
       email: '',
       userName: '',
     },
   });
-  const onSubmit = (data: FormData) => {
+
+  const {auth, setAuth: setAuths} = useAuths();
+
+  const onSubmit = async (data: FormData) => {
     setAuth((state: any) => ({
       ...state,
+      fullName: data.fullName ? data.fullName : state?.fullName,
       email: data.email ? data.email : state?.email,
-      firstName: data.firstName ? data.firstName : state?.firstName,
-      lastName: data.lastName ? data.lastName : state?.lastName,
     }));
-    console.log(data);
-  };
 
-  const getSingleUser = async (id: String) => {
-    if (id) {
-      const user = await getUser(id);
-      if (user) {
-        setUserData(user.data.result);
-      }
+    const formData = {
+      userName: data.fullName,
+      email: data.email,
     }
-    reset({
-      firstName: userData?.userName,
-      lastName: userData?.userName,
-      email: userData?.email,
-      userName: userData?.email,
+    
+    await updateUser(auth?.userInfo?._id, formData).then(res => {
+      notify("User updated successfully!", 'success');
+      setAuths(res.data.result);
+    }).catch(err => {
+      console.log("err", err);
     });
+
   };
 
   React.useEffect(() => {
-    const data: any = localStorage.getItem('userProfile');
-    if (data) {
-      getSingleUser(JSON.parse(data)?.result?._id);
-    }
+    reset({
+      fullName: auth.userInfo?.userName,
+      email: auth.userInfo?.email,
+      userName: auth.userInfo?.email,
+    });
   }, []);
-
-  console.log('USER', userData);
 
   return (
     <section className="mx-auto mt-10">
-      <div className="mx-auto flex items-center space-x-3">
+      <div className="flex items-center mx-auto space-x-3">
         {/* @ts-ignore */}
         <Avatar imgUrl={file?.source || '/assets/images/profile.png'} />
         <Button
@@ -88,18 +86,11 @@ export const Account = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-10 space-y-5">
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Controller
-              control={control}
-              name="firstName"
-              render={({field}) => <TextField {...field} variant="firstName" />}
-            />
-            <Controller
-              control={control}
-              name="lastName"
-              render={({field}) => <TextField {...field} variant="lastName" />}
-            />
-          </div>
+          <Controller
+            control={control}
+            name="fullName"
+            render={({field}) => <TextField {...field} variant="fullName" />}
+          />
           <Controller
             control={control}
             name="email"
