@@ -17,7 +17,7 @@ interface Verify {
   otp: string;
 }
 
-const API = axios.create({baseURL: 'http://localhost:3001/api/v1'});
+const API = axios.create({baseURL: 'http://165.227.224.55:3001/api/v1'});
 
 API.interceptors.request.use((req: any) => {
   const data = localStorage.getItem('userProfile');
