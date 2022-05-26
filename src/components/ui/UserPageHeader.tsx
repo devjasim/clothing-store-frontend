@@ -27,15 +27,13 @@ const dropdownMenuItems = [
 ];
 
 export const Header = () => {
-  const [userProfile, setUserProfile] = React.useState<any>();
   const router = useRouter();
-  const userData = useAuths();
+  const {auth: {userInfo}, setAuth} = useAuths();
   // @ts-ignore
   const logout = async() => {
     notify('User logout!', 'info');
     localStorage.removeItem('userToken');
-    userData.setAuth(undefined)
-    setUserProfile(null);
+    setAuth(undefined)
   };
 
 
@@ -50,9 +48,6 @@ export const Header = () => {
         logout();
       }
     }
-    if (userData?.auth?.userInfo !== undefined) {
-      setUserProfile(userData?.auth?.userInfo);
-    }
   }, [router.query.counter]);
 
   return (
@@ -65,13 +60,13 @@ export const Header = () => {
           <ToggleTheme />
           <div className="flex items-center space-x-2">
             <div className="hidden sm:block">
-              <span>{userProfile?.userName}</span>
+              <span>{userInfo?.userName}</span>
             </div>
             <DropDownMenu
               triger={
                 <Avatar
                   imgUrl={
-                    userProfile?.avatar || '/assets/images/profile.png'
+                    userInfo?.avatar || '/assets/images/profile.png'
                   }
                 />
               }

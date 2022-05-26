@@ -35,6 +35,8 @@ export const Password = () => {
     }).catch(err => {
       console.log("err", err);
     });
+    
+    reset();
 
   };
 

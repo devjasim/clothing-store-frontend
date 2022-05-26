@@ -105,6 +105,7 @@ export const PasswordField = ({
   error,
   ...rest
 }: PasswordProps) => {
+  //@ts-ignore
   const {placeholder, icon, icon2} = variants[variant];
   const [show, setShow] = React.useState(false);
   const [type, setType] = React.useState<'password' | 'text'>('password');

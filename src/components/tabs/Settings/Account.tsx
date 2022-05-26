@@ -1,14 +1,15 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useFileUpload} from 'use-file-upload';
 import { useAuths } from '~/context/AuthContext';
 
-import {getUser, updateUser} from '~/hooks/api';
+import {updateUser} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Avatar} from '~/ui/Avatar';
 import {Button} from '~/ui/Button';
 import {TextField} from '~/ui/TextInput';
 import { notify } from '~/utils/notify';
+//@ts-ignore
+import FileBase from 'react-file-base64'
 
 type FormData = {
   fullName: string;
@@ -20,8 +21,7 @@ export const Account = () => {
   // const router = useRouter();
   // @ts-ignore
   const [, setAuth] = useAuth();
-  const [file, selectFile] = useFileUpload();
-  const [userData, setUserData] = React.useState<any>();
+  const [file, selectFile] = React.useState<any>();
   const {handleSubmit, control, reset} = useForm<FormData>({
     defaultValues: {
       fullName: '',
@@ -42,6 +42,7 @@ export const Account = () => {
     const formData = {
       userName: data.fullName,
       email: data.email,
+      avatar: file
     }
     
     await updateUser(auth?.userInfo?._id, formData).then(res => {
@@ -65,22 +66,17 @@ export const Account = () => {
     <section className="mx-auto mt-10">
       <div className="flex items-center mx-auto space-x-3">
         {/* @ts-ignore */}
-        <Avatar imgUrl={file?.source || '/assets/images/profile.png'} />
+        <Avatar imgUrl={file || auth.userInfo?.avatar || '/assets/images/profile.png'} />
         <Button
-          onClick={() => {
-            selectFile(
-              {
-                accept: 'image/*',
-                multiple: false,
-              },
-              // @ts-ignore
-              ({source}) => {
-                setAuth((state: any) => ({...state, profile: source}));
-              }
-            );
-          }}
-          className="h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white"
+          className="file__uplaod h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white"
         >
+          <FileBase
+            type="file"
+            multiple={false}
+            onDone={({ base64 }: any) =>
+              selectFile(base64)
+            }
+          />
           Change
         </Button>
       </div>
