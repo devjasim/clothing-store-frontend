@@ -17,14 +17,13 @@ interface Verify {
   otp: string;
 }
 
-const URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1" : "http://165.227.224.55:3001/api/v1"
+const URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1" : "https://api.stablespay.com/api/v1"
 
 const API = axios.create({baseURL: URL});
 
 API.interceptors.request.use((req: any) => {
   const token = localStorage.getItem('userToken');
   if (token) {
-    console.log('DATA WHAT THE HELL', (token));
     req.headers.Authorization = `Bearer ${(token)} `;
   }
   return req;

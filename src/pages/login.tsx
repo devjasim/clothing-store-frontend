@@ -67,11 +67,13 @@ export const LoginPage: NextPageWithLayout = () => {
     }
   };
 
+  const API = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/user/google-login" : "https://api.stablespay.com/api/v1/user/google-login";
+
   const googleSuccess = (res:any) => {
     const token = res?.tokenId;
     axios({
       method: "POST",
-      url: "http://localhost:3001/api/v1/user/google-login",
+      url: API,
       data: {tokenId: token}
     }).then((response: any) => {
       localStorage.setItem("userToken", response.data.token);
@@ -83,8 +85,10 @@ export const LoginPage: NextPageWithLayout = () => {
   };
   
   const googleFailure = () => {
-    console.log("GOOGLE Sign In was unsuccessfull. Try again later");
+    console.log("Google Sign In was unsuccessfull. Try again later");
   };
+
+  const CLINET_ID = '732960774937-9dm36clu457k26uugmlg0c1vluold56h.apps.googleusercontent.com'
 
   return (
     <Main meta={<Meta title="StablePay Login" description="" />}>
@@ -170,7 +174,7 @@ export const LoginPage: NextPageWithLayout = () => {
                       Login
                     </Button>
                     <GoogleLogin
-                      clientId="732960774937-9dm36clu457k26uugmlg0c1vluold56h.apps.googleusercontent.com"
+                      clientId={CLINET_ID}
                       render={(renderProps: any) => (
                         <Button
                           onClick={renderProps.onClick}
@@ -178,7 +182,7 @@ export const LoginPage: NextPageWithLayout = () => {
                           type="button"
                           className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
                         >
-                          <Google /> <span>Sign up with Google</span>
+                          <Google /> <span>Sign in with Google</span>
                         </Button>
                       )}
                       onSuccess={googleSuccess}

@@ -82,11 +82,13 @@ export const SignUpPage: NextPageWithLayout = () => {
       });
   };
 
+  const API = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/user/google-login" : "https://api.stablespay.com/api/v1/user/google-login";
+
   const googleSuccess = (res:any) => {
     const token = res?.tokenId;
     axios({
       method: "POST",
-      url: "http://localhost:3001/api/v1/user/google-login",
+      url: API,
       data: {tokenId: token}
     }).then((response: any) => {
       localStorage.setItem("userToken", response.data.token);

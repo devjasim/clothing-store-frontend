@@ -22,15 +22,16 @@ export const Account = () => {
   // @ts-ignore
   const [, setAuth] = useAuth();
   const [file, selectFile] = React.useState<any>();
+
+  const {auth: {userInfo}, setAuth: setAuths} = useAuths();
+
   const {handleSubmit, control, reset} = useForm<FormData>({
     defaultValues: {
-      fullName: '',
-      email: '',
-      userName: '',
+      fullName: userInfo?.userName,
+      email: userInfo?.email,
     },
   });
 
-  const {auth, setAuth: setAuths} = useAuths();
 
   const onSubmit = async (data: FormData) => {
     setAuth((state: any) => ({
@@ -45,7 +46,7 @@ export const Account = () => {
       avatar: file
     }
     
-    await updateUser(auth?.userInfo?._id, formData).then(res => {
+    await updateUser(userInfo?._id, formData).then(res => {
       notify("User updated successfully!", 'success');
       setAuths(res.data.result);
     }).catch(err => {
@@ -56,9 +57,8 @@ export const Account = () => {
 
   React.useEffect(() => {
     reset({
-      fullName: auth.userInfo?.userName,
-      email: auth.userInfo?.email,
-      userName: auth.userInfo?.email,
+      fullName: userInfo?.userName,
+      email: userInfo?.email,
     });
   }, []);
 
@@ -66,7 +66,7 @@ export const Account = () => {
     <section className="mx-auto mt-10">
       <div className="flex items-center mx-auto space-x-3">
         {/* @ts-ignore */}
-        <Avatar imgUrl={file || auth.userInfo?.avatar || '/assets/images/profile.png'} />
+        <Avatar imgUrl={file || userInfo?.avatar || '/assets/images/profile.png'} />
         <Button
           className="file__uplaod h-[40px] w-[100px] rounded-2xl border border-gray-400 text-primary1 dark:border-white"
         >
@@ -91,13 +91,6 @@ export const Account = () => {
             control={control}
             name="email"
             render={({field}) => <TextField {...field} variant="email" />}
-          />
-          <Controller
-            control={control}
-            name="userName"
-            render={({field}) => (
-              <TextField {...field} variant="username" placeholder="Username" />
-            )}
           />
           <Button
             variant="primary"
