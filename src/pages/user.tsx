@@ -1,6 +1,8 @@
 import {NextPageWithLayout} from 'next';
 import React from 'react';
 import {PaymentTabs} from '~/components/PaymentTabs';
+import { useAuths } from '~/context/AuthContext';
+import { getUser } from '~/hooks/api';
 import {Main, Meta, UserPageLayout} from '~/layouts';
 
 const DashBoardpage: NextPageWithLayout = () => {

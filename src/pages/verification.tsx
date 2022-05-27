@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import React, {useEffect, useState} from 'react';
 import Countdown from 'react-countdown';
 import ReactCodeInput from 'react-verification-input';
+import { useAuths } from '~/context/AuthContext';
 
 import {verification} from '~/hooks/api';
 import {Button} from '~/ui/Button';
@@ -28,6 +29,8 @@ const VerificationPage: NextPageWithLayout = () => {
 
   const [inputNumber, setInputNumber] = useState<number>();
 
+  const {setAuth} = useAuths();
+
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputNumber?.toString()?.length === 6 && !!userEmail) {
@@ -38,6 +41,7 @@ const VerificationPage: NextPageWithLayout = () => {
         })
           .then((res) => {
             notify('User is verified!', 'success');
+            setAuth(res.data.result);
             localStorage.setItem('userToken', res.data.token);
             router.push('/user');
           })

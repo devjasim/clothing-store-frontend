@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import {ThemeProvider} from 'next-themes';
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useLayoutEffect} from 'react';
 
 import {Header} from '~/ui/UserPageHeader';
 import { useAuths } from '~/context/AuthContext';
@@ -22,10 +22,9 @@ export const UserPageLayout = ({children, header = true}: Props) => {
   }, [router.query.counter]);
 
   const userAuths = useAuths();
-
-  const token: string | null = localStorage.getItem('userToken');
   
   const getUserProfile = async() => {
+    const token: string | null = localStorage.getItem('userToken');
     if(token) {
       const user = await getUser();
       if (user) {
@@ -33,10 +32,10 @@ export const UserPageLayout = ({children, header = true}: Props) => {
       }
     }
   }
-  
+
   React.useEffect(() => {
     getUserProfile();
-  }, [token])
+  }, [router.query.counter])
 
   return (
     <ThemeProvider enableSystem attribute="class">
