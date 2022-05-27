@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 import {ThemeProvider} from 'next-themes';
-import React, {ReactNode, useLayoutEffect} from 'react';
+import React, {ReactNode} from 'react';
 
 import {Header} from '~/ui/UserPageHeader';
 import { useAuths } from '~/context/AuthContext';
