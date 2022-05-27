@@ -14,7 +14,7 @@ type FormData = {
 };
 
 export const Password = () => {
-  const {auth, setAuth} = useAuths();
+  const {auth: {userInfo}, setAuth} = useAuths();
   const {handleSubmit, control, reset, formState: {errors}} = useForm<FormData>({
     defaultValues: {
       oldpassword: '',
@@ -25,41 +25,43 @@ export const Password = () => {
 
   const onSubmit = async(data: FormData) => {
     const formData = {
-      password: data.newpassword,
+      password: data.oldpassword,
+      newPassword: data.newpassword,
       confirmPassword: data.newpasswordconfirm,
     }
     
-    await updateUser(auth?.userInfo?._id, formData).then(res => {
+    await updateUser(userInfo?._id, formData).then(res => {
       notify("Password updated successfully!", 'success');
       setAuth(res.data.result);
+      reset();
     }).catch(err => {
-      console.log("err", err);
+      notify(err.response.data.message, "error");
     });
-    
-    reset();
-
+  
   };
 
   return (
     <section>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-10 max-w-[530px] space-y-5">
-          <Controller
-            control={control}
-            name="oldpassword"
-            rules={{required: true}}
-            render={({field}) => (
-              <PasswordField
-                error={
-                  errors.oldpassword &&
-                  errors.oldpassword.type === 'required'
-                }
-                {...field}
-                variant="password"
-                placeholder="Old password"
-              />
-            )}
-          />
+          {userInfo?.changePass && (
+            <Controller
+              control={control}
+              name="oldpassword"
+              rules={{required: true}}
+              render={({field}) => (
+                <PasswordField
+                  error={
+                    errors.oldpassword &&
+                    errors.oldpassword.type === 'required'
+                  }
+                  {...field}
+                  variant="password"
+                  placeholder="Old password"
+                />
+              )}
+            />
+          )}
           <Controller
             control={control}
             name="newpassword"

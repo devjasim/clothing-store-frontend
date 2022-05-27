@@ -25,10 +25,15 @@ export const Account = () => {
 
   const {auth: {userInfo}, setAuth: setAuths} = useAuths();
 
+  const [userData, setUserData] = React.useState<any>({
+    userName: "",
+    email: ""
+  });
+
   const {handleSubmit, control, reset} = useForm<FormData>({
     defaultValues: {
-      fullName: userInfo?.userName,
-      email: userInfo?.email,
+      fullName: userData?.userName,
+      email: userData?.email,
     },
   });
 
@@ -57,10 +62,17 @@ export const Account = () => {
 
   React.useEffect(() => {
     reset({
-      fullName: userInfo?.userName,
-      email: userInfo?.email,
+      fullName: userData?.userName,
+      email: userData?.email,
     });
-  }, []);
+  }, [userData]);
+
+  React.useEffect(() => {
+    setUserData({
+      userName: userInfo?.userName,
+      email: userInfo?.email,
+    })
+  }, [userInfo])
 
   return (
     <section className="mx-auto mt-10">
@@ -90,7 +102,7 @@ export const Account = () => {
           <Controller
             control={control}
             name="email"
-            render={({field}) => <TextField {...field} variant="email" />}
+            render={({field}) => <TextField disabled {...field} variant="email" />}
           />
           <Button
             variant="primary"
