@@ -29,8 +29,8 @@ API.interceptors.request.use((req: any) => {
   return req;
 });
 
-export const updateUser = (id: String, updateData: any) =>
-  API.patch(`/user/update/${id}`, updateData);
+export const updateUser = (updateData: any) =>
+  API.patch(`/user/update`, updateData);
 
 // Sign in route
 export const signIn = (formData: SignUp) => API.post('user/signin', formData);

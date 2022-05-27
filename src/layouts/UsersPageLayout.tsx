@@ -22,9 +22,10 @@ export const UserPageLayout = ({children, header = true}: Props) => {
   }, [router.query.counter]);
 
   const userAuths = useAuths();
+
+  const token: string | null = localStorage.getItem('userToken');
   
   const getUserProfile = async() => {
-    const token: string | null = localStorage.getItem('userToken');
     if(token) {
       const user = await getUser();
       if (user) {
@@ -35,7 +36,7 @@ export const UserPageLayout = ({children, header = true}: Props) => {
   
   React.useEffect(() => {
     getUserProfile();
-  }, [router.query.counter])
+  }, [token])
 
   return (
     <ThemeProvider enableSystem attribute="class">

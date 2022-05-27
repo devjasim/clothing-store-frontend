@@ -30,7 +30,7 @@ export const Password = () => {
       confirmPassword: data.newpasswordconfirm,
     }
     
-    await updateUser(userInfo?._id, formData).then(res => {
+    await updateUser(formData).then(res => {
       notify("Password updated successfully!", 'success');
       setAuth(res.data.result);
       reset();

@@ -26,6 +26,7 @@ const dropdownMenuItems = [
   },
 ];
 
+
 export const Header = () => {
   const router = useRouter();
   const {auth: {userInfo}, setAuth} = useAuths();
@@ -35,7 +36,6 @@ export const Header = () => {
     localStorage.removeItem('userToken');
     setAuth(undefined)
   };
-
 
   React.useEffect(() => {
     const token = localStorage.getItem("userToken");

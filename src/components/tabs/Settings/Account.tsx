@@ -51,7 +51,7 @@ export const Account = () => {
       avatar: file
     }
     
-    await updateUser(userInfo?._id, formData).then(res => {
+    await updateUser(formData).then(res => {
       notify("User updated successfully!", 'success');
       setAuths(res.data.result);
     }).catch(err => {
