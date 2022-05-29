@@ -12,6 +12,10 @@ interface SignIn {
   confirmPassword: String;
 }
 
+interface Resend {
+  email?: string
+}
+
 interface Verify {
   email: string;
   otp: string;
@@ -34,7 +38,12 @@ export const updateUser = (updateData: any) =>
 
 // Sign in route
 export const signIn = (formData: SignUp) => API.post('user/signin', formData);
+
 export const signUp = (formData: SignIn) => API.post('/user/signup', formData);
+
 export const verification = (formData: Verify) =>
   API.post('/user/verify-user', formData);
+
 export const getUser = () => API.get(`/user/get-user`);
+
+export const resendOTP = (formData: Resend) => API.post('/user/resend-otp', formData); 

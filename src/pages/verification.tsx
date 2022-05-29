@@ -5,7 +5,7 @@ import Countdown from 'react-countdown';
 import ReactCodeInput from 'react-verification-input';
 import { useAuths } from '~/context/AuthContext';
 
-import {verification} from '~/hooks/api';
+import {resendOTP, verification} from '~/hooks/api';
 import {Button} from '~/ui/Button';
 import {Logo} from '~/ui/Logo';
 import {notify} from '~/utils/notify';
@@ -22,21 +22,26 @@ const VerificationPage: NextPageWithLayout = () => {
 
   const [userEmail, setUserEmail] = useState<string>();
 
+  const [coundDate, setCoundDate] = useState<any>(Date.now() + 59000)
+  const [auto, setAuto] = useState<any>()
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('auth') || '');
-    setUserEmail(data.email);
+    const data = localStorage.getItem('auth');
+    if(data) {
+      setUserEmail(JSON.parse(data).email);
+    }
   }, []);
 
   const [inputNumber, setInputNumber] = useState<number>();
 
-  const {setAuth} = useAuths();
+  const {auth: {userInfo}, setAuth} = useAuths();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (inputNumber?.toString()?.length === 6 && !!userEmail) {
       try {
         await verification({
-          email: userEmail,
+          email: userEmail || userInfo.email,
           otp: inputNumber.toString(),
         })
           .then((res) => {
@@ -58,6 +63,37 @@ const VerificationPage: NextPageWithLayout = () => {
     setInputNumber(value);
   };
 
+  useEffect(() => {
+    setCoundDate(Date.now() + (59000 - 1));
+  }, [auto])
+
+  const handleResend = async(api: any) => {
+    if(userEmail) {
+      await resendOTP({email: userEmail});
+      setAuto(Date.now() + (59000 - 1));
+      api.start();
+    }
+  }
+
+  const CountRender = (props: any) => {
+    if(props.completed) {
+      return (
+        <Button 
+          type="button"
+          className="flex h-[50px] cursor-pointer w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
+          onClick={() => handleResend(props.api)}
+        >
+          Resend OTP
+        </Button>
+      )
+    }
+    return (
+      <>
+        <span className="mr-1">Resend Code in</span>{' '}<span>{props.seconds}</span>
+      </>
+    )
+  }
+
   return (
     <main className="mx-auto grid min-h-screen w-full max-w-[1400px] gap-20 px-5 lg:grid-cols-[60%,30%]">
       <section>
@@ -71,7 +107,7 @@ const VerificationPage: NextPageWithLayout = () => {
             </h2>
             <p className="max-w-[50ch] text-center">
               A verification message has been sent to you on{' '}
-              {!!userEmail && hideGmail(userEmail)}
+              {!!userEmail && hideGmail(userEmail)}{' '}
               click on the link or inpute 6 Digit code to verify account
             </p>
           </div>
@@ -92,25 +128,22 @@ const VerificationPage: NextPageWithLayout = () => {
               />
             </div>
             <div className="mx-auto mt-5 text-center text-primary1">
-              <span className="mr-1">Resend Code in</span>
               <Countdown
-                date={Date.now() + 59000}
-                renderer={(props) => {
-                  return <span>{props.seconds}</span>;
-                }}
+                date={coundDate}
+                renderer={CountRender}
               />
             </div>
             <div className="space-y-[30px] pt-7">
               <Button
                 variant="primary"
-                className="h-[50px] w-full rounded-3xl"
+                className="h-[50px] cursor-pointer w-full rounded-3xl"
                 type="submit"
               >
                 Verify Code
               </Button>
               <Button
                 type="button"
-                className="flex h-[50px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
+                className="flex cursor-pointer h-[50px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
               >
                 Change means of Verification
               </Button>

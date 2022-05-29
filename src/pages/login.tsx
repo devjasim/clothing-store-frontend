@@ -2,7 +2,7 @@ import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {Google} from '~/constants/icons';
-import {signIn} from '~/hooks/api';
+import {resendOTP, signIn} from '~/hooks/api';
 import {useAuth} from '~/hooks/useAuth';
 import {Main} from '~/layouts/Main';
 import {Meta} from '~/layouts/Meta';
@@ -28,8 +28,11 @@ export const LoginPage: NextPageWithLayout = () => {
   const userContext = useAuths();
 
   const router = useRouter();
-  // @ts-ignore
-  const [auth] = useAuth();
+
+  const [, setAuth] = useAuth({
+    email: '',
+  });
+
   const {
     handleSubmit,
     control,
@@ -49,6 +52,8 @@ export const LoginPage: NextPageWithLayout = () => {
         password: data?.password,
       };
 
+      setAuth({email: data.email})
+
       await signIn(formData)
         .then((res) => {
           const {data} = res;
@@ -56,12 +61,18 @@ export const LoginPage: NextPageWithLayout = () => {
           localStorage.setItem('userToken', data?.token);
           router.push('/user');
         })
-        .catch((err) => {
+        .catch(async(err) => {
+          console.log("ERR", err)
           notify(err.response.data.message, "error");
-          if (err.response.data.message !== 'Invalid credentials') {
-            setTimeout(() => {
-              router.push('/signup');
-            }, 1000);
+          if (err.response.data?.isVerified === false) {
+            await resendOTP({email: err.response.data.email}).then(res => {
+              console.log("RES", res)
+              userContext.setAuth(res.data.result);
+              notify("OTP resend successfully", 'success');
+              router.push('/verification');
+            }).catch(err => {
+              notify(err.response.message, "error");
+            });
           }
         });
     }
