@@ -11,69 +11,16 @@ type FooterLinkColumnProps = {
   links: {label: string; href: string}[];
 };
 
-const FooterLinkColumn = ({links, title}: FooterLinkColumnProps) => {
-  return (
-    <div className="flex flex-col items-center space-y-3 sm:items-start">
-      <h3 className="text-2xl font-[500]">{title}</h3>
-      {links.map((link, i) => (
-        <NextLink
-          href={link.href}
-          key={i}
-          className="text-sm text-white/60  hover:underline"
-        >
-          {link.label}
-        </NextLink>
-      ))}
-    </div>
-  );
-};
 
 export const Footer = () => {
   return (
-    <div className="min-h-[300px]  w-full bg-[#2C4444] py-[60px] px-5 text-white/90">
-      <footer className="mx-auto flex max-w-[1200px] flex-col space-y-14">
-        <section className="grid gap-5 sm:grid-cols-2 md:grid-cols-[repeat(4,1fr),25%]">
-          {footerLinks.map((column, i) => (
-            <FooterLinkColumn
-              key={i}
-              title={column.label}
-              links={column.links}
-            />
-          ))}
-
-          <div className="flex flex-col items-center space-y-4 sm:items-start">
-            <h3 className="text-2xl font-[500]">News Letter</h3>
-            <p className="text-sm text-white/60">
-              Stay Up toDate with the Latest News
-            </p>
-            <div className="grid h-[45px]  w-full max-w-[370px] grid-cols-[66%,35%] rounded-xl bg-white p-[2px] pr-1">
-              <input
-                type="'email"
-                className="h-full w-full min-w-0 max-w-full bg-transparent p-0 pl-2  pr-3 text-gray-900"
-              />
-              <Button
-                variant="primary"
-                className="w-full rounded-xl px-1 text-[12px]"
-              >
-                Email Address
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        <div className="flex flex-col items-center space-y-3 self-center">
+    <div className="min-h-[80px]  w-full bg-[#2C4444] py-[20px] px-5 text-white/90">
+      <footer className="mx-auto flex max-w-[1200px] flex-col">
+        <div className="flex flex-col items-center self-center">
           <FooterLogo className="w-[200px] sm:w-full" />
-          <small className="text-center text-lg text-white/60">
-            © 2013-2022 StablesPay, all Rights Reserved
+          <small className="text-lg text-center text-white/60">
+            © 2033 Clothing Store, all Rights Reserved
           </small>
-        </div>
-
-        <div className="mx-auto flex w-full max-w-[600px] flex-auto flex-row flex-wrap justify-around gap-3">
-          {footerSocialLinks.map((social, i) => (
-            <div key={i} className="flex items-center space-x-3">
-              <NextLink href={social.url}>{<social.icon />}</NextLink>
-            </div>
-          ))}
         </div>
       </footer>
     </div>

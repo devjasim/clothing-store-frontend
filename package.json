@@ -1,5 +1,5 @@
 {
-  "name": "Alamin-Commerce",
+  "name": "clothing-store-frontend",
   "version": "1.1.0",
   "scripts": {
     "dev": "next dev",
@@ -28,6 +28,7 @@
     "framer-motion": "^6.3.3",
     "jwt-decode": "^3.1.2",
     "next": "^12.1.5",
+    "next-redux-wrapper": "^8.1.0",
     "next-seo": "^5.4.0",
     "next-themes": "^0.2.0",
     "path": "^0.12.7",
@@ -38,9 +39,14 @@
     "react-file-base64": "^1.0.3",
     "react-google-login": "^5.2.2",
     "react-hook-form": "^7.31.1",
+    "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
     "react-table": "^7.7.0",
     "react-toastify": "^9.0.1",
     "react-verification-input": "^2.0.6",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2",
     "tailwindcss-radix": "^2.2.0",
     "use-file-upload": "^1.0.11",
     "use-persisted-state": "^0.3.3"

@@ -57,28 +57,17 @@ export const LoginPage: NextPageWithLayout = () => {
       await signIn(formData)
         .then((res) => {
           const {data} = res;
-          userContext.setAuth(data.result);
+          userContext.setAuth(data?.result);
           localStorage.setItem('userToken', data?.token);
-          router.push('/user');
         })
         .catch(async(err) => {
           console.log("ERR", err)
-          notify(err.response.data.message, "error");
-          if (err.response.data?.isVerified === false) {
-            await resendOTP({email: err.response.data.email}).then(res => {
-              console.log("RES", res)
-              userContext.setAuth(res.data.result);
-              notify("OTP resend successfully", 'success');
-              router.push('/verification');
-            }).catch(err => {
-              notify(err.response.message, "error");
-            });
-          }
+          notify(err?.response?.data?.message, "error");
         });
     }
   };
 
-  const API = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/user/google-login" : "https://api.stablespay.com/api/v1/user/google-login";
+  const API = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/user/google-login" : "";
 
   const googleSuccess = (res:any) => {
     const token = res?.tokenId;
@@ -106,7 +95,7 @@ export const LoginPage: NextPageWithLayout = () => {
       <main className="mx-auto grid min-h-screen max-w-[1400px] gap-20 px-5 dark:text-white lg:grid-cols-[60%,30%]">
         <section className="mb-10 grid  grid-rows-[100px,1fr]">
           <button onClick={() => router.push('/')}>
-            <Logo width={200} height={90} />
+            Clothing Store
           </button>
           <div className="flex flex-col space-y-9">
             <div className="flex flex-col items-center space-y-4">
@@ -179,7 +168,7 @@ export const LoginPage: NextPageWithLayout = () => {
                   <div className="space-y-[30px] pt-7">
                     <Button
                       variant="primary"
-                      className="h-[55px] w-full rounded-3xl"
+                      className="h-[55px] w-full cursor-pointer rounded-3xl"
                       type="submit"
                     >
                       Login

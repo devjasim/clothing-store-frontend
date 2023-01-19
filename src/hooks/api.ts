@@ -47,3 +47,5 @@ export const verification = (formData: Verify) =>
 export const getUser = () => API.get(`/user/get-user`);
 
 export const resendOTP = (formData: Resend) => API.post('/user/resend-otp', formData); 
+
+export const getProductLists = () => API.get('/user/get-products');

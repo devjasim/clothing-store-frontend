@@ -5,9 +5,11 @@ import {Main, Meta, UserPageLayout} from '~/layouts';
 
 const DashBoardpage: NextPageWithLayout = () => {
   return (
-    <Main meta={<Meta title="StablePay dashboard" description="" />}>
+    <Main meta={<Meta title="Clothing Store" description="" />}>
       <main className="mx-auto mt-7 max-w-[1100px] px-3 transition-none sm:px-5">
-        <PaymentTabs />
+        <div>
+          User information
+        </div>
       </main>
     </Main>
   );

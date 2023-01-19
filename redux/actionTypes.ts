@@ -1,0 +1,13 @@
+export const CREATE = "CREATE";
+export const DELETE_USER = "DELETE_USER";
+export const UPDATE = "UPDATE";
+export const FETCH_ALL = "FETCH_ALL";
+export const AUTH = "AUTH";
+export const LOGOUT = "LOGOUT";
+export const DASHBOARD = "DASHBOARD";
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_CART_LOCALSTORAGE = "ADD_TO_CART_LOCALSTORAGE";

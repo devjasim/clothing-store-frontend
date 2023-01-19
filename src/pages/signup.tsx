@@ -108,7 +108,7 @@ export const SignUpPage: NextPageWithLayout = () => {
       <main className="mx-auto grid min-h-screen max-w-[1400px] gap-20 px-5 dark:text-white lg:grid-cols-[60%,30%]">
         <section className="mb-10 grid  grid-rows-[100px,1fr]">
           <button onClick={() => router.push('/')}>
-            <Logo width={200} height={90} />
+            Clothing Store
           </button>
           <div className="flex flex-col space-y-9">
             <div className="flex flex-col items-center space-y-4">

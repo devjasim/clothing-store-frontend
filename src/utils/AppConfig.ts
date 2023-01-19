@@ -1,7 +1,7 @@
 export const AppConfig = {
-  site_name: 'StablesPay',
-  title: 'StablesPay',
+  site_name: 'Clothing Store',
+  title: 'Clothing Store',
   description:
-    'StablesPay is a decentralized stablecoin platform that allows you to earn interest on your stablecoins.',
+    'Clothing store online shop',
   locale: 'en',
 };
