@@ -15,25 +15,11 @@ const LandingPage: NextPageWithLayout = () => {
     setProducts(data?.data);
   }
 
-  const store = useSelector((state: any) => state.products);
-
-  console.log("STORE", store);
   const dispatch = useDispatch();
 
   const addToCart = (id: string) => {
     if(id) {
-      if(!!store) {
-        const found = store.find((item: string) => item === id);
-        if(found) {
-          notify("Product already in the cart!", 'warning');
-        } else {
-          dispatch(addToCartAction(id));
-        }
-      } else {
-        console.log("EXISt", existingItems);
-        const item = [id];
-        localStorage.setItem('cartProducts', JSON.stringify(item));
-      }
+      dispatch(addToCartAction(id));
     }
   }
 
@@ -69,9 +55,9 @@ const LandingPage: NextPageWithLayout = () => {
                         <h2 className="text-xl">{item.productName}</h2>
                       </div>
                       <p className="mt-2 font-light text-normal">{item.description}</p>
-                      <div className="flex items-center justify-start gap-4 mt-4">
+                      <div className="flex items-center justify-start gap-3 mt-4">
                         {(item.availableSizes || []).map((item: any, index: any) => (
-                          <button key={index} className="px-3 py-1 m-0 text-white bg-teal-700 rounded-lg font-boll">{item}</button>
+                          <button key={index} className="px-2 py-1 m-0 text-sm text-white bg-teal-700 rounded-lg font-boll">{item}</button>
                         ))}
                       </div>
                     </div>

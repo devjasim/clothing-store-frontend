@@ -1,67 +1,35 @@
-import * as api from "../api";
+import * as api from "../../src/hooks/api";
 import {
   ADD_TO_CART,
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   FETCH_PRODUCTS,
-  ADD_TO_CART_LOCALSTORAGE,
+  REMOVE_FROM_CART,
+  ADD_QTY
 } from "../actionTypes";
 import { notify } from "~/utils/notify";
 
-export const createProduct = (formData, showNotification, setNotification) => async (dispatch) => {
-    try {
-      await api.createProduct(formData).then(res => {
-        setNotification("Product created successfully");
-        showNotification.current.showToast();
-        dispatch({type: CREATE_PRODUCT, payload: res?.data?.result});
-      }).catch((err) => {
-        setNotification(err.response.data?.message)
-        showNotification.current.showToast();
-      });
-  
-    } catch (error) {
-      console.log(error)
-    }
-}
 
 export const addToCartAction = (id: string) => async (dispatch) => {
   try {
     if(id) {
-      const existingItems = localStorage.getItem('cartProducts');
-      if(!!existingItems) {
-        const exists = JSON.parse(existingItems);
-        const found = exists.find((item) => item === id);
-        if(found) {
-          console.log("HELLO");
-          notify("Product already in cart!", 'warning');
-        } else {
-          console.log("ED", exists)
-          exists.push(id);
-          localStorage.setItem('cartProducts', JSON.stringify(exists));
-          dispatch({type: ADD_TO_CART, payload: id});
-        }
-      } else {
-        console.log("EXISt", existingItems);
-        dispatch({type: ADD_TO_CART, payload: id});
-        const item = [id];
-        localStorage.setItem('cartProducts', JSON.stringify(item));
-      }
+      await api.getProductById(id).then((res: any) => {
+        dispatch({type: ADD_TO_CART, payload: {...res?.data?.result, qty: 1}})
+        notify("Product added in cart!", 'success');
+      }).catch(err => {
+        console.log("ERR");
+      });
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-export const cartLocalStorageAction = () => async (dispatch) => {
-  try {
-    const existingItems = localStorage.getItem('cartProducts');
-    if(existingItems) {
-      const exists = JSON.parse(existingItems);
-      dispatch({type: ADD_TO_CART_LOCALSTORAGE, payload: exists});
-    }
-  } catch (error) {
-    console.log("ERR")
-  }
+export const addToCart = (id:string, qty: string) => async dispatch => {
+  dispatch({
+    type: ADD_QTY,
+    payload: {id, qty},
+  })
 }
 
 export const getProducts = () => async (dispatch) => {
@@ -77,16 +45,39 @@ export const getProducts = () => async (dispatch) => {
     }
 }
 
-export const deleteProduct = (showNotification, setNotification) => async (dispatch) => {
+export const deleteProduct = (id) => async (dispatch) => {
     try {
-    await api.deleteUser(id).then(res => {
-        setNotification("Product deleted successfully")
-        showNotification.current.showToast();
-    });
-    dispatch({ type: DELETE_PRODUCT, payload: id });
+      dispatch({ type: DELETE_PRODUCT, payload: id });
+      notify("Product removed from cart!", 'warning');
     } catch (error) {
-    setNotification("Product delete failed")
-    showNotification.current.showToast();
-    console.log(error);
+      console.log(error);
     }
+}
+
+
+export const removeFromCart = (id: string) => (dispatch) => {
+  try {
+    dispatch({ type: DELETE_PRODUCT, payload: id });
+    notify("Product removed from cart!", 'warning');
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export const fetchCart = () => async dispatch => {
+  try {
+    const {data: strigifyData} = await Api.getRequest(`/api/cart/`)
+    // console.log({strigifyData})
+    const {carts} = JSON.parse(strigifyData)
+    // console.log(carts)
+
+    dispatch({
+      type: actionTypes.FETCH_MY_CART,
+      payload: {
+        carts: convertToCartData(carts),
+      },
+    })
+  } catch (e) {
+    console.log('EROROR :  ', e)
+  }
 }

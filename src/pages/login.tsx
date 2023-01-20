@@ -59,6 +59,7 @@ export const LoginPage: NextPageWithLayout = () => {
           const {data} = res;
           userContext.setAuth(data?.result);
           localStorage.setItem('userToken', data?.token);
+          router.push("/");
         })
         .catch(async(err) => {
           console.log("ERR", err)
@@ -78,7 +79,7 @@ export const LoginPage: NextPageWithLayout = () => {
     }).then((response: any) => {
       localStorage.setItem("userToken", response.data.token);
       userContext.setAuth(response?.data?.result);
-      router.push("/user");
+      router.push("/");
     }).catch(() => {
       notify("Something went wrong", 'error');
     })

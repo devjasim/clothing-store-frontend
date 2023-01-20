@@ -3,6 +3,7 @@ import {NextPageWithLayout} from 'next';
 import {useRouter} from 'next/router';
 import GoogleLogin from 'react-google-login';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import {Google} from '~/constants/icons';
 import { useAuths } from '~/context/AuthContext';
@@ -17,19 +18,18 @@ import {PasswordField, TextField} from '~/ui/TextInput';
 import {ToggleTheme} from '~/ui/ToggleButton';
 import {notify} from '~/utils/notify';
 
-import {UserPageLayout} from '../layouts';
 
 type FormData = {
   firstName: string;
   lastName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  phoneNumber: string;
+  address: string;
   terms: boolean;
 };
 
-export const SignUpPage: NextPageWithLayout = () => {
+export const CheckoutForm = () => {
   const router = useRouter();
+  const cartItems = useSelector((state: any) => state.products)
 
   const [, setAuth] = useAuth({
     firstName: '',
@@ -47,60 +47,28 @@ export const SignUpPage: NextPageWithLayout = () => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      phoneNumber: '',
+      address: '',
       terms: false,
     },
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const {firstName, lastName, email, password, confirmPassword} = data;
-    setAuth({
-      firstName,
-      lastName,
-      email,
-    });
-
-    const formData = {
-      userName: `${firstName} ${lastName}`,
-      email,
-      confirmPassword,
-      password,
-    };
-
-    await signUp(formData)
-      .then((res) => {
-        if (res.data) {
-          notify('Register Success', 'success');
-          router.push('/login');
-        }
-      })
-      .catch((err) => {
-        notify(err.response.data.message, 'success');
-      });
+    const {firstName, lastName, address} = data;
   };
+
+  const getCartCount = () => {
+    return cartItems.reduce((qty, item) => Number(item?.qty) + qty, 0)
+  }
+
+  const getCartSubTotal = () => {
+    return cartItems
+      .reduce((price, item) => price + parseInt(item?.price || '0') * Number(item?.qty), 0)
+      .toFixed(2)
+  }
 
   const API = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1/user/google-login" : "https://api.stablespay.com/api/v1/user/google-login";
 
-  const googleSuccess = (res:any) => {
-    const token = res?.tokenId;
-    axios({
-      method: "POST",
-      url: API,
-      data: {tokenId: token}
-    }).then((response: any) => {
-      localStorage.setItem("userToken", response.data.token);
-      userData.setAuth(response?.data?.result);
-      router.push("/");
-    }).catch(() => {
-      notify("Something went wrong", "error");
-    })
-  };
-  
-  const googleFailure = () => {
-    console.log("GOOGLE Sign In was unsuccessfull. Try again later");
-  };
 
   return (
     <Main meta={<Meta title="StablePay Login" description="" />}>
@@ -111,11 +79,7 @@ export const SignUpPage: NextPageWithLayout = () => {
           </button>
           <div className="flex flex-col space-y-9">
             <div className="flex flex-col items-center space-y-4">
-              <h2 className="text-3xl font-[500]">Get started</h2>
-              <p className="max-w-[50ch] text-center">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Maecenas ridiculus hendrerit aenean quam rhoncus ac
-              </p>
+              <h2 className="text-3xl font-[500]">Checkout out</h2>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mx-auto max-w-[530px] space-y-9">
@@ -155,48 +119,40 @@ export const SignUpPage: NextPageWithLayout = () => {
                     </div>
                     <Controller
                       control={control}
-                      name="email"
+                      name="phoneNumber"
                       rules={{
                         required: true,
                         pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                       }}
                       render={({field}) => (
-                        <TextField
-                          error={
-                            errors.email && errors.email.type === 'required'
-                          }
-                          variant="email"
-                          {...field}
+                        <input
+                        placeholder='Phone Number'
+                        className='h-full w-full border border-gray-500 rounded-md py-3 bg-transparent max-w-full p-0  min-w-0 text-gray-900 dark:text-white pl-2 placeholder:text-[#414D63] dark:placeholder:text-white placeholder:font-[300]'
+                          name={field.name}
                         />
                       )}
                     />
                     <Controller
                       control={control}
-                      name="password"
+                      name="address"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField
-                          error={
-                            errors.password &&
-                            errors.password.type === 'required'
-                          }
-                          variant="password"
-                          {...field}
+                        <input
+                            placeholder='Address'
+                            className='h-full w-full border border-gray-500 rounded-md py-3 bg-transparent max-w-full p-0  min-w-0 text-gray-900 dark:text-white pl-2 placeholder:text-[#414D63] dark:placeholder:text-white placeholder:font-[300]'
+                            name={field.name}
                         />
                       )}
                     />
                     <Controller
                       control={control}
-                      name="confirmPassword"
+                      name="address"
                       rules={{required: true, minLength: 6}}
                       render={({field}) => (
-                        <PasswordField
-                          error={
-                            errors.confirmPassword &&
-                            errors.confirmPassword.type === 'required'
-                          }
-                          variant="passwordConfirm"
-                          {...field}
+                        <input
+                            placeholder='Payment Method'
+                            className='h-full w-full border border-gray-500 rounded-md py-3 bg-transparent max-w-full p-0  min-w-0 text-gray-900 dark:text-white pl-2 placeholder:text-[#414D63] dark:placeholder:text-white placeholder:font-[300]'
+                            name={field.name}
                         />
                       )}
                     />
@@ -215,45 +171,28 @@ export const SignUpPage: NextPageWithLayout = () => {
                       />
                     </div>
                   </div>
+                  <div>
+                    <h2 className="mt-5 text-green-600">
+                        Total cart Items {getCartCount()}
+                    </h2>
+                  </div>
+                  <div>
+                    <h2 className="mt-5 text-xl font-bold text-green-600">
+                        Total amount {getCartSubTotal()}
+                    </h2>
+                  </div>
                   <div className="space-y-[30px] pt-7">
                     <Button
                       variant="primary"
                       className="h-[55px] w-full rounded-3xl"
                       type="submit"
                     >
-                      Sign up
+                      Payment
                     </Button>
-                    <GoogleLogin
-                      clientId="732960774937-9dm36clu457k26uugmlg0c1vluold56h.apps.googleusercontent.com"
-                      render={(renderProps: any) => (
-                        <Button
-                          onClick={renderProps.onClick}
-                          disabled={renderProps.disabled}
-                          type="button"
-                          className="flex h-[55px] w-full items-center justify-center space-x-3 rounded-3xl border border-[#CFD9E0]"
-                        >
-                          <Google /> <span>Sign up with Google</span>
-                        </Button>
-                      )}
-                      onSuccess={googleSuccess}
-                      onFailure={googleFailure}
-                      cookiePolicy="single_host_origin"
-                    />
-                  </div>
-
-                  <div className="pt-2">
-                    <span className="text-sm">Already Have an account? </span>
-                    <NextLink href="/login" className="text-blue-500 underline">
-                      login
-                    </NextLink>
                   </div>
                 </div>
               </div>
             </form>
-            <div className="flex items-center self-center space-x-5 justify-self-center">
-              <span>Active dark mode</span>
-              <ToggleTheme />
-            </div>
           </div>
         </section>
         <section className="relative hidden h-full lg:block">
@@ -265,8 +204,5 @@ export const SignUpPage: NextPageWithLayout = () => {
   );
 };
 
-SignUpPage.getLayout = (page) => {
-  return <UserPageLayout header={false}>{page}</UserPageLayout>;
-};
 
-export default SignUpPage;
+export default CheckoutForm;

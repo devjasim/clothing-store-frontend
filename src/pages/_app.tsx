@@ -5,6 +5,8 @@ import {ToastContainer} from 'react-toastify';
 import {AuthProvider} from '~/context/AuthContext';
 import { wrapper, store } from "../../redux/store";
 import { Provider } from 'react-redux';
+import "../styles/CartItems.css";
+import '../styles/CartScreen.css'
 
 
 const MyApp = ({Component, pageProps}: AppProps) => {

@@ -21,7 +21,7 @@ interface Verify {
   otp: string;
 }
 
-const URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1" : "https://api.stablespay.com/api/v1"
+const URL = process.env.NODE_ENV === "development" ? "http://localhost:3001/api/v1" : "";
 
 const API = axios.create({baseURL: URL});
 
@@ -49,3 +49,4 @@ export const getUser = () => API.get(`/user/get-user`);
 export const resendOTP = (formData: Resend) => API.post('/user/resend-otp', formData); 
 
 export const getProductLists = () => API.get('/user/get-products');
+export const getProductById = (id: string) => API.get(`/user/get-product/${id}`);

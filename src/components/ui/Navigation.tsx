@@ -11,13 +11,11 @@ import { useAuths } from '~/context/AuthContext';
 import { getUser } from '~/hooks/api';
 import { notify } from '~/utils/notify';
 import { decode } from 'punycode';
-import { ToggleTheme } from './ToggleButton';
 import { DropDownMenu } from './DropDownMenu';
 import { Avatar } from './Avatar';
 import { IconUser } from '@tabler/icons';
 import { BiShoppingBag } from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartLocalStorageAction } from 'redux/actions/product';
 
 const dropdownMenuItems = [
   {
@@ -32,113 +30,6 @@ const dropdownMenuItems = [
   },
 ];
 
-const MobileMenu = ({
-  setShowMenu,
-}: {
-  setShowMenu: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
-
-  const userAuths = useAuths();
-  
-  const getUserProfile = async() => {
-    const token: string | null = localStorage.getItem('userToken');
-    if(token) {
-      const user = await getUser();
-      if (user) {
-        userAuths.setAuth(user.data.result);
-      }
-    }
-  }
-
-  React.useEffect(() => {
-    getUserProfile();
-  }, [router.query.counter]);
-
-  const { auth: { userInfo }, setAuth} = useAuths();
-  // @ts-ignore
-  const logout = async() => {
-    notify('User logout!', 'info');
-    localStorage.removeItem('userToken');
-    setAuth(undefined)
-  };
-
-  React.useEffect(() => {
-    const token = localStorage.getItem("userToken");
-
-    if (token) {
-      const decodeedToekn: any = decode(token);
-
-      if (decodeedToekn.exp * 1000 < new Date().getTime()) {
-        notify('Token expaired!', 'info');
-        logout();
-      }
-    }
-  }, [router.query.counter]);
-
-  return (
-    <div className="absolute inset-x-0 z-10 mt-[15px] flex h-max flex-col items-stretch  space-y-7 bg-white p-4 pt-12 shadow-xl lg:-top-[1000px]">
-      <nav>
-        <ul className="flex flex-col space-y-5">
-          {mainMenuLinks.map((link, i) => {
-            return (
-              <li
-                key={i}
-                onClick={() => setShowMenu(false)}
-                className={cx(
-                  'text-center text-sm',
-                  router.pathname === link.href
-                    ? 'text-primary1'
-                    : 'text-gray-800'
-                )}
-              >
-                <NextLink href={link.href}>{link.label}</NextLink>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-
-        {!!userInfo ? (
-          <div className="flex items-center sm:space-x-5">
-            <div className="flex items-center space-x-2">
-              <div className="hidden sm:block">
-                <span>{userInfo?.userName}</span>
-              </div>
-              <DropDownMenu
-                triger={
-                  <Avatar
-                    imgUrl={
-                      userInfo?.avatar || '/assets/images/profile.png'
-                    }
-                  />
-                }
-                logout={logout}
-                links={dropdownMenuItems}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="mx-auto flex  w-[250px] flex-col space-y-3">
-            <Button
-              onClick={() => router.push('/login')}
-              variant="ghost"
-              className="h-[40px] rounded-xl"
-            >
-              Login
-            </Button>
-            <Button
-              onClick={() => router.push('/signup')}
-              variant="primary"
-              className="h-[40px] rounded-xl"
-            >
-              Sign up
-            </Button>
-          </div>
-        )}
-    </div>
-  );
-};
 
 export const Navigation = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -170,10 +61,8 @@ export const Navigation = () => {
 
   React.useEffect(() => {
     const token = localStorage.getItem("userToken");
-
     if (token) {
       const decodeedToekn: any = decode(token);
-
       if (decodeedToekn.exp * 1000 < new Date().getTime()) {
         notify('Token expaired!', 'info');
         logout();
@@ -182,10 +71,16 @@ export const Navigation = () => {
   }, [router.query.counter]);
 
   const cartItems = useSelector((state: any) => state.products);
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(cartLocalStorageAction());
-  }, []);
+
+  console.log("userinfo", userInfo);
+
+  const handleCartClick = () => {
+    if(!!userInfo) {
+      router.push('/cart-items');
+    } else {
+      router.push('/login');
+    }
+  }
 
   return (
     <div>
@@ -215,7 +110,7 @@ export const Navigation = () => {
         </nav>
 
         <div className="flex items-center sm:space-x-5">
-          <div className="relative w-50 h-50">
+          <div className="relative cursor-pointer w-50 h-50" onClick={() => handleCartClick()}>
             <BiShoppingBag className="" fontSize={24} />
             <div className="absolute top-[-10px] right-[-10px] text-green-500 flex items-center justify-center w-[20px] h-[20px] rounded-full">{cartItems?.length}</div>
           </div>
